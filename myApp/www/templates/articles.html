@@ -1,0 +1,48 @@
+<ion-view title="חדשות" hide-back-button="true">
+	<ion-nav-buttons side="right">
+		<button menu-toggle="right" class="button button-icon icon ion-navicon"></button>
+	</ion-nav-buttons>
+	<ion-content class="has-header" ng-show="articles">
+		<ion-refresher pulling-text="משוך לרענון..." on-refresh="doRefresh()"></ion-refresher>
+
+		<ion-item class="item ihRSSContainer" ng-click="goToRSS()">
+			<span ng-repeat="rssItem in articles.rss">
+				<span class="ihRSSItemTime">{{rssItem.date.timestamp | date: 'H:mm'}}</span>
+				<span class="ihRSSItemText">{{rssItem.content.title}}</span>
+				<span>&#9733;&nbsp;</span>
+			</span>
+		</ion-item>
+		<ion-list class="ihList">
+			<ion-item ng-repeat="pri in articles.primary" class="ihListItem">
+				<a class="item item-body" href="#/app/articles/{{pri.nid}}">
+					<img class="full-image" ng-src="{{pri.images[0].path}}">
+					<h2>{{pri.content.title}}</h2>
+					<p>{{pri.content.intro}}</p>
+				</a>
+			</ion-item>
+
+			<div class="item item-divider ihListItem">חדשות חמות</div>
+			<ion-item ng-repeat="sec in articles.secondary" class="ihListItem ihArticleListItem">
+				<a class="item-thumbnail-right" href="#/app/articles/{{sec.nid}}">
+					<img ng-src="{{sec.images[0].path}}" class="ihArticleImg">
+					<h2>{{sec.content.title}}</h2>
+					<p>{{sec.content.intro}}</p>
+				</a>
+				<ion-option-button ng-if="!sec.inFavorites" class="button ihFavoritesBtn" ng-click="onFavorites(sec, $event)">הוסף למועדפים</ion-option-button>
+				<ion-option-button ng-if="sec.inFavorites" class="button ihFavoritesExistBtn">שמור במועדפים</ion-option-button>
+			</ion-item>
+
+			<div class="item item-divider ihListItem">חדשות</div>
+			<ion-item ng-repeat="news in articles.news" class="ihListItem ihArticleListItem">
+				<a class="item-thumbnail-right" href="#/app/articles/{{news.nid}}">
+					<img ng-src="{{news.images[0].path}}" class="ihArticleImg">
+					<h2>{{news.content.title}}</h2>
+					<p>{{news.content.intro}}</p>
+				</a>
+				<ion-option-button ng-if="!news.inFavorites" class="button ihFavoritesBtn" ng-click="onFavorites(news, $event)">הוסף למועדפים</ion-option-button>
+				<ion-option-button ng-if="news.inFavorites" class="button button-stable">שמור במועדפים</ion-option-button>
+			</ion-item>
+
+		</ion-list>
+	</ion-content>
+</ion-view>

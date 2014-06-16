@@ -1,0 +1,29 @@
+<ion-view title="חיפוש כללי" hide-back-button="true">
+	<ion-nav-buttons side="right">
+		<button menu-toggle="right" class="button button-icon icon ion-navicon"></button>
+	</ion-nav-buttons>
+
+	<ion-content scroll="false">
+		<div class="list list-inset ihSearchContainer">
+			<form action="">
+				<label class="item item-input">
+					<i class="icon ion-search placeholder-icon"></i>
+					<input type="text" ng-model="searchQuery" placeholder="אני רוצה לקרוא על...">
+				</label>
+				<button type="submit" class="button button-block button-stable" ng-click="search(searchQuery)">חפש</button>
+			</form>
+		</div>
+	</ion-content>
+	<ion-content class="ihSearchResultsContainer">
+		<ion-list can-swipe="false" ng-show="results">
+			<ion-item ng-repeat="res in results" class="ihListItem">
+				<a class="item item-thumbnail-right" href="#/app/articles/{{res.nid}}">
+					<img ng-src="{{res.images[0].path}}">
+					<h2>{{res.content.title}}</h2>
+					<p>{{res.content.intro}}</p>
+				</a>
+			</ion-item>
+		</ion-list>
+		<div ng-show="results && !results.length" class="item item-text-wrap ihNoResults ihListItem">לא נמצאו תוצאות</div>
+	</ion-content>
+</ion-view>

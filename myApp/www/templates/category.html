@@ -1,0 +1,14 @@
+<ion-view title="{{categoryName}}">
+	<ion-content class="has-header">
+		<ion-list can-swipe="false" ng-show="category" class="ihList">
+			<ion-item ng-repeat="cat in category" class="ihListItem">
+				<a class="item item-thumbnail-right" href="#/app/articles/{{cat.nid}}">
+					<img ng-src="{{cat.images[0].path}}">
+					<h2>{{cat.content.title}}</h2>
+					<p>{{cat.content.intro}}</p>
+				</a>
+			</ion-item>
+		</ion-list>
+		<!-- <div ng-hide="category" class="item item-text-wrap ihListItem">Category is empty</div> -->
+	</ion-content>
+</ion-view>

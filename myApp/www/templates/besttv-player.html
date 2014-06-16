@@ -1,0 +1,63 @@
+<!-- <object type="application/x-shockwave-flash" data="http://c.brightcove.com/services/viewer/federated_f9?&amp;width=310&amp;height=218&amp;flashID=myExperience178161305400147&amp;bgcolor=%23FFFFFF&amp;playerID=1852112022001&amp;playerKey=AQ~~%2CAAABk9JMLWE~%2C0pl3uFLFPXsNLzaJagAtptvvs-PtgYlp&amp;isVid=true&amp;isUI=true&amp;dynamicStreaming=true&amp;%40videoPlayer=3597877645001&amp;templateLoadHandler=myTemplateLoaded&amp;includeAPI=true&amp;autoStart=false&amp;debuggerID=&startTime=1401616022072" id="myExperience178161305400147" width="310" height="218" class="BrightcoveExperience" seamlesstabbing="undefined">
+	<param name="allowScriptAccess" value="always">
+	<param name="allowFullScreen" value="true">
+	<param name="seamlessTabbing" value="false">
+	<param name="swliveconnect" value="true">
+	<param name="wmode" value="window">
+	<param name="quality" value="high"><param name="bgcolor" value="#FFFFFF">
+</object> -->
+
+<!-- Start of Brightcove Player -->
+
+  <div style="display:none">
+  </div>
+ 
+  <!--
+	By use of this code snippet, I agree to the Brightcove Publisher T and C
+	found at https://accounts.brightcove.com/en/terms-and-conditions/.
+  -->
+ <!--
+  <script language="JavaScript" type="text/javascript" src="http://admin.brightcove.com/js/BrightcoveExperiences.js"></script>
+ -->
+  <object id="myExperience3597877645001" class="BrightcoveExperience">
+   <param name="bgcolor" value="#FFFFFF" />
+   <param name="width" value="{{width}}" />
+   <param name="height" value="{{height}}" />
+   <param name="playerID" value="1852112022001" />
+   <param name="playerKey" value="AQ~~,AAAA1oy1bvE~,ALl2ezBj3WHB4SZjVHPI3HSdWBlOCXX4" />
+   <param name="isVid" value="true" />
+   <param name="isUI" value="true" />
+   <param name="dynamicStreaming" value="true" />
+   <param name="autoStart" value="false" />
+ 
+   <param name="@videoPlayer" value="{{vid}}" />
+ 
+   <!-- smart player api params -->
+   <param name="includeAPI" value="true" />
+   <param name="templateLoadHandler" value="onTemplateLoad" />
+   <param name="templateReadyHandler" value="onTemplateReady" />
+ 
+  </object>
+
+  <!--
+	This script tag will cause the Brightcove Players defined above it to be created as soon
+	as the line is read by the browser. If you wish to have the player instantiated only after
+	the rest of the HTML is processed and the page load is complete, remove the line.
+
+  <script type="text/javascript">
+	brightcove.createExperiences();
+	
+	var player, APIModules, videoPlayer;
+	function onTemplateLoad(experienceID){
+		player = brightcove.api.getExperience(experienceID);
+		APIModules = brightcove.api.modules.APIModules;
+	}
+ 
+	function onTemplateReady(evt){
+		videoPlayer = player.getModule(APIModules.VIDEO_PLAYER);
+		videoPlayer.play();
+	}
+  </script>
+-->
+
+<!-- End of Brightcove Player -->

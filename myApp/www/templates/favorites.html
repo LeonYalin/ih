@@ -1,0 +1,29 @@
+<ion-view title="מועדפים" hide-back-button="true">
+	<ion-nav-buttons side="right">
+		<button menu-toggle="right" class="button button-icon icon ion-navicon"></button>
+	</ion-nav-buttons>
+
+	<ion-content>
+		<ion-list ng-show="favorites" class="ihList">
+			<ion-item ng-repeat="(key, value) in favorites" class="ihListItem ihArticleListItem">
+				<a class="item-thumbnail-right" href="#/app/articles/{{value.nid}}">
+					<img ng-src="{{value.images[0].path}}" class="ihArticleImg">
+					<h2>{{value.content.title}}</h2>
+					<p>{{value.content.intro}}</p>
+				</a>
+				<ion-option-button class="button ihFavoritesBtn" ng-click="onDeleteFavorite(key)">הסר</ion-option-button>
+			</ion-item>
+		</ion-list>
+	</ion-content>
+
+	<div class="ihErrorMsg" ng-show="noResultsFlag == true">
+		<div class="card">
+			<div class="item item-text-wrap">
+				<i class="icon ion-star"></i>
+				<h1>{{noFavoritesTitle}}</h1>
+				<p>{{noFavoritesMsg}}</p>
+			</div>
+		</div>
+	</div>
+	<!-- <div ng-show="results && !results.length" class="item item-text-wrap ihNoResults ihListItem">לא נמצאו תוצאות</div> -->
+</ion-view>

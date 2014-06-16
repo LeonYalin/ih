@@ -1,0 +1,34 @@
+<ion-view title="{{article.content.title}}">
+	<ion-content class="has-header">
+	<!-- <ih-besttv-player width="300" height="200" vid="3597877645001"></ih-besttv-player> -->
+
+	<div class="card ihArticleContainer" ng-show="article">
+		<div class="item ihListItem">
+			<p>
+				<span class="ihDoubleSlash ihDoubleSlashRed">{{article.author.name}}</span>
+				<span>{{article.date.timestamp | date: 'H:mm'}}</span>
+				<span>&nbsp;/</span>
+				<span>{{comments.length || 0}}</span>
+				<i class="icon ion-ios7-chatboxes-outline"></i>
+			</p>
+			<h2>{{article.content.title}}</h2>
+			<p>{{article.content.intro}}</p>
+		</div>
+
+		<div class="item item-body ihListItem">
+			<img class="full-image" ng-src="{{article.mainImageSrc}}">
+			<div ng-bind-html="article.content.html"></div>
+		</div>
+
+		<div class="item item-divider ihListItem">תגובות</div>
+		<div ng-repeat="comment in comments" class="item ihListItem">
+			<span class="ihDoubleSlash">{{comment.author.name}}</span>
+			<p>{{comment.subject}}</p>
+		</div>
+		<div ng-hide="comments" class="item item-text-wrap ihListItem">לא נמצאו תגובות</div>
+	</div>
+
+	<div class="ihBottomMargin"></div>
+
+	</ion-content>
+</ion-view>
