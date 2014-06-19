@@ -71,11 +71,11 @@ servModule.factory('$ihUtil', function($ionicLoading, $ionicPopup, $ihCONSTS, $w
 	};
 });
 
-servModule.factory('$ihPopupUtil', function($ionicPopup, $timeout){
+servModule.factory('$ihPopupUtil', function($ionicPopup, $ionicModal, $timeout){
 	return {
 		showPopup: function ($scope) {
 			var myPopup = $ionicPopup.show({
-				template: '<input type="password" ng-model="data.wifi">',
+				template: '<input type="password" ng-model="data.wifi"><div class="ihContent">Hello</div>',
 				title: 'Enter Wi-Fi Password',
 				subTitle: 'Please use normal things',
 				scope: $scope,
@@ -93,9 +93,17 @@ servModule.factory('$ihPopupUtil', function($ionicPopup, $timeout){
 			myPopup.then(function(res) {
 				console.log('Tapped!', res);
 			});
-			$timeout(function() {
-				myPopup.close(); //close the popup after 3 seconds for some reason
-			}, 3000);
+		},
+		showModal: function ($scope) {
+			var ihModal = $ionicModal.fromTemplateUrl('templates/pie_drct.html', {
+				scope: $scope,
+				animation: 'slide-in-up'
+			});
+
+			ihModal.then(function(modal) {
+				// $scope.modal = modal;
+				modal.show();
+			});
 		}
 
 	};

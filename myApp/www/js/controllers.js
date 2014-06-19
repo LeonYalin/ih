@@ -198,11 +198,15 @@ ctrlModule.controller('ErrorCtrl', function($scope, $ihCache) {
 	$scope.errorText = $ihCache.get('errorText') || defaultErrorText;
 });
 
-ctrlModule.controller('SearchCtrl', function($scope, $state, $q, $ihUtil, $ihREST, $ihCategorySrvc) {
+ctrlModule.controller('SearchCtrl', function($scope, $state, $q, $ihUtil, $ihREST, $ihCategorySrvc, $ihPopupUtil) {
 	var state = $state;
 
 	$scope.search = function (query) {
 		_searchIH(state, query);
+	};
+
+	$scope.showModal = function () {
+		$ihPopupUtil.showModal($scope);
 	};
 
 	function _searchIH(state, query) {

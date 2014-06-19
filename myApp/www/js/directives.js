@@ -49,12 +49,17 @@ directModule.directive("ihBesttvPlayer",function($http, $q){
 	};
 });
 
-// directModule.directive('ihArticleBody', function ($compile) {
-// 	return {
-//         link: function(scope, element, atts, controller) {
-//             var markup = "<input type='text' ng=model='sampleData'/> {{sampleData}} <br/>";  
-//             angular.element(element).html($compile(markup)(scope));
-//             console.log($compile(markup)(scope));
-//         }
-//     };
-// })
+directModule.directive('ihPie', function ($compile) {
+	return {
+		restrict: 'E',
+		templateUrl: 'templates/pie.html',
+		link: function($scope, element, attrs) {
+			$scope.title = 'My ihPie title';
+
+
+			// var markup = "<input type='text' ng=model='sampleData'/> {{sampleData}} <br/>";
+			// angular.element(element).html($compile(markup)(scope));
+			// console.log($compile(markup)(scope));
+		}
+	};
+});
