@@ -1,16 +1,22 @@
-<div class="modal ihPieContainer">
+<div class="modal ihPieContainer"  ng-if="shouldShowPie == true">
 	<ion-pane>
 		<header class="ihPieHeaderContainer">
 			<h1 class="title">{{title}}</h1>
 		</header>
 		<div class="ihPieBodyContainer">
-			<div class="ihPieCenter">
+			<div class="ihPieCenter"
+				ng-class="{ 'ihPieSliceOpacity1': sliceAnimState === 'show',
+					 		'ihPieSliceOpacity0': sliceAnimState === 'hide' }">
 				<div class="ipPieCenterPoint"></div>
 			</div>
 			<ul class="ihPieSlicesContainer ipPieSlicesContainerInitRotate">
 				<li ng-repeat="slice in slices"
 					ng-click="onSliceWrapperClick($event, $index)"
-					class="ihPieSlice ihPieSlice-{{slice.index}}_8">
+					class="ihPieSlice"
+					ng-class="{ 'ihPieSliceOpacity1': sliceAnimState === 'show',
+					 			'ihPieSliceOpacity0': sliceAnimState === 'hide',
+					 			'ihPieSlice-{{slice.index}}_8-show': sliceAnimState === 'show',
+					 			'ihPieSlice-{{slice.index}}_8-hide': sliceAnimState === 'hide' }">
 
 					<div class="ihPieSliceInner ihPieSliceInner-{{slice.index}}_8"
 						ng-class="{ 'ihPieSliceInnerSelected': selectedSlice == slice.index }"

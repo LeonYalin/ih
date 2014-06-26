@@ -56,6 +56,8 @@ directModule.directive('ihPie', function ($compile, $timeout, $ihCache) {
 		link: function($scope, element, attrs) {
 			$scope.title = 'Menu';
 			$scope.selectedSlice = 0;
+			$scope.shouldShowPie = true;
+			$scope.sliceAnimState = 'show';
 			$scope.slices = [
 				{ index: 1, title: 'Favorites', icon: 'star' },
 				{ index: 2, title: 'RSS', icon: 'radio-waves' },
@@ -75,14 +77,7 @@ directModule.directive('ihPie', function ($compile, $timeout, $ihCache) {
 					}
 
 					$scope.title = $scope.slices[$index].title;
-					$scope.selectedSlice = $index + 1; // starting from 1
-					/* rotate pie on click */
-					// $timeout(function() {
-					// 	angular.element(document.getElementsByClassName('ihPieSlicesContainer'))
-					// 		.removeClass('ipPieSlicesContainerInitRotate')
-					// 		.addClass('ipPieSlicesContainerRotate-1to7');
-					// }, 50, false);
-					
+					$scope.selectedSlice = $index + 1; // starting from 1		
 				}
 			};
 
@@ -107,12 +102,18 @@ directModule.directive('ihPie', function ($compile, $timeout, $ihCache) {
 				$scope.modal.remove();
 			});
 			$scope.$on('modal.hidden', function() {
+				$scope.sliceAnimState = 'hide';
 				$scope.selectedSlice = 0;
+				$timeout(function() {
+					$scope.shouldShowPie = false;
+				}, 50, false);
 			});
 			$scope.$on('modal.removed', function() {
 				console.log('in modal.removed');
 			});
 			$scope.$on('modal.shown', function() {
+				$scope.shouldShowPie = true;
+				$scope.sliceAnimState = 'show';
 				$scope.title = 'Menu';
 			});
 		}

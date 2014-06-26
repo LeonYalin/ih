@@ -1,3 +1,4 @@
+/* Rotations */
 @-webkit-keyframes rotatePieElements-90-0deg {
 	from {
 		-webkit-transform: rotate(-90deg);
@@ -79,11 +80,84 @@
 	}
 }
 
-@-webkit-keyframes rotatePie {
+/* Reverse rotations */
+@-webkit-keyframes revRotatePieElements-90-0deg {
 	from {
 		-webkit-transform: rotate(0deg);
+		opacity: 1;
 	}
 	to {
+		-webkit-transform: rotate(-90deg);
+		opacity: 0;
+	}
+}
+@-webkit-keyframes revRotatePieElements-45-45deg {
+	from {
+		-webkit-transform: rotate(45deg);
+		opacity: 1;
+	}
+	to {
+		-webkit-transform: rotate(-45deg);
+		opacity: 0;
+	}
+}
+@-webkit-keyframes revRotatePieElements0-90deg {
+	from {
+		-webkit-transform: rotate(90deg);
+		opacity: 1;
+	}
+	to {
+		-webkit-transform: rotate(0deg);
+		opacity: 0;
+	}
+}
+@-webkit-keyframes revRotatePieElements45-135deg {
+	from {
+		-webkit-transform: rotate(135deg);
+		opacity: 1;
+	}
+	to {
+		-webkit-transform: rotate(45deg);
+		opacity: 0;
+	}
+}
+@-webkit-keyframes revRotatePieElements90-180deg {
+	from {
+		-webkit-transform: rotate(180deg);
+		opacity: 1;
+	}
+	to {
+		-webkit-transform: rotate(90deg);
+		opacity: 0;
+	}
+}
+@-webkit-keyframes revRotatePieElements135-225deg {
+	from {
+		-webkit-transform: rotate(225deg);
+		opacity: 1;
+	}
+	to {
+		-webkit-transform: rotate(135deg);
+		opacity: 0;
+	}
+}
+@-webkit-keyframes revRotatePieElements180-270deg {
+	from {
 		-webkit-transform: rotate(270deg);
+		opacity: 1;
+	}
+	to {
+		-webkit-transform: rotate(180deg);
+		opacity: 0;
+	}
+}
+@-webkit-keyframes revRotatePieElements225-315deg {
+	from {
+		-webkit-transform: rotate(315deg);
+		opacity: 1;
+	}
+	to {
+		-webkit-transform: rotate(225deg);
+		opacity: 0;
 	}
 }

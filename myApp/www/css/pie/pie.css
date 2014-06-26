@@ -39,13 +39,19 @@
 }
 
 .ihPieSlice {
-	opacity: 1;
+	/*opacity: 1;*/
 	position: absolute;
 	width: 401px;
 	height: 401px;
 	border-radius: 50%;
 	clip: rect(0px, 201px, 201px, 0px);
 	-webkit-backface-visibility: hidden;
+}
+.ihPieSliceOpacity1 {
+	opacity: 1;
+}
+.ihPieSliceOpacity0 {
+	opacity: 0;
 }
 
 .ihPieSliceInner {
@@ -118,39 +124,71 @@
 	left: 117px;
 }
 
-.ihPieSlice-1_8 {
+.ihPieSlice-1_8-show {
 	-webkit-animation: rotatePieElements-90-0deg 0.3s 0s 1 ease;
 }
-.ihPieSlice-2_8 {
+.ihPieSlice-2_8-show {
 	-webkit-animation: rotatePieElements-45-45deg 0.45s 0s 1 ease;
 	-webkit-transform: rotate(45deg);
 }
-.ihPieSlice-3_8 {
+.ihPieSlice-3_8-show {
 	-webkit-animation: rotatePieElements0-90deg 0.6s 0s 1 ease;
 	-webkit-transform: rotate(90deg);
 }
-.ihPieSlice-4_8 {
+.ihPieSlice-4_8-show {
 	-webkit-animation: rotatePieElements45-135deg 0.75s 0s 1 ease;
 	-webkit-transform: rotate(135deg);
 }
-.ihPieSlice-5_8 {
+.ihPieSlice-5_8-show {
 	-webkit-animation: rotatePieElements90-180deg 0.85s 0s 1 ease;
 	-webkit-transform: rotate(180deg);
 }
-.ihPieSlice-6_8 {
+.ihPieSlice-6_8-show {
 	-webkit-animation: rotatePieElements135-225deg 0.95s 0s 1 ease;
 	-webkit-transform: rotate(225deg);
 }
-.ihPieSlice-7_8 {
+.ihPieSlice-7_8-show {
 	-webkit-animation: rotatePieElements180-270deg 1.05s 0s 1 ease;
 	-webkit-transform: rotate(270deg);
 }
-.ihPieSlice-8_8 {
+.ihPieSlice-8_8-show {
 	-webkit-animation: rotatePieElements225-315deg 1.15s 0s 1 ease;
 	-webkit-transform: rotate(315deg);
 }
-.ihPieSlice-8_8:hover {
+.ihPieSlice-8_8-show:hover {
 	cursor: pointer;
+}
+
+.ihPieSlice-1_8-hide {
+	-webkit-animation: revRotatePieElements-90-0deg 1.15s 0s 1 ease;
+}
+.ihPieSlice-2_8-hide {
+	-webkit-animation: revRotatePieElements-45-45deg 1.05s 0s 1 ease;
+	-webkit-transform: rotate(45deg);
+}
+.ihPieSlice-3_8-hide {
+	-webkit-animation: revRotatePieElements0-90deg 0.95s 0s 1 ease;
+	-webkit-transform: rotate(90deg);
+}
+.ihPieSlice-4_8-hide {
+	-webkit-animation: revRotatePieElements45-135deg 0.85s 0s 1 ease;
+	-webkit-transform: rotate(135deg);
+}
+.ihPieSlice-5_8-hide {
+	-webkit-animation: revRotatePieElements90-180deg 0.75s 0s 1 ease;
+	-webkit-transform: rotate(180deg);
+}
+.ihPieSlice-6_8-hide {
+	-webkit-animation: revRotatePieElements135-225deg 0.6s 0s 1 ease;
+	-webkit-transform: rotate(225deg);
+}
+.ihPieSlice-7_8-hide {
+	-webkit-animation: revRotatePieElements180-270deg 0.45s 0s 1 ease;
+	-webkit-transform: rotate(270deg);
+}
+.ihPieSlice-8_8-hide {
+	-webkit-animation: revRotatePieElements225-315deg 0.3s 0s 1 ease;
+	-webkit-transform: rotate(315deg);
 }
 
 .ihPieCenter {
@@ -165,6 +203,7 @@
 	border: 1px solid #C4C4C4;
 	border-radius: 50%;
 	background-color: white;
+	-webkit-transition: opacity 0.5s linear;
 }
 .ihPieCenter:before {
 	content: '';
