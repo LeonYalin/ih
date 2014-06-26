@@ -4,12 +4,16 @@
 	</ion-nav-buttons>
 	<ion-content class="has-header">
 		<div class="ihList">
-			<ion-item ng-repeat="(key,val) in categories" class="ihListItem ihCategoriesListItem">
-				<a class="item" href="#/app/categories/{{key}}">
-					<h2>{{key}}</h2>
-					<span class="badge badge-left badge-assertive">{{val.count}}</span>
-				</a>
-			</ion-item>
+			<ul class="ihCategoriesList">
+				<li ng-repeat="(key,val) in categories">
+					<ion-item class="ihListItem ihCategoriesListItem">
+						<a class="item" href="#/app/categories/{{key}}">
+							<h2>{{key}}</h2>
+							<span class="badge badge-left badge-assertive">{{val.count}}</span>
+						</a>
+					</ion-item>
+				</li>
+			</ul>
 		</div>
 	</ion-content>
 </ion-view>

@@ -16,14 +16,18 @@
 		</div>
 	</ion-content>
 	<ion-content class="ihSearchResultsContainer">
-		<ion-list can-swipe="false" ng-show="results">
-			<ion-item ng-repeat="res in results" class="ihListItem">
-				<a class="item item-thumbnail-right" href="#/app/articles/{{res.nid}}">
-					<img ng-src="{{res.images[0].path}}">
-					<h2>{{res.content.title}}</h2>
-					<p>{{res.content.intro}}</p>
-				</a>
-			</ion-item>
+		<ion-list can-swipe="false" ng-show="results" class="ihList">
+			<ul class="ihArticleListSection">
+				<li ng-repeat="res in results">
+					<ion-item class="ihListItem ihArticleListItem">
+						<a class="item item-thumbnail-right" href="#/app/articles/{{res.nid}}">
+							<img ng-src="{{res.images[0].path}}" class="ihArticleImg">
+							<h2>{{res.content.title}}</h2>
+							<p>{{res.content.intro}}</p>
+						</a>
+					</ion-item>
+				</li>
+			</ul>
 		</ion-list>
 		<div ng-show="results && !results.length" class="item item-text-wrap ihNoResults ihListItem">לא נמצאו תוצאות</div>
 	</ion-content>

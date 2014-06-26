@@ -1,0 +1,25 @@
+
+.ihArticleContainer {
+	box-shadow: none;
+	margin-bottom: 0;
+}
+.ihArticleContainer .ihListItem {
+	border: none;
+}
+.ihArticleContainer .item-body div {
+	margin-bottom: 10px;
+}
+.ihArticleContainer .item-body a {
+	text-decoration: none;
+	color: #d70010;
+}
+/* facebook links */
+.ihArticleContainer .item-body a[href*="on.fb"] {
+	color: #3b5998;
+}
+
+.ihArticleCommentsContainer .ihListItem {
+	padding: 10px;
+	border: none;
+	border-bottom: 1px solid #DDD;
+}

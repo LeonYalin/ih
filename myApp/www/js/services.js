@@ -95,15 +95,19 @@ servModule.factory('$ihPopupUtil', function($ionicPopup, $ionicModal, $timeout){
 			});
 		},
 		showModal: function ($scope) {
-			var ihModal = $ionicModal.fromTemplateUrl('templates/pie_drct.html', {
-				scope: $scope,
-				animation: 'slide-in-up'
-			});
+			if ($scope.modal) {
+				$scope.modal.show();
+			} else {
+				var ihModal = $ionicModal.fromTemplateUrl('templates/pie_drct.html', {
+					scope: $scope,
+					animation: 'slide-in-up'
+				});
 
-			ihModal.then(function(modal) {
-				// $scope.modal = modal;
-				modal.show();
-			});
+				ihModal.then(function(modal) {
+					$scope.modal = modal;
+					$scope.modal.show();
+				});
+			}
 		}
 
 	};

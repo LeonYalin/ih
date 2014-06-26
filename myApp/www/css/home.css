@@ -1,0 +1,69 @@
+
+.ihRSSContainer {
+	visibility: hidden; /* For animation */
+	display: inline-block;
+	text-overflow: clip;
+	overflow: visible;
+	cursor: pointer;
+	border: none;
+	margin: 1px;
+	padding: 7px;
+}
+.ihRSSContainer:hover {
+	-webkit-animation-play-state: paused;
+}
+.ihRSSContainer .ihRSSItemTime {
+	color: #C9000A;
+}
+.ihRSSContainer .ihRSSItemText {
+	color: #707070;
+}
+
+.ihFavoritesBtn, .ihFavoritesBtn:hover, .ihFavoritesBtn:active {
+	background-color: #C9000A;
+	color: #DDD;
+	font-size: 18px;
+	line-height: 100px;
+}
+
+.ihFavoritesExistBtn,  .ihFavoritesExistBtn:hover, .ihFavoritesExistBtn:active {
+	background-color: #F8F8F8;
+	color: #444;
+	font-size: 18px;
+	line-height: 100px;
+}
+.ihArticleListItem {
+	border: none;
+}
+.ihArticleListItem .icon {
+	position: absolute;
+	padding: 20px 10px 15px 15px;
+	top: 0;
+	left: 0;
+	font-size: 25px;
+}
+.ihArticleListItem a {
+	text-decoration: none;
+	display: block;
+	border: 1px solid #DDD;
+	border-bottom: none;
+	padding: 0px 110px 0px 10px;
+}
+.ihArticleListItem a .ihArticleImg {
+	top: 1px;
+	right: 11px;
+	max-width: 99px;
+	max-height: 99px;
+}
+.ihArticleMainItem {
+	border: none;
+}
+.ihArticleListSection li:first-child {
+	padding-top: 10px;
+}
+.ihArticleListSection li:last-child {
+	padding-bottom: 10px;
+}
+.ihArticleListSection li:last-child a {
+	border-bottom: 1px solid #DDD;
+}

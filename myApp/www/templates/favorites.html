@@ -5,14 +5,18 @@
 
 	<ion-content>
 		<ion-list ng-show="favorites" class="ihList">
-			<ion-item ng-repeat="(key, value) in favorites" class="ihListItem ihArticleListItem">
-				<a class="item-thumbnail-right" href="#/app/articles/{{value.nid}}">
-					<img ng-src="{{value.images[0].path}}" class="ihArticleImg">
-					<h2>{{value.content.title}}</h2>
-					<p>{{value.content.intro}}</p>
-				</a>
-				<ion-option-button class="button ihFavoritesBtn" ng-click="onDeleteFavorite(key)">הסר</ion-option-button>
-			</ion-item>
+			<ul class="ihArticleListSection ihFavoritesList">
+				<li ng-repeat="(key, value) in favorites">
+					<ion-item class="ihListItem ihArticleListItem">
+						<a class="item-thumbnail-right" href="#/app/articles/{{value.nid}}">
+							<img ng-src="{{value.images[0].path}}" class="ihArticleImg">
+							<h2>{{value.content.title}}</h2>
+							<p>{{value.content.intro}}</p>
+						</a>
+						<ion-option-button class="button ihFavoritesBtn" ng-click="onDeleteFavorite(key)">הסר</ion-option-button>
+					</ion-item>
+				</li>
+			</ul>
 		</ion-list>
 	</ion-content>
 

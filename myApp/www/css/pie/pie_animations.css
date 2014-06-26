@@ -8,6 +8,16 @@
 		opacity: 1;
 	}
 }
+@-webkit-keyframes rotatePieElements-45-45deg {
+	from {
+		-webkit-transform: rotate(-45deg);
+		opacity: 0;
+	}
+	to {
+		-webkit-transform: rotate(45deg);
+		opacity: 1;
+	}
+}
 @-webkit-keyframes rotatePieElements0-90deg {
 	from {
 		-webkit-transform: rotate(0deg);
@@ -18,9 +28,19 @@
 		opacity: 1;
 	}
 }
-@-webkit-keyframes rotatePieElements0-180deg {
+@-webkit-keyframes rotatePieElements45-135deg {
 	from {
-		-webkit-transform: rotate(0deg);
+		-webkit-transform: rotate(45deg);
+		opacity: 0;
+	}
+	to {
+		-webkit-transform: rotate(135deg);
+		opacity: 1;
+	}
+}
+@-webkit-keyframes rotatePieElements90-180deg {
+	from {
+		-webkit-transform: rotate(90deg);
 		opacity: 0;
 	}
 	to {
@@ -28,13 +48,42 @@
 		opacity: 1;
 	}
 }
-@-webkit-keyframes rotatePieElements0-270deg {
+@-webkit-keyframes rotatePieElements135-225deg {
 	from {
-		-webkit-transform: rotate(0deg);
+		-webkit-transform: rotate(135deg);
+		opacity: 0;
+	}
+	to {
+		-webkit-transform: rotate(225deg);
+		opacity: 1;
+	}
+}
+@-webkit-keyframes rotatePieElements180-270deg {
+	from {
+		-webkit-transform: rotate(180deg);
 		opacity: 0;
 	}
 	to {
 		-webkit-transform: rotate(270deg);
 		opacity: 1;
+	}
+}
+@-webkit-keyframes rotatePieElements225-315deg {
+	from {
+		-webkit-transform: rotate(225deg);
+		opacity: 0;
+	}
+	to {
+		-webkit-transform: rotate(315deg);
+		opacity: 1;
+	}
+}
+
+@-webkit-keyframes rotatePie {
+	from {
+		-webkit-transform: rotate(0deg);
+	}
+	to {
+		-webkit-transform: rotate(270deg);
 	}
 }

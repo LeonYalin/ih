@@ -1,0 +1,31 @@
+
+.ihSearchContainer .list-inset{
+	position: relative;
+	width: 100%;
+}
+
+.ihSearchContainer .ion-search {
+	font-size: 18px;
+	position: relative;
+	right: 10px;
+}
+
+.ihSearchResultsContainer {
+	top: 244px;
+}
+
+.ihSearchResultsContainer .ihNoResults {
+	padding: 10px;
+}
+.ihSearchResultsContainer .ihArticleListItem {
+	padding: 0px 10px;
+}
+.ihSearchResultsContainer .ihArticleListItem a {
+	padding: 0px 110px 0px 10px;
+	border-left: 1px solid #DDD;
+	border-right: 1px solid #DDD;
+}
+.ihSearchResultsContainer .ihArticleListItem a .ihArticleImg {
+	top: 0px;
+	right: 0px;
+}

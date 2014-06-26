@@ -7,7 +7,7 @@
 			<ion-item ng-repeat="item in rss" class="ihListItem">
 				<p>
 					<span>{{item.date.formatted}}</span>
-					<span class="ihDoubleSlash ihDoubleSlashRed">{{item.date.timestamp | date: 'H:mm'}}</span>
+					<span class="ihDoubleSlash ihColorRed">{{item.date.timestamp | date: 'H:mm'}}</span>
 				</p>
 				<h2>{{item.text}}</h2>
 			</ion-item>

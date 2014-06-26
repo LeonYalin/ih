@@ -1,0 +1,22 @@
+
+.ihErrorMsg {
+	width: 100%;
+	position: absolute;
+	text-align: center;
+	top: 50%;
+	margin-top: -170px;
+}
+
+.ihErrorMsg .card {
+	box-shadow: none;
+}
+
+.ihErrorMsg .item {
+	min-height: 260px;
+	padding-top: 35px;
+	border: none;
+}
+
+.ihErrorMsg .icon {
+	font-size: 60px;
+}

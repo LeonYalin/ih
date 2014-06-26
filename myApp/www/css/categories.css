@@ -1,0 +1,24 @@
+
+.ihCategoriesList li:first-child {
+	padding-top: 10px;
+}
+.ihCategoriesList li:last-child {
+	padding-bottom: 10px;
+}
+
+.ihCategoriesListItem {
+	border: none;
+	padding: 0px 10px;
+}
+.ihCategoriesListItem a {
+	border-left: 1px solid #DDD !important;
+	border-right: 1px solid #DDD !important;
+	border-bottom: none;
+}
+.ihCategoriesList li:last-child a {
+	border-bottom: 1px solid #DDD;
+}
+.ihCategoriesListItem .badge {
+	right: auto;
+	left: 20px;
+}

@@ -7,10 +7,17 @@
 			<div class="ihPieCenter">
 				<div class="ipPieCenterPoint"></div>
 			</div>
-			<ul>
-				<li ng-repeat="i in [1, 2, 3, 4]" class="ihPieSlice ihPieSlice-{{i}}_4">
-					<i class="icon ion-star"></i>
-					<div class="ihPieSliceSeparator-1_4"></div>
+			<ul class="ihPieSlicesContainer ipPieSlicesContainerInitRotate">
+				<li ng-repeat="slice in slices"
+					ng-click="onSliceWrapperClick($event, $index)"
+					class="ihPieSlice ihPieSlice-{{slice.index}}_8">
+
+					<div class="ihPieSliceInner ihPieSliceInner-{{slice.index}}_8"
+						ng-class="{ 'ihPieSliceInnerSelected': selectedSlice == slice.index }"
+						ng-click="onSliceClick($event, $index)">
+						<i class="icon ion-{{slice.icon}}"></i>
+						<div class="ihPieSliceSeparator"></div>
+					</div>
 				</li>
 			</ul>
 		</div>

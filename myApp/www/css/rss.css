@@ -1,0 +1,12 @@
+
+.ihRSSList .ihListItem {
+	padding: 15px 10px;
+	border: none;
+	border-bottom: 1px solid #DDD;
+}
+.ihRSSList p {
+	margin-bottom: 0;
+}
+.ihRSSList h2, .ihRSSList p {
+	padding: 0;
+}

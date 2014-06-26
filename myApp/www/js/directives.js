@@ -49,17 +49,72 @@ directModule.directive("ihBesttvPlayer",function($http, $q){
 	};
 });
 
-directModule.directive('ihPie', function ($compile) {
+directModule.directive('ihPie', function ($compile, $timeout, $ihCache) {
 	return {
 		restrict: 'E',
 		templateUrl: 'templates/pie.html',
 		link: function($scope, element, attrs) {
-			$scope.title = 'My ihPie title';
+			$scope.title = 'Menu';
+			$scope.selectedSlice = 0;
+			$scope.slices = [
+				{ index: 1, title: 'Favorites', icon: 'star' },
+				{ index: 2, title: 'RSS', icon: 'radio-waves' },
+				{ index: 3, title: 'Search', icon: 'ios7-search-strong' },
+				{ index: 4, title: 'Categories', icon: 'android-sort' },
+				{ index: 5, title: 'Settings', icon: 'settings' },
+				{ index: 6, title: 'Home', icon: 'home' },
+				{ index: 7, title: 'Weather', icon: 'ios7-partlysunny' },
+				{ index: 8, title: 'Share', icon: 'android-share' }
+			];
+			$scope.onSliceClick = function ($event, $index) {
+				var el = angular.element($event.target);
+				if (el) {
+					if ($ihCache.get('isLastSliceClicked')) {
+						$ihCache.put('isLastSliceClicked', false);
+						return;
+					}
 
+					$scope.title = $scope.slices[$index].title;
+					$scope.selectedSlice = $index + 1; // starting from 1
+					/* rotate pie on click */
+					// $timeout(function() {
+					// 	angular.element(document.getElementsByClassName('ihPieSlicesContainer'))
+					// 		.removeClass('ipPieSlicesContainerInitRotate')
+					// 		.addClass('ipPieSlicesContainerRotate-1to7');
+					// }, 50, false);
+					
+				}
+			};
+
+			/* hack: on last slice wrapper click, trigger first slice click */
+			$scope.onSliceWrapperClick = function ($event, $index) {
+				var el = angular.element($event.target);
+				if (el.attr('class').indexOf('ihPieSliceInner-8_8') !== -1) {
+					$ihCache.put('isLastSliceClicked', true);
+				}
+				if ($index == 7) {
+					$timeout(function() {
+						angular.element(document.querySelector('.ihPieSliceInner-1_8')).triggerHandler('click');
+					}, 0);
+				}
+			};
 
 			// var markup = "<input type='text' ng=model='sampleData'/> {{sampleData}} <br/>";
 			// angular.element(element).html($compile(markup)(scope));
 			// console.log($compile(markup)(scope));
+
+			$scope.$on('$destroy', function() {
+				$scope.modal.remove();
+			});
+			$scope.$on('modal.hidden', function() {
+				$scope.selectedSlice = 0;
+			});
+			$scope.$on('modal.removed', function() {
+				console.log('in modal.removed');
+			});
+			$scope.$on('modal.shown', function() {
+				$scope.title = 'Menu';
+			});
 		}
 	};
 });

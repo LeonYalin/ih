@@ -13,7 +13,7 @@
 			</span>
 		</ion-item>
 		<ion-list class="ihList">
-			<ion-item ng-repeat="pri in articles.primary" class="ihListItem">
+			<ion-item ng-repeat="pri in articles.primary" class="ihListItem ihArticleMainItem">
 				<a class="item item-body" href="#/app/articles/{{pri.nid}}">
 					<img class="full-image" ng-src="{{pri.images[0].path}}">
 					<h2>{{pri.content.title}}</h2>
@@ -21,28 +21,35 @@
 				</a>
 			</ion-item>
 
-			<div class="item item-divider ihListItem">חדשות חמות</div>
-			<ion-item ng-repeat="sec in articles.secondary" class="ihListItem ihArticleListItem">
-				<a class="item-thumbnail-right" href="#/app/articles/{{sec.nid}}">
-					<img ng-src="{{sec.images[0].path}}" class="ihArticleImg">
-					<h2>{{sec.content.title}}</h2>
-					<p>{{sec.content.intro}}</p>
-				</a>
-				<ion-option-button ng-if="!sec.inFavorites" class="button ihFavoritesBtn" ng-click="onFavorites(sec, $event)">הוסף למועדפים</ion-option-button>
-				<ion-option-button ng-if="sec.inFavorites" class="button ihFavoritesExistBtn">שמור במועדפים</ion-option-button>
-			</ion-item>
+			<div class="item item-divider">חדשות חמות</div>
+			<ul class="ihArticleListSection">
+				<li ng-repeat="sec in articles.secondary">
+					<ion-item class="ihListItem ihArticleListItem">
+						<a class="item-thumbnail-right" href="#/app/articles/{{sec.nid}}">
+							<img ng-src="{{sec.images[0].path}}" class="ihArticleImg">
+							<h2>{{sec.content.title}}</h2>
+							<p>{{sec.content.intro}}</p>
+						</a>
+						<ion-option-button ng-if="!sec.inFavorites" class="button ihFavoritesBtn" ng-click="onFavorites(sec, $event)">הוסף למועדפים</ion-option-button>
+						<ion-option-button ng-if="sec.inFavorites" class="button ihFavoritesExistBtn">שמור במועדפים</ion-option-button>
+					</ion-item>
+				</li>
+			</ul>
 
-			<div class="item item-divider ihListItem">חדשות</div>
-			<ion-item ng-repeat="news in articles.news" class="ihListItem ihArticleListItem">
-				<a class="item-thumbnail-right" href="#/app/articles/{{news.nid}}">
-					<img ng-src="{{news.images[0].path}}" class="ihArticleImg">
-					<h2>{{news.content.title}}</h2>
-					<p>{{news.content.intro}}</p>
-				</a>
-				<ion-option-button ng-if="!news.inFavorites" class="button ihFavoritesBtn" ng-click="onFavorites(news, $event)">הוסף למועדפים</ion-option-button>
-				<ion-option-button ng-if="news.inFavorites" class="button button-stable">שמור במועדפים</ion-option-button>
-			</ion-item>
-
+			<div class="item item-divider">חדשות</div>
+			<ul class="ihArticleListSection">
+				<li ng-repeat="news in articles.news">
+					<ion-item class="ihListItem ihArticleListItem">
+						<a class="item-thumbnail-right" href="#/app/articles/{{news.nid}}">
+							<img ng-src="{{news.images[0].path}}" class="ihArticleImg">
+							<h2>{{news.content.title}}</h2>
+							<p>{{news.content.intro}}</p>
+						</a>
+						<ion-option-button ng-if="!news.inFavorites" class="button ihFavoritesBtn" ng-click="onFavorites(news, $event)">הוסף למועדפים</ion-option-button>
+						<ion-option-button ng-if="news.inFavorites" class="button button-stable">שמור במועדפים</ion-option-button>
+					</ion-item>
+				</li>
+			</ul>
 		</ion-list>
 	</ion-content>
 </ion-view>
