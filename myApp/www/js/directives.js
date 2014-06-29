@@ -83,11 +83,14 @@ directModule.directive('ihPie', function ($compile, $timeout, $ihCache) {
 
 			/* hack: on last slice wrapper click, trigger first slice click */
 			$scope.onSliceWrapperClick = function ($event, $index) {
-				var el = angular.element($event.target);
-				if (el.attr('class').indexOf('ihPieSliceInner-8_8') !== -1) {
+				var el = angular.element($event.target),
+					isLastSliceClicked = el.attr('class').indexOf('ihPieSliceInner-8_8') !== -1,
+					isIconClicked = el.attr('class').indexOf('icon') !== -1;
+
+				if (isLastSliceClicked) {
 					$ihCache.put('isLastSliceClicked', true);
 				}
-				if ($index == 7) {
+				if ($index == 7 && !isIconClicked) {
 					$timeout(function() {
 						angular.element(document.querySelector('.ihPieSliceInner-1_8')).triggerHandler('click');
 					}, 0);
@@ -106,7 +109,7 @@ directModule.directive('ihPie', function ($compile, $timeout, $ihCache) {
 				$scope.selectedSlice = 0;
 				$timeout(function() {
 					$scope.shouldShowPie = false;
-				}, 50, false);
+				}, 200, false);
 			});
 			$scope.$on('modal.removed', function() {
 				console.log('in modal.removed');

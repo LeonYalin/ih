@@ -23,7 +23,11 @@
 						<a class="item item-thumbnail-right" href="#/app/articles/{{res.nid}}">
 							<img ng-src="{{res.images[0].path}}" class="ihArticleImg">
 							<h2>{{res.content.title}}</h2>
-							<p>{{res.content.intro}}</p>
+							<p class="ihArticleListItemIntro">{{res.content.intro}}</p>
+							<p class="ihArticleListItemDate">
+								<span class="ihDoubleSlash ihColorRed">{{res.author.name}}</span>
+								<span>{{res.date.timestamp | date: 'H:mm'}}</span><span>&nbsp;</span><span>{{res.date.formatted}}</span>
+							</p>
 						</a>
 					</ion-item>
 				</li>

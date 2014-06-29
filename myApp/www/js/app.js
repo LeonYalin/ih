@@ -46,6 +46,15 @@ appModule.config(function($stateProvider, $urlRouterProvider, $httpProvider) {
 				}
 			}
 		})
+		.state('app.opinions', {
+			url: "/opinions",
+			views: {
+				'menuContent' :{
+					templateUrl: "templates/opinions.html",
+					controller: 'OpinionsCtrl'
+				}
+			}
+		})
 		.state('app.favorites', {
 			url: "/favorites",
 			views: {

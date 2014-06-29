@@ -19,6 +19,7 @@ servModule.factory('$ihCONSTS', function(){
 	url.comments = url.apiDomain + 'comment/';
 	url.categories = url.apiDomain + 'category' + url.key + url.callback;
 	url.category = url.apiDomain + 'category/';
+	url.opinions = url.apiDomain + 'content/opinion' + url.key + url.callback;
 	url.search = url.apiDomain + 'search' + url.key + url.callback + url.lang.he + url.q;
 
 	return {
@@ -315,6 +316,47 @@ servModule.factory('$ihCategorySrvc', function($ihCONSTS, $ihHomepageSrvc){
 	};
 });
 
+servModule.factory('$ihOpinionsSrvc', function($ihCONSTS, $ihHomepageSrvc){
+	return {
+		fixOpinionIntro: function (introStr) {
+			if (!introStr) return ' ';
+
+			var openDivRegex = new RegExp(/<div>/g), closeDivRegex = new RegExp(/<\/div>/g), ellipRegex = new RegExp(/&hellip;/g),
+				openStrongRegex = new RegExp(/<strong>/g), closeStrongRegex = new RegExp(/<\/strong>/g),
+				openPRegex = new RegExp(/<p>/g), closePRegex = new RegExp(/<\/p>/g),
+				spanWithStyleRegex = new RegExp(/<span style="(.*?)">/g),
+				openSpanRegex = new RegExp(/<span>/g), closeSpanRegex = new RegExp(/<\/span>/g),
+				styleRegex = new RegExp(/style="(.*?)"/g);
+
+			return introStr.replace(openDivRegex, '').replace(closeDivRegex, '').replace(ellipRegex, '...')
+						.replace(openStrongRegex, '').replace(closeStrongRegex, '')
+						.replace(openPRegex, '').replace(closePRegex, '')
+						.replace(spanWithStyleRegex, '')
+						.replace(openSpanRegex, '').replace(closeSpanRegex, '')
+						.replace(styleRegex, '');
+		},
+		buildOpinionsObj: function (opArr) {
+			if (!opArr) return;
+			var opinionsObj = [], self = this;
+
+			angular.forEach(opArr, function(item) {
+				opinionsObj.push({
+					author: item.author,
+					date: item.date,
+					images: item.images,
+					nid: item.nid,
+					content: {
+						title: item.content.title,
+						intro: self.fixOpinionIntro(item.content.intro)
+					}
+				});
+			});
+			$ihHomepageSrvc.fixImagePath(opinionsObj);
+
+			return opinionsObj;
+		}
+	};
+});
 
 servModule.factory('$ihArticleSrvc', function($ihCONSTS, $ihUtil){
 	return {
@@ -446,6 +488,9 @@ servModule.factory('$ihREST', function($http, $q, $ihCONSTS){
 		},
 		loadSearchResults: function (query) {
 			return this.loadData($ihCONSTS.url.search + query);
+		},
+		loadOpinionsData: function () {
+			return this.loadData($ihCONSTS.url.opinions);
 		}
 	};
 });

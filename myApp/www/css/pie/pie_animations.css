@@ -1,81 +1,81 @@
 /* Rotations */
 @-webkit-keyframes rotatePieElements-90-0deg {
 	from {
-		-webkit-transform: rotate(-90deg);
+		-webkit-transform: rotate3d(0, 0, 1, -90deg);
 		opacity: 0;
 	}
 	to {
-		-webkit-transform: rotate(0deg);
+		-webkit-transform: rotate3d(0, 0, 1, 0deg);
 		opacity: 1;
 	}
 }
 @-webkit-keyframes rotatePieElements-45-45deg {
 	from {
-		-webkit-transform: rotate(-45deg);
+		-webkit-transform: rotate3d(0, 0, 1, -45deg);
 		opacity: 0;
 	}
 	to {
-		-webkit-transform: rotate(45deg);
+		-webkit-transform: rotate3d(0, 0, 1, 45deg);
 		opacity: 1;
 	}
 }
 @-webkit-keyframes rotatePieElements0-90deg {
 	from {
-		-webkit-transform: rotate(0deg);
+		-webkit-transform: rotate3d(0, 0, 1, 0deg);
 		opacity: 0;
 	}
 	to {
-		-webkit-transform: rotate(90deg);
+		-webkit-transform: rotate3d(0, 0, 1, 90deg);
 		opacity: 1;
 	}
 }
 @-webkit-keyframes rotatePieElements45-135deg {
 	from {
-		-webkit-transform: rotate(45deg);
+		-webkit-transform: rotate3d(0, 0, 1, 45deg);
 		opacity: 0;
 	}
 	to {
-		-webkit-transform: rotate(135deg);
+		-webkit-transform: rotate3d(0, 0, 1, 135deg);
 		opacity: 1;
 	}
 }
 @-webkit-keyframes rotatePieElements90-180deg {
 	from {
-		-webkit-transform: rotate(90deg);
+		-webkit-transform: rotate3d(0, 0, 1, 90deg);
 		opacity: 0;
 	}
 	to {
-		-webkit-transform: rotate(180deg);
+		-webkit-transform: rotate3d(0, 0, 1, 180deg);
 		opacity: 1;
 	}
 }
 @-webkit-keyframes rotatePieElements135-225deg {
 	from {
-		-webkit-transform: rotate(135deg);
+		-webkit-transform: rotate3d(0, 0, 1, 135deg);
 		opacity: 0;
 	}
 	to {
-		-webkit-transform: rotate(225deg);
+		-webkit-transform: rotate3d(0, 0, 1, 225deg);
 		opacity: 1;
 	}
 }
 @-webkit-keyframes rotatePieElements180-270deg {
 	from {
-		-webkit-transform: rotate(180deg);
+		-webkit-transform: rotate3d(0, 0, 1, 180deg);
 		opacity: 0;
 	}
 	to {
-		-webkit-transform: rotate(270deg);
+		-webkit-transform: rotate3d(0, 0, 1, 270deg);
 		opacity: 1;
 	}
 }
 @-webkit-keyframes rotatePieElements225-315deg {
 	from {
-		-webkit-transform: rotate(225deg);
+		-webkit-transform: rotate3d(0, 0, 1, 225deg);
 		opacity: 0;
 	}
 	to {
-		-webkit-transform: rotate(315deg);
+		-webkit-transform: rotate3d(0, 0, 1, 315deg);
 		opacity: 1;
 	}
 }
@@ -83,81 +83,81 @@
 /* Reverse rotations */
 @-webkit-keyframes revRotatePieElements-90-0deg {
 	from {
-		-webkit-transform: rotate(0deg);
+		-webkit-transform: rotate3d(0, 0, 1, 0deg);
 		opacity: 1;
 	}
 	to {
-		-webkit-transform: rotate(-90deg);
+		-webkit-transform: rotate3d(0, 0, 1, -90deg);
 		opacity: 0;
 	}
 }
 @-webkit-keyframes revRotatePieElements-45-45deg {
 	from {
-		-webkit-transform: rotate(45deg);
+		-webkit-transform: rotate3d(0, 0, 1, 45deg);
 		opacity: 1;
 	}
 	to {
-		-webkit-transform: rotate(-45deg);
+		-webkit-transform: rotate3d(0, 0, 1, -45deg);
 		opacity: 0;
 	}
 }
 @-webkit-keyframes revRotatePieElements0-90deg {
 	from {
-		-webkit-transform: rotate(90deg);
+		-webkit-transform: rotate3d(0, 0, 1, 90deg);
 		opacity: 1;
 	}
 	to {
-		-webkit-transform: rotate(0deg);
+		-webkit-transform: rotate3d(0, 0, 1, 0deg);
 		opacity: 0;
 	}
 }
 @-webkit-keyframes revRotatePieElements45-135deg {
 	from {
-		-webkit-transform: rotate(135deg);
+		-webkit-transform: rotate3d(0, 0, 1, 135deg);
 		opacity: 1;
 	}
 	to {
-		-webkit-transform: rotate(45deg);
+		-webkit-transform: rotate3d(0, 0, 1, 45deg);
 		opacity: 0;
 	}
 }
 @-webkit-keyframes revRotatePieElements90-180deg {
 	from {
-		-webkit-transform: rotate(180deg);
+		-webkit-transform: rotate3d(0, 0, 1, 180deg);
 		opacity: 1;
 	}
 	to {
-		-webkit-transform: rotate(90deg);
+		-webkit-transform: rotate3d(0, 0, 1, 90deg);
 		opacity: 0;
 	}
 }
 @-webkit-keyframes revRotatePieElements135-225deg {
 	from {
-		-webkit-transform: rotate(225deg);
+		-webkit-transform: rotate3d(0, 0, 1, 225deg);
 		opacity: 1;
 	}
 	to {
-		-webkit-transform: rotate(135deg);
+		-webkit-transform: rotate3d(0, 0, 1, 135deg);
 		opacity: 0;
 	}
 }
 @-webkit-keyframes revRotatePieElements180-270deg {
 	from {
-		-webkit-transform: rotate(270deg);
+		-webkit-transform: rotate3d(0, 0, 1, 270deg);
 		opacity: 1;
 	}
 	to {
-		-webkit-transform: rotate(180deg);
+		-webkit-transform: rotate3d(0, 0, 1, 180deg);
 		opacity: 0;
 	}
 }
 @-webkit-keyframes revRotatePieElements225-315deg {
 	from {
-		-webkit-transform: rotate(315deg);
+		-webkit-transform: rotate3d(0, 0, 1, 315deg);
 		opacity: 1;
 	}
 	to {
-		-webkit-transform: rotate(225deg);
+		-webkit-transform: rotate3d(0, 0, 1, 225deg);
 		opacity: 0;
 	}
 }

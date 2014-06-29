@@ -11,6 +11,7 @@ body {
 }
 .ihList .list {
 	-webkit-overflow-scrolling: touch;
+	padding: 0;
 }
 
 .ihListItem {
@@ -26,14 +27,28 @@ body {
 	border-bottom: none;
 }
 .ihListItem h2, .ihListItem p {
-	text-overflow: clip;
-	white-space: normal;
 	margin: 0;
 	padding: 5px 0;
 }
-.ihListItem p {
-	line-height: 17px;
+.ihListItem .ihArticleListItemIntro {
+	position: relative;
+	line-height: 18px;
+	height: 36px;
 	padding-top: 0px;
+	text-overflow: clip;
+	white-space: normal;
+}
+.ihListItem .ihArticleListItemIntro:after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 50%;
+  height: 18px;
+  background: linear-gradient(to right, rgba(255, 255, 255, 1), rgba(255, 255, 255, 0) 50%);
+}
+.ihListItem .ihArticleListItemDate {
+	padding: 5px 0 0 0;
 }
 
 .ihBottomMargin {
@@ -48,6 +63,9 @@ body {
 	color: #C9000A;
 }
 
-.nav-bar {
-	border-bottom: 1px solid #444;
+.bar.bar-assertive, .item.item-assertive, .badge.badge-assertive {
+	background-color: #C9000A;
+}
+.item.item-divider {
+	background-color: #A70109;
 }

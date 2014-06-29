@@ -251,7 +251,7 @@ ctrlModule.controller('FavoritesCtrl', function($scope, $ihCache, $ihUtil, $ihFa
 			$scope.noResultsFlag = true;
 		}
 
-		toaster.pop('success', 'כתבה נשמרה במועדפים. לחץ על ההודעה זו כדי לבטל', null, null, null, function () {
+		toaster.pop('success', 'כתבה נמחקה. לחץ לביטול', null, null, null, function () {
 			var favToRetain = angular.copy($scope.favToRetain);
 			$scope.favorites[favId] = favToRetain;
 			favoritesCache[favId] = favToRetain;
@@ -291,4 +291,41 @@ ctrlModule.controller('RSSCtrl', function($scope, $ihUtil, $ihREST, $q, $state, 
 	}
 
 	_init(state);
+});
+
+ctrlModule.controller('OpinionsCtrl', function($scope, $state, $q, $ihREST, $ihCache, $ihUtil, $ihOpinionsSrvc) {
+	var state = $state,
+		opinionsCache = $ihCache.get('opinionsObj');
+
+	function _init(state) {
+		var deferred = $q.defer();
+
+		if (opinionsCache) {
+			$scope.opinions = opinionsCache;
+			deferred.resolve();
+		} else {
+			$ihUtil.showLoading();
+			$ihREST.loadOpinionsData().then(function (data) {
+
+				$scope.opinions = $ihOpinionsSrvc.buildOpinionsObj(data);
+
+				if (!opinionsCache) {
+					$ihCache.put('opinionsObj', data);
+				}
+
+				deferred.resolve();
+				$ihUtil.hideLoading();
+			}, function () {
+				deferred.reject();
+				$ihUtil.hideLoading();
+
+				state.go('app.error');
+			});
+		}
+
+		return deferred.promise;
+	}
+
+	_init(state);
+
 });

@@ -21,7 +21,7 @@
 					<div class="ihPieSliceInner ihPieSliceInner-{{slice.index}}_8"
 						ng-class="{ 'ihPieSliceInnerSelected': selectedSlice == slice.index }"
 						ng-click="onSliceClick($event, $index)">
-						<i class="icon ion-{{slice.icon}}"></i>
+						<i class="icon ion-{{slice.icon}}" ng-click="onSliceClick($event, $index)"></i>
 						<div class="ihPieSliceSeparator"></div>
 					</div>
 				</li>

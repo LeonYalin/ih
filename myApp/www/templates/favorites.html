@@ -11,7 +11,11 @@
 						<a class="item-thumbnail-right" href="#/app/articles/{{value.nid}}">
 							<img ng-src="{{value.images[0].path}}" class="ihArticleImg">
 							<h2>{{value.content.title}}</h2>
-							<p>{{value.content.intro}}</p>
+							<p class="ihArticleListItemIntro">{{value.content.intro}}</p>
+							<p class="ihArticleListItemDate">
+								<span class="ihDoubleSlash ihColorRed">{{value.author.name}}</span>
+								<span>{{value.date.timestamp | date: 'H:mm'}}</span><span>&nbsp;</span><span>{{value.date.formatted}}</span>
+							</p>
 						</a>
 						<ion-option-button class="button ihFavoritesBtn" ng-click="onDeleteFavorite(key)">הסר</ion-option-button>
 					</ion-item>
@@ -29,5 +33,4 @@
 			</div>
 		</div>
 	</div>
-	<!-- <div ng-show="results && !results.length" class="item item-text-wrap ihNoResults ihListItem">לא נמצאו תוצאות</div> -->
 </ion-view>

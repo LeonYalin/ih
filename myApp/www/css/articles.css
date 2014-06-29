@@ -1,4 +1,6 @@
-
+.ihRSSContainerWrapper {
+	background-color: #646464;
+}
 .ihRSSContainer {
 	visibility: hidden; /* For animation */
 	display: inline-block;
@@ -6,17 +8,17 @@
 	overflow: visible;
 	cursor: pointer;
 	border: none;
-	margin: 1px;
 	padding: 7px;
+	background-color: transparent;
 }
 .ihRSSContainer:hover {
 	-webkit-animation-play-state: paused;
 }
 .ihRSSContainer .ihRSSItemTime {
-	color: #C9000A;
+	color: #FF3842;
 }
 .ihRSSContainer .ihRSSItemText {
-	color: #707070;
+	color: white;
 }
 
 .ihFavoritesBtn, .ihFavoritesBtn:hover, .ihFavoritesBtn:active {
@@ -48,15 +50,30 @@
 	border: 1px solid #DDD;
 	border-bottom: none;
 	padding: 0px 110px 0px 10px;
+	height: 100px;
 }
 .ihArticleListItem a .ihArticleImg {
-	top: 1px;
-	right: 11px;
-	max-width: 99px;
-	max-height: 99px;
+	top: 0px;
+	right: 10px;
+	max-width: 100px;
+	max-height: 100px;
 }
 .ihArticleMainItem {
 	border: none;
+}
+.ihArticleMainItem.ihListItem .item {
+	padding: 0;
+	padding-bottom: 10px;
+}
+.ihArticleMainItem.ihListItem .ihArticleListItemIntro {
+	height: auto;
+}
+.ihArticleMainItem h2, .ihArticleMainItem p, .ihArticleMainItem .ihArticleListItemDate {
+	padding-left: 10px;
+	padding-right: 10px;
+}
+.ihArticleMainItem .ihArticleListItemDate {
+	padding-top: 0;
 }
 .ihArticleListSection li:first-child {
 	padding-top: 10px;

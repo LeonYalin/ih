@@ -6,7 +6,7 @@
 		<div class="item ihListItem">
 			<p>
 				<span class="ihDoubleSlash ihColorRed">{{article.author.name}}</span>
-				<span>{{article.date.timestamp | date: 'H:mm'}}</span>
+				<span>{{article.date.timestamp | date: 'H:mm'}}</span><span>&nbsp;</span><span>{{article.date.formatted}}</span>
 				<span>&nbsp;/</span>
 				<span>{{comments.length || 0}}</span>
 				<i class="icon ion-ios7-chatboxes-outline"></i>
@@ -21,11 +21,13 @@
 		</div>
 	</div>
 
-	<div class="item item-divider">תגובות</div>
-	<div class="ihArticleCommentsContainer">
+	<div class="item item-divider item-assertive" ng-show="article">תגובות</div>
+	<div class="ihArticleCommentsContainer" ng-show="article">
 		<div ng-repeat="comment in comments" class="item ihListItem">
-			<span class="ihDoubleSlash">{{comment.author.name}}</span>
-			<p>{{comment.subject}}</p>
+			<span class="ihDoubleSlash ihColorRed">{{comment.author.name}}</span><span>&nbsp;</span>
+			<span>{{comment.date.timestamp | date: 'H:mm'}}</span>
+			<h2>{{comment.subject}}</h2>
+			<p class="ihArticleCommentBody">{{comment.body}}</p>
 		</div>
 		<div ng-hide="comments" class="item item-text-wrap ihListItem">לא נמצאו תגובות</div>
 	</div>

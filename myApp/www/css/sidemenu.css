@@ -19,10 +19,13 @@
 	font-size: 19px;
 	right: 16px;
 }
-
 .ihSideMenuList .ion-star {
 	font-size: 22px;
 	margin-top: -1px;
+}
+.ihSideMenuList .ion-person-stalker {
+	font-size: 19px;
+	right: 14px;
 }
 .ihSideMenuList .ion-radio-waves {
 	font-size: 21px;

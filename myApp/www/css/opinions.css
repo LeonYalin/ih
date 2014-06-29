@@ -1,0 +1,6 @@
+.ihOpinionsContainer {
+	top: 44px !important;
+}
+.ihSearchResultsContainer.ihOpinionsContainer .ihArticleListItem a .ihArticleImg {
+	right: 10px;
+}

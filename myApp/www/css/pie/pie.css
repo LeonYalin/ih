@@ -24,7 +24,7 @@
 }
 
 .ipPieSlicesContainerInitRotate {
-	-webkit-transform: rotate(22.5deg);
+	-webkit-transform: rotate3d(0, 0, 1, 22.5deg);
 }
 .ipPieSlicesContainerRotate-1to7 {
 	/*-webkit-animation: rotatePie 0.25s 0.1s 1 ease;*/
@@ -35,7 +35,7 @@
 	height: 1px;
 	background-color: #C4C4C4;
 	/*border-top: 1px solid #E2E2E2;*/
-	-webkit-transform: rotate(90deg);
+	-webkit-transform: rotate3d(0, 0, 1, 90deg);
 }
 
 .ihPieSlice {
@@ -61,7 +61,7 @@
 	border: 1px solid #C4C4C4;
 	border-radius: 50%;
 	clip: rect(0px, 200px, 200px, 0px);
-	-webkit-transform: rotate(-45deg);
+	-webkit-transform: rotate3d(0, 0, 1, -45deg);
 }
 
 .ihPieSlice .ihPieSliceInner{
@@ -82,6 +82,10 @@
 	background-color: #D53F47 !important;
 	-webkit-transition: background-color 0.3s linear;
 }
+.ihPieSliceInnerSelected .icon {
+	color: white !important;
+	-webkit-transition: color 0.3s linear;
+}
 
 .ihPieSlice .icon {
 	position: absolute;
@@ -89,21 +93,25 @@
 	top: 30px;
 	left: 120px;
 	color: #535353;
-	-webkit-transform: rotate(-22.5deg);
+	-webkit-transform: rotate3d(0, 0, 1, -22.5deg);
 }
 .ihPieSlice .ion-star {
 	font-size: 58px;
-	top: 31px;
-	left: 112px;
+	top: 32px;
+	left: 114px;
+}
+.ihPieSlice .ion-radio-waves {
+	left: 116px;
 }
 .ihPieSlice .ion-ios7-search-strong {
 	font-size: 56px;
-	top: 32px;
+	top: 38px;
+	left: 119px;
 }
 .ihPieSlice .ion-android-sort {
 	font-size: 41px;
-	top: 41px;
-	left: 126px;
+	top: 43px;
+	left: 124px;
 }
 .ihPieSlice .ion-settings {
 	font-size: 46px;
@@ -113,7 +121,7 @@
 .ihPieSlice .ion-home {
 	font-size: 51px;
 	top: 36px;
-	left: 124px;
+	left: 123px;
 }
 .ihPieSlice .ion-ios7-partlysunny {
 	font-size: 62px;
@@ -121,7 +129,7 @@
 .ihPieSlice .ion-android-share {
 	font-size: 41px;
 	top: 43px;
-	left: 117px;
+	left: 119px;
 }
 
 .ihPieSlice-1_8-show {
@@ -129,31 +137,31 @@
 }
 .ihPieSlice-2_8-show {
 	-webkit-animation: rotatePieElements-45-45deg 0.45s 0s 1 ease;
-	-webkit-transform: rotate(45deg);
+	-webkit-transform: rotate3d(0, 0, 1, 45deg);
 }
 .ihPieSlice-3_8-show {
 	-webkit-animation: rotatePieElements0-90deg 0.6s 0s 1 ease;
-	-webkit-transform: rotate(90deg);
+	-webkit-transform: rotate3d(0, 0, 1, 90deg);
 }
 .ihPieSlice-4_8-show {
 	-webkit-animation: rotatePieElements45-135deg 0.75s 0s 1 ease;
-	-webkit-transform: rotate(135deg);
+	-webkit-transform: rotate3d(0, 0, 1, 135deg);
 }
 .ihPieSlice-5_8-show {
 	-webkit-animation: rotatePieElements90-180deg 0.85s 0s 1 ease;
-	-webkit-transform: rotate(180deg);
+	-webkit-transform: rotate3d(0, 0, 1, 180deg);
 }
 .ihPieSlice-6_8-show {
 	-webkit-animation: rotatePieElements135-225deg 0.95s 0s 1 ease;
-	-webkit-transform: rotate(225deg);
+	-webkit-transform: rotate3d(0, 0, 1, 225deg);
 }
 .ihPieSlice-7_8-show {
 	-webkit-animation: rotatePieElements180-270deg 1.05s 0s 1 ease;
-	-webkit-transform: rotate(270deg);
+	-webkit-transform: rotate3d(0, 0, 1, 270deg);
 }
 .ihPieSlice-8_8-show {
 	-webkit-animation: rotatePieElements225-315deg 1.15s 0s 1 ease;
-	-webkit-transform: rotate(315deg);
+	-webkit-transform: rotate3d(0, 0, 1, 315deg);
 }
 .ihPieSlice-8_8-show:hover {
 	cursor: pointer;
@@ -164,31 +172,31 @@
 }
 .ihPieSlice-2_8-hide {
 	-webkit-animation: revRotatePieElements-45-45deg 1.05s 0s 1 ease;
-	-webkit-transform: rotate(45deg);
+	-webkit-transform: rotate3d(0, 0, 1, 45deg);
 }
 .ihPieSlice-3_8-hide {
 	-webkit-animation: revRotatePieElements0-90deg 0.95s 0s 1 ease;
-	-webkit-transform: rotate(90deg);
+	-webkit-transform: rotate3d(0, 0, 1, 90deg);
 }
 .ihPieSlice-4_8-hide {
 	-webkit-animation: revRotatePieElements45-135deg 0.85s 0s 1 ease;
-	-webkit-transform: rotate(135deg);
+	-webkit-transform: rotate3d(0, 0, 1, 135deg);
 }
 .ihPieSlice-5_8-hide {
 	-webkit-animation: revRotatePieElements90-180deg 0.75s 0s 1 ease;
-	-webkit-transform: rotate(180deg);
+	-webkit-transform: rotate3d(0, 0, 1, 180deg);
 }
 .ihPieSlice-6_8-hide {
 	-webkit-animation: revRotatePieElements135-225deg 0.6s 0s 1 ease;
-	-webkit-transform: rotate(225deg);
+	-webkit-transform: rotate3d(0, 0, 1, 225deg);
 }
 .ihPieSlice-7_8-hide {
 	-webkit-animation: revRotatePieElements180-270deg 0.45s 0s 1 ease;
-	-webkit-transform: rotate(270deg);
+	-webkit-transform: rotate3d(0, 0, 1, 270deg);
 }
 .ihPieSlice-8_8-hide {
 	-webkit-animation: revRotatePieElements225-315deg 0.3s 0s 1 ease;
-	-webkit-transform: rotate(315deg);
+	-webkit-transform: rotate3d(0, 0, 1, 315deg);
 }
 
 .ihPieCenter {

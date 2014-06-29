@@ -6,13 +6,17 @@
 .ihArticleContainer .ihListItem {
 	border: none;
 }
+.ihArticleContainer .ihListItem h2, .ihArticleContainer .ihListItem p, .ihArticleCommentsContainer .ihListItem h2, .ihArticleCommentsContainer .ihListItem p{
+	text-overflow: clip;
+	white-space: normal;
+}
 .ihArticleContainer .item-body div {
 	margin-bottom: 10px;
 }
-.ihArticleContainer .item-body a {
+/*.ihArticleContainer .item-body a {
 	text-decoration: none;
 	color: #d70010;
-}
+}*/
 /* facebook links */
 .ihArticleContainer .item-body a[href*="on.fb"] {
 	color: #3b5998;
@@ -22,4 +26,7 @@
 	padding: 10px;
 	border: none;
 	border-bottom: 1px solid #DDD;
+}
+.ihArticleCommentsContainer .ihArticleCommentBody {
+	padding: 0;
 }
