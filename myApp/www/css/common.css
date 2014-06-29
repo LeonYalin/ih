@@ -7,7 +7,7 @@ body {
 }
 
 .ihList .item-content{
-	padding: 0px 10px;
+	padding: 10px;
 }
 .ihList .list {
 	-webkit-overflow-scrolling: touch;
@@ -16,7 +16,6 @@ body {
 
 .ihListItem {
 	-webkit-transform: translate3d(0px, 0px, 0px) scale(1);
-	padding: 0;
 }
 .ihListItem .item {
 	padding: 10px;
@@ -30,10 +29,13 @@ body {
 	margin: 0;
 	padding: 5px 0;
 }
+.ihListItem h2 {
+	padding-bottom: 10px;
+}
 .ihListItem .ihArticleListItemIntro {
 	position: relative;
-	line-height: 18px;
-	height: 36px;
+	line-height: 20px;
+	height: 40px;
 	padding-top: 0px;
 	text-overflow: clip;
 	white-space: normal;
@@ -43,12 +45,12 @@ body {
   position: absolute;
   bottom: 0;
   left: 0;
-  width: 50%;
-  height: 18px;
+  width: 70%;
+  height: 20px;
   background: linear-gradient(to right, rgba(255, 255, 255, 1), rgba(255, 255, 255, 0) 50%);
 }
 .ihListItem .ihArticleListItemDate {
-	padding: 5px 0 0 0;
+	padding: 7px 0 0 0;
 }
 
 .ihBottomMargin {
@@ -64,7 +66,8 @@ body {
 }
 
 .bar.bar-assertive, .item.item-assertive, .badge.badge-assertive {
-	background-color: #C9000A;
+	background-color: #A70109;
+	border-color: #9C0008;
 }
 .item.item-divider {
 	background-color: #A70109;

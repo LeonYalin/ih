@@ -5,6 +5,7 @@
 }
 .ihArticleContainer .ihListItem {
 	border: none;
+	padding: 0;
 }
 .ihArticleContainer .ihListItem h2, .ihArticleContainer .ihListItem p, .ihArticleCommentsContainer .ihListItem h2, .ihArticleCommentsContainer .ihListItem p{
 	text-overflow: clip;

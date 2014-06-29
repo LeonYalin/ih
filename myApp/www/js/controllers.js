@@ -306,11 +306,11 @@ ctrlModule.controller('OpinionsCtrl', function($scope, $state, $q, $ihREST, $ihC
 		} else {
 			$ihUtil.showLoading();
 			$ihREST.loadOpinionsData().then(function (data) {
-
-				$scope.opinions = $ihOpinionsSrvc.buildOpinionsObj(data);
+				var opinions = $ihOpinionsSrvc.buildOpinionsObj(data);
+				$scope.opinions = opinions;
 
 				if (!opinionsCache) {
-					$ihCache.put('opinionsObj', data);
+					$ihCache.put('opinionsObj', opinions);
 				}
 
 				deferred.resolve();

@@ -1,24 +1,20 @@
 
-.ihCategoriesList li:first-child {
-	padding-top: 10px;
+.ihCategoriesList li:last-child .ihCategoriesListItem {
+	border-bottom: none;
 }
-.ihCategoriesList li:last-child {
-	padding-bottom: 10px;
-}
-
 .ihCategoriesListItem {
 	border: none;
 	padding: 0px 10px;
+	border-bottom: 1px solid #A70109;
 }
 .ihCategoriesListItem a {
-	border-left: 1px solid #DDD !important;
-	border-right: 1px solid #DDD !important;
-	border-bottom: none;
+	border: none;
 }
-.ihCategoriesList li:last-child a {
-	border-bottom: 1px solid #DDD;
+.ihCategoriesListItem a h2 {
+	padding: 10px;
 }
 .ihCategoriesListItem .badge {
 	right: auto;
 	left: 20px;
+	top: 18px;
 }

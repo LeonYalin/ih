@@ -2,7 +2,10 @@
 .ihRSSList .ihListItem {
 	padding: 15px 10px;
 	border: none;
-	border-bottom: 1px solid #DDD;
+	border-bottom: 1px solid #A70109;
+}
+.ihRSSList ul li:last-child .ihListItem.item {
+	border-bottom: none; 
 }
 .ihRSSList h2, .ihRSSList p {
 	padding: 0;

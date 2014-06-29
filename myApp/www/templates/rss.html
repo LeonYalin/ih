@@ -4,13 +4,17 @@
 	</ion-nav-buttons>
 	<ion-content class="has-header">
 		<div class="ihList ihRSSList">
-			<ion-item ng-repeat="item in rss" class="ihListItem">
-				<p>
-					<span>{{item.date.formatted}}</span>
-					<span class="ihDoubleSlash ihColorRed">{{item.date.timestamp | date: 'H:mm'}}</span>
-				</p>
-				<h2>{{item.text}}</h2>
-			</ion-item>
+			<ul>
+				<li ng-repeat="item in rss">
+					<ion-item class="ihListItem">
+						<p>
+							<span>{{item.date.formatted}}</span>
+							<span class="ihDoubleSlash ihColorRed">{{item.date.timestamp | date: 'H:mm'}}</span>
+						</p>
+						<h2>{{item.text}}</h2>
+					</ion-item>
+				</li>
+			</ul>
 		</div>
 	</ion-content>
 </ion-view>
