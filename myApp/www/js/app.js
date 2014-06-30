@@ -55,6 +55,15 @@ appModule.config(function($stateProvider, $urlRouterProvider, $httpProvider) {
 				}
 			}
 		})
+		.state('app.opinion', {
+			url: "/opinions/:opinionId",
+			views: {
+				'menuContent' :{
+					templateUrl: "templates/opinion.html",
+					controller: 'OpinionCtrl'
+				}
+			}
+		})
 		.state('app.favorites', {
 			url: "/favorites",
 			views: {
@@ -70,6 +79,15 @@ appModule.config(function($stateProvider, $urlRouterProvider, $httpProvider) {
 				'menuContent' :{
 					templateUrl: "templates/rss.html",
 					controller: 'RSSCtrl'
+				}
+			}
+		})
+		.state('app.weather', {
+			url: "/weather",
+			views: {
+				'menuContent' :{
+					templateUrl: "templates/weather.html",
+					controller: 'WeatherCtrl'
 				}
 			}
 		})

@@ -1,0 +1,115 @@
+
+.ihWeatherList .ihListItem.ihWeatherListItem {
+	padding: 10px;
+	border: none;
+	border-bottom: 1px solid #A70109;
+}
+.ihWeatherList li:last-child .ihWeatherListItem {
+	border-bottom: none;
+}
+
+.ihWeatherListItem .ihWeatherCity {
+	font-size: 24px;
+	padding-bottom: 18px;
+}
+.ihWeatherListItem .ihWeatherDegreeSign {
+	font-size: 20px;
+}
+.ihWeatherListItem .ihWeatherDescr {
+	font-size: 18px;
+}
+.ihWeatherListItem p {
+	padding-top: 0px;
+}
+.ihWeatherListItem .item-thumbnail-right {
+	text-decoration: none;
+	display: block;
+	border: none;
+	height: 100px;
+	padding: 0px 110px 0px 0px;
+}
+.ihWeatherListItem .item-thumbnail-right:hover, .ihWeatherListItem .item-thumbnail-right:active {
+	background-color: transparent;
+}
+.ihWeatherListItem .item-thumbnail-right .ihArticleImg {
+	position: absolute;
+	top: 10px;
+	right: 10px;
+	max-width: 100px;
+	max-height: 100px;
+	border: 1px solid;
+	border-color: #707070;
+	border-radius: 50%;
+}
+.ihWeatherBGSunny {
+	background-color: #BDBD00;
+	border-color: #818102 !important;
+}
+.ihWeatherBGWarm {
+	background-color: #CF8600;
+	border-color: #818102 !important;
+}
+.ihWeatherBGPartCloud {
+	background-color: #C7C7C7;
+	border-color: #8F8F8F !important;
+}
+.ihWeatherBGCloud {
+	background-color: #838383;
+	border-color: #464646 !important;
+}
+.ihWeatherBGCloudRain {
+	background-color: #8CB9C7;
+	border-color: #6E8F99 !important;
+}
+.ihWeatherBGRain {
+	background-color: #4491B6;
+	border-color: #255166 !important;
+}
+
+.ihWeeklyWeatherListItemContainer > ul:after {
+	content: '';
+	display: table;
+	clear: both;
+}
+.ihWeeklyWeatherListItemContainer > ul > li {
+	float: left;
+	width: 16.66666666666666%;
+	padding: 10px 5px;
+	border-right: 1px solid #A70109;
+}
+.ihWeeklyWeatherListItemContainer > ul > li:last-child {
+	width: 16.6666666666667%;
+	border-right: none; 
+}
+
+.ihWeeklyWeatherListItem {
+	text-align: center;
+}
+.ihWeeklyWeatherListItem .ihWeeklyImg {
+	max-width: 100px;
+	max-height: 100px;
+	border: 1px solid;
+	border-color: #707070;
+	border-radius: 50%;
+}
+@media only screen and (max-width : 660px) {
+	.ihWeeklyWeatherListItem .ihWeeklyImg {
+		max-width: 80px;
+		max-height: 80px;
+	}
+	.ihWeatherListItem .ihWeatherCity {
+		font-size: 18px;
+	}
+	.ihWeatherListItem .ihWeatherDegreeSign {
+		font-size: 18px;
+	}
+	.ihWeatherListItem .ihWeatherDescr {
+		font-size: 16px;
+	}
+}
+
+.ihWeatherList .ihListItem.ihWeatherListItem.ihWeeklyWeatherListItemContainer {
+	padding: 0px;
+	border: none;
+	border-bottom: 1px solid #A70109;
+}

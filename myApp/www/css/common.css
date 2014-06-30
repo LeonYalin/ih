@@ -69,6 +69,21 @@ body {
 	background-color: #A70109;
 	border-color: #9C0008;
 }
+.tab-item {
+	font-size: 18px;
+	max-width: none;
+}
+.tabs-assertive > .tabs, .tabs.tabs-assertive {
+	background-color: #A70109;
+	border-color: #9C0008;
+}
 .item.item-divider {
 	background-color: #A70109;
+}
+
+.ihWeatherDegreeSign {
+	direction: ltr;
+}
+.ihWeatherDegreeSign:after {
+	content: ' C°'
 }

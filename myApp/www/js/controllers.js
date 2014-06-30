@@ -329,3 +329,80 @@ ctrlModule.controller('OpinionsCtrl', function($scope, $state, $q, $ihREST, $ihC
 	_init(state);
 
 });
+
+ctrlModule.controller('OpinionCtrl', function($scope, $stateParams, $state, $q, $ihUtil, $ihArticleSrvc, $ihOpinionsSrvc, $ihREST) {
+	var opId = $stateParams.opinionId;
+	var state = $state;
+
+	function _init(state) {
+		var deferred = $q.defer();
+
+		$ihUtil.showLoading();
+		$ihREST.loadOpinionData(opId).then(function (data) {
+
+			var opinion = $ihArticleSrvc.buildArticleObj(data);
+			opinion.content.intro = $ihOpinionsSrvc.fixOpinionIntro(opinion.content.intro);
+			$scope.opinion = angular.copy(opinion);
+
+			deferred.resolve();
+			$ihUtil.hideLoading();
+		}, function () {
+			deferred.reject();
+			$ihUtil.hideLoading();
+
+			state.go('app.error');
+		});
+
+		return deferred.promise;
+	}
+
+	_init(state).finally(function () {
+		$ihREST.loadArticleComment(opId).then(function (data) {
+			$scope.comments = data.comments;
+		}, function () {
+			// TODO: display a comment error message
+		});
+	});
+});
+
+ctrlModule.controller('WeatherCtrl', function($scope, $state, $q, $ihUtil, $ihREST, $ihWeatherSrvc, $ihCache) {
+	var state = $state,
+		weatherCache = $ihCache.get('weatherObj');
+
+	function _init(state) {
+		var deferred = $q.defer();
+
+		if (weatherCache) {
+			$scope.day = weatherCache[0];
+			$scope.week = weatherCache[1];
+			deferred.resolve();
+		} else {
+			$ihUtil.showLoading();
+			$ihREST.loadWeatherData().then(function (data) {
+
+				$ihWeatherSrvc.moveForeignCitiesToEnd(data[0]);
+				$ihWeatherSrvc.moveForeignCitiesToEnd(data[1]);
+
+				$scope.day = angular.copy(data[0]);
+				$scope.week = angular.copy(data[1]);
+
+				if (!weatherCache) {
+					$ihCache.put('weatherObj', data);
+				}
+
+				deferred.resolve();
+				$ihUtil.hideLoading();
+			}, function () {
+				deferred.reject();
+				$ihUtil.hideLoading();
+
+				state.go('app.error');
+			});
+		}
+
+		return deferred.promise;
+	}
+
+	_init(state);
+
+});

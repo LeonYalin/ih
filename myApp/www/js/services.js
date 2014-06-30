@@ -20,7 +20,10 @@ servModule.factory('$ihCONSTS', function(){
 	url.categories = url.apiDomain + 'category' + url.key + url.callback;
 	url.category = url.apiDomain + 'category/';
 	url.opinions = url.apiDomain + 'content/opinion' + url.key + url.callback;
+	url.opinion = url.apiDomain + 'content/opinion/';
 	url.search = url.apiDomain + 'search' + url.key + url.callback + url.lang.he + url.q;
+	url.weatherWeekly = url.apiDomain + 'content/weather/week' + url.key + url.callback + url.lang.he;
+	url.weatherDaily = url.apiDomain + 'content/weather/day' + url.key + url.callback + url.lang.he;
 
 	return {
 		url: url,
@@ -316,6 +319,19 @@ servModule.factory('$ihCategorySrvc', function($ihCONSTS, $ihHomepageSrvc){
 	};
 });
 
+servModule.factory('$ihWeatherSrvc', function(){
+	return {
+		moveForeignCitiesToEnd: function (arr) {
+			if (!arr) return;
+
+			var itemsToAdd = arr.splice(0, 3);
+			angular.forEach(itemsToAdd, function (item) {
+				arr.push(item);
+			});
+		}
+	};
+});
+
 servModule.factory('$ihOpinionsSrvc', function($ihCONSTS, $ihHomepageSrvc){
 	return {
 		fixOpinionIntro: function (introStr) {
@@ -491,6 +507,17 @@ servModule.factory('$ihREST', function($http, $q, $ihCONSTS){
 		},
 		loadOpinionsData: function () {
 			return this.loadData($ihCONSTS.url.opinions);
+		},
+		loadOpinionData: function (opId) {
+			return this.loadData($ihCONSTS.url.opinion + opId + $ihCONSTS.url.key + $ihCONSTS.url.callback);
+		},
+		loadWeatherData: function (opId) {
+			var promises = [
+				this.loadData($ihCONSTS.url.weatherDaily),
+				this.loadData($ihCONSTS.url.weatherWeekly)
+			];
+
+			return $q.all(promises);
 		}
 	};
 });

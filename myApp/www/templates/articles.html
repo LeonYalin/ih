@@ -5,8 +5,8 @@
 	<ion-content class="has-header" ng-show="articles">
 		<ion-refresher pulling-text="משוך לרענון..." on-refresh="doRefresh()"></ion-refresher>
 
-		<div class="ihRSSContainerWrapper">
-			<ion-item class="item ihRSSContainer" ng-click="goToRSS()">
+		<div class="ihRSSContainerWrapper" ng-click="goToRSS()">
+			<ion-item class="item ihRSSContainer">
 				<span ng-repeat="rssItem in articles.rss">
 					<span class="ihRSSItemTime ihDoubleSlash">{{rssItem.date.timestamp | date: 'H:mm'}}</span>
 					<span class="ihRSSItemText">{{rssItem.content.title}}</span>
@@ -20,10 +20,6 @@
 					<img class="full-image" ng-src="{{pri.images[0].path}}">
 					<h2>{{pri.content.title}}</h2>
 					<p class="ihArticleListItemIntro">{{pri.content.intro}}</p>
-					<p class="ihArticleListItemDate">
-						<span class="ihDoubleSlash ihColorRed">{{pri.author.name}}</span>
-						<span>{{pri.date.timestamp | date: 'H:mm'}}</span><span>&nbsp;</span><span>{{pri.date.formatted}}</span>
-					</p>
 				</a>
 			</ion-item>
 
@@ -31,7 +27,7 @@
 			<ul class="ihArticleListSection">
 				<li ng-repeat="sec in articles.secondary">
 					<ion-item class="ihListItem ihArticleListItem">
-						<a class="item-thumbnail-right" href="#/app/articles/{{sec.nid}}">
+						<a class="item-thumbnail-right ihArticleListItemWrapper" href="#/app/articles/{{sec.nid}}">
 							<img ng-src="{{sec.images[0].path}}" class="ihArticleImg">
 							<h2>{{sec.content.title}}</h2>
 							<p class="ihArticleListItemIntro">{{sec.content.intro}}</p>

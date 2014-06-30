@@ -1,0 +1,61 @@
+<ion-view title="מזג האוויר" hide-back-button="true">
+	<ion-nav-buttons side="right">
+		<button menu-toggle="right"class="button button-icon icon ion-navicon"></button>
+	</ion-nav-buttons>
+		<ion-tabs class="tabs-assertive">
+
+			<ion-tab title="היום">
+			<ion-content class="has-header">
+				<ion-list ng-show="day" class="ihList">
+					<ul class="ihArticleListSection ihWeatherList">
+						<li ng-repeat="item in day">
+							<ion-item class="ihListItem ihWeatherListItem">
+								<div ng-repeat="subItem in item.weather" class="item-thumbnail-right">
+									<img ng-src="{{subItem.icon_url}}" class="ihArticleImg"
+									ng-class="{ 'ihWeatherBGSunny': subItem.description === 'בהיר',
+					 							'ihWeatherBGWarm': subItem.description === 'חם',
+					 							'ihWeatherBGCloud': subItem.description === 'מעונן',
+					 							'ihWeatherBGCloudRain': subItem.description === 'מעונן חלקית וגשום',
+					 							'ihWeatherBGRain': subItem.description === 'גשום',
+					 							'ihWeatherBGPartCloud': subItem.description === 'מעונן חלקית' }">
+									<h2 class="ihWeatherCity">{{item.city}}</h2>
+									<p class="ihWeatherDegreeSign">{{subItem.low}}-{{subItem.high}}</p>
+									<p class="ihWeatherDescr">{{subItem.description}}</p>
+								</div>
+							</ion-item>
+						</li>
+					</ul>
+				</ion-list>
+			</ion-content>
+			</ion-tab>
+
+			<ion-tab title="שבועי">
+				<ion-content class="has-header">
+					<ion-list ng-show="week" class="ihList">
+						<ul class="ihWeatherList">
+							<li ng-repeat="item in week">
+								<div class="item item-divider item-assertive">{{item.city}}</div>
+								<ion-item class="ihListItem ihWeatherListItem ihWeeklyWeatherListItemContainer">
+									<ul>
+										<li ng-repeat="subItem in item.weather" class="ihWeeklyWeatherListItem">
+											<img ng-src="{{subItem.icon_url}}" class="ihWeeklyImg"
+											ng-class="{ 'ihWeatherBGSunny': subItem.description === 'בהיר',
+						 							'ihWeatherBGWarm': subItem.description === 'חם',
+						 							'ihWeatherBGCloud': subItem.description === 'מעונן',
+						 							'ihWeatherBGCloudRain': subItem.description === 'מעונן חלקית וגשום',
+						 							'ihWeatherBGRain': subItem.description === 'גשום',
+						 							'ihWeatherBGPartCloud': subItem.description === 'מעונן חלקית' }">
+											<h2 class="ihWeatherCity">{{subItem.date}}</h2>
+											<p class="ihWeatherDescr">{{subItem.description}}</p>
+											<p class="ihWeatherDegreeSign">{{subItem.low}}-{{subItem.high}}</p>
+										</li>
+									</ul>
+								</ion-item>
+							</li>
+						</ul>
+					</ion-list>
+			</ion-content>
+			</ion-tab>
+
+		</ion-tabs>
+</ion-view>

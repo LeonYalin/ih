@@ -1,12 +1,12 @@
 .ihRSSContainerWrapper {
 	background-color: #646464;
+	cursor: pointer;
 }
 .ihRSSContainer {
 	visibility: hidden; /* For animation */
 	display: inline-block;
 	text-overflow: clip;
 	overflow: visible;
-	cursor: pointer;
 	border: none;
 	padding: 7px;
 	background-color: transparent;
@@ -15,7 +15,7 @@
 	-webkit-animation-play-state: paused;
 }
 .ihRSSContainer .ihRSSItemTime {
-	color: #FF3842;
+	color: #FC313C;
 }
 .ihRSSContainer .ihRSSItemText {
 	color: white;
@@ -73,7 +73,8 @@
 	border: none;
 }
 .ihArticleMainItem.ihListItem .ihArticleListItemIntro {
-	height: auto;
+	padding-bottom: 0px;
+	overflow: hidden;
 }
 .ihArticleMainItem h2, .ihArticleMainItem p, .ihArticleMainItem .ihArticleListItemDate {
 	padding-left: 10px;
