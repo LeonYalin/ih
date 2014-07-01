@@ -15,7 +15,7 @@
 .ihWeatherListItem .ihWeatherDegreeSign {
 	font-size: 50px;
 	line-height: 54px;
-	padding: 10px 0px 0px 0px;
+	padding: 6px 0px 0px 0px;
 }
 .ihWeatherListItem .ihWeatherDescr {
 	font-size: 30px;
@@ -91,6 +91,7 @@
 .ihWeeklyWeatherListItem .ihWeeklyImg {
 	max-width: 100px;
 	max-height: 100px;
+	margin-top: 5px;
 	border: 1px solid;
 	border-color: #707070;
 	border-radius: 50%;
@@ -102,8 +103,11 @@
 }
 .ihWeeklyWeatherListItem .ihWeatherDescr {
 	font-size: 24px;
-	line-height: 28px;
-	padding: 0;
+	line-height: 24px;
+	padding: 5px 0 0 0;
+}
+.ihWeeklyWeatherListItem .ihWeatherCity {
+	padding-bottom: 25px;
 }
 
 .ihWeatherList .ihListItem.ihWeatherListItem.ihWeeklyWeatherListItemContainer {

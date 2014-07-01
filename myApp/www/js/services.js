@@ -24,6 +24,7 @@ servModule.factory('$ihCONSTS', function(){
 	url.search = url.apiDomain + 'search' + url.key + url.callback + url.lang.he + url.q;
 	url.weatherWeekly = url.apiDomain + 'content/weather/week' + url.key + url.callback + url.lang.he;
 	url.weatherDaily = url.apiDomain + 'content/weather/day' + url.key + url.callback + url.lang.he;
+	url.horoscope = url.apiDomain + 'content/horoscope/week' + url.key + url.callback + url.lang.he;
 
 	return {
 		url: url,
@@ -335,7 +336,7 @@ servModule.factory('$ihWeatherSrvc', function(){
 
 			angular.forEach(arr, function (item) {
 				if (item.weather.length == 7) {
-					item.weather.splice(6, 7); // remove all unneccesary weather items except first
+					item.weather.splice(0, 6); // remove all unneccesary weather items except first
 				}
 			});
 		},
@@ -359,10 +360,61 @@ servModule.factory('$ihWeatherSrvc', function(){
 	};
 });
 
+servModule.factory('$ihHoroscopeSrvc', function(){
+	return {
+		fillHorObjDates: function (horObj, arr) {
+			if (arr[0] && arr[0].forecasts)
+			angular.forEach(arr[0].forecasts, function (item) {
+				horObj.push({
+					date: item.date,
+					forecasts: []
+				});
+			});
+		},
+		fillHorObjDatesData: function (horObj, arr) {
+			angular.forEach(horObj, function (horItem, horIndex) {
+				angular.forEach(arr, function (arrItem, arrIndex) {
+					var arrItemName = arrItem.name;
+					angular.forEach(arrItem.forecasts, function (subItem, subIndex) {
+						if (horObj[horIndex].date === subItem.date) {
+							if (subIndex < 12)  { // we want only 12 items
+								horObj[horIndex].forecasts.push({
+									name: arrItemName,
+									forecast: subItem.forecast,
+									icon: subItem.icon
+								});
+							}
+						}
+
+					});
+				});
+			});
+		},
+		checkArrForUnnItems: function (arr) {
+			angular.forEach(arr, function (item) {
+				if (item.forecasts.length > 6) {
+					item.forecasts.splice(0, 6);
+				}
+			});
+		},
+		buildHoroscopeObj: function (arr) {
+			if (!arr) return [];
+
+			var horObj = [];
+
+			// this.checkArrForUnnItems(arr);
+			this.fillHorObjDates(horObj, arr);
+			this.fillHorObjDatesData(horObj, arr);
+
+			return horObj;
+		}
+	};
+});
+
 servModule.factory('$ihOpinionsSrvc', function($ihCONSTS, $ihHomepageSrvc){
 	return {
 		fixOpinionIntro: function (introStr) {
-			if (!introStr) return ' ';
+			if (!introStr) return '';
 
 			var openDivRegex = new RegExp(/<div>/g), closeDivRegex = new RegExp(/<\/div>/g), ellipRegex = new RegExp(/&hellip;/g),
 				openStrongRegex = new RegExp(/<strong>/g), closeStrongRegex = new RegExp(/<\/strong>/g),
@@ -545,6 +597,9 @@ servModule.factory('$ihREST', function($http, $q, $ihCONSTS){
 			];
 
 			return $q.all(promises);
+		},
+		loadHoroscopeData: function () {
+			return this.loadData($ihCONSTS.url.horoscope);
 		}
 	};
 });

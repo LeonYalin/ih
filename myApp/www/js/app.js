@@ -91,6 +91,15 @@ appModule.config(function($stateProvider, $urlRouterProvider, $httpProvider) {
 				}
 			}
 		})
+		.state('app.horoscope', {
+			url: "/horoscope",
+			views: {
+				'menuContent' :{
+					templateUrl: "templates/horoscope.html",
+					controller: 'HoroscopeCtrl'
+				}
+			}
+		})
 		.state('app.categories', {
 			url: "/categories",
 			views: {

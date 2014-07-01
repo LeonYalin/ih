@@ -63,8 +63,8 @@ directModule.directive('ihPie', function ($compile, $timeout, $ihCache) {
 				{ index: 2, title: 'RSS', icon: 'radio-waves' },
 				{ index: 3, title: 'Search', icon: 'ios7-search-strong' },
 				{ index: 4, title: 'Categories', icon: 'android-sort' },
-				{ index: 5, title: 'Settings', icon: 'settings' },
-				{ index: 6, title: 'Home', icon: 'home' },
+				{ index: 5, title: 'Opinions', icon: 'person-stalker' },
+				{ index: 6, title: 'Horoscope', icon: 'aperture' },
 				{ index: 7, title: 'Weather', icon: 'ios7-partlysunny' },
 				{ index: 8, title: 'Share', icon: 'android-share' }
 			];

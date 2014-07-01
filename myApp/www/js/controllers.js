@@ -405,3 +405,42 @@ ctrlModule.controller('WeatherCtrl', function($scope, $state, $q, $ihUtil, $ihRE
 	_init(state);
 
 });
+
+ctrlModule.controller('HoroscopeCtrl', function($scope, $state, $q, $ihUtil, $ihREST, $ihHoroscopeSrvc, $ihCache) {
+	var state = $state,
+		horoscopeCache = $ihCache.get('horoscopeObj');
+
+	function _init(state) {
+		var deferred = $q.defer();
+
+		if (horoscopeCache) {
+			$scope.week = horoscopeCache;
+			deferred.resolve();
+		} else {
+			$ihUtil.showLoading();
+			$ihREST.loadHoroscopeData().then(function (data) {
+
+				var horObj = $ihHoroscopeSrvc.buildHoroscopeObj(data);
+
+				$scope.week = angular.copy(horObj);
+
+				if (!horoscopeCache) {
+					$ihCache.put('horoscopeObj', horObj);
+				}
+
+				deferred.resolve();
+				$ihUtil.hideLoading();
+			}, function () {
+				deferred.reject();
+				$ihUtil.hideLoading();
+
+				state.go('app.error');
+			});
+		}
+
+		return deferred.promise;
+	}
+
+	_init(state);
+
+});

@@ -16,14 +16,18 @@
 }
 
 .ihSideMenuList .ion-ios7-search-strong {
-	font-size: 20px;
-	right: 16px;
-	margin-top: 2px;
+	font-size: 21px;
+	right: 15px;
+	margin-top: 1px;
 }
 .ihSideMenuList .ion-ios7-partlysunny {
-	font-size: 25px;
-	right: 13px;
-	margin-top: -2px;
+	font-size: 27px;
+	right: 14px;
+	margin-top: -4px;
+}
+.ihSideMenuList .ion-aperture {
+	font-size: 19px;
+	right: 14px;
 }
 .ihSideMenuList .ion-star {
 	font-size: 23px;
@@ -35,8 +39,8 @@
 	right: 14px;
 }
 .ihSideMenuList .ion-radio-waves {
-	font-size: 22px;
-	margin-top: 1px;
+	font-size: 23px;
+	margin-top: 0px;
 }
 
 .ihSideMenuList .ion-android-sort {
@@ -45,7 +49,7 @@
 }
 
 .ihSideMenuList .ion-home {
-	font-size: 20px;
+	font-size: 21px;
 	right: 16px;
 	margin-top: 0px;
 }
