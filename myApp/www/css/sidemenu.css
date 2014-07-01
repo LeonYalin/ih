@@ -16,8 +16,9 @@
 }
 
 .ihSideMenuList .ion-ios7-search-strong {
-	font-size: 19px;
+	font-size: 20px;
 	right: 16px;
+	margin-top: 2px;
 }
 .ihSideMenuList .ion-ios7-partlysunny {
 	font-size: 25px;
@@ -25,7 +26,7 @@
 	margin-top: -2px;
 }
 .ihSideMenuList .ion-star {
-	font-size: 22px;
+	font-size: 23px;
 	margin-top: -1px;
 	right: 14px;
 }
@@ -34,7 +35,7 @@
 	right: 14px;
 }
 .ihSideMenuList .ion-radio-waves {
-	font-size: 21px;
+	font-size: 22px;
 	margin-top: 1px;
 }
 
@@ -44,7 +45,7 @@
 }
 
 .ihSideMenuList .ion-home {
-	font-size: 19px;
+	font-size: 20px;
 	right: 16px;
 	margin-top: 0px;
 }

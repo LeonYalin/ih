@@ -65,6 +65,12 @@ body {
 	color: #C9000A;
 }
 
+.ihClearFix:after {
+	content: '';
+	display: table;
+	clear: both;
+}
+
 .bar.bar-assertive, .item.item-assertive, .badge.badge-assertive {
 	background-color: #A70109;
 	border-color: #9C0008;

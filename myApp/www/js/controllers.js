@@ -380,8 +380,7 @@ ctrlModule.controller('WeatherCtrl', function($scope, $state, $q, $ihUtil, $ihRE
 			$ihUtil.showLoading();
 			$ihREST.loadWeatherData().then(function (data) {
 
-				$ihWeatherSrvc.moveForeignCitiesToEnd(data[0]);
-				$ihWeatherSrvc.moveForeignCitiesToEnd(data[1]);
+				$ihWeatherSrvc.prepareWeatherObj(data);
 
 				$scope.day = angular.copy(data[0]);
 				$scope.week = angular.copy(data[1]);

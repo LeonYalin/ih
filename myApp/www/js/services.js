@@ -321,6 +321,24 @@ servModule.factory('$ihCategorySrvc', function($ihCONSTS, $ihHomepageSrvc){
 
 servModule.factory('$ihWeatherSrvc', function(){
 	return {
+		removeUnnItems: function (arr) {
+			if (!arr) return;
+
+			angular.forEach(arr, function (item) {
+				if (item.weather && item.weather.length > 1) {
+					item.weather.splice(1, item.weather.length); // remove all unneccesary weather items except first
+				}
+			});
+		},
+		removeWeek7thItem: function (arr) {
+			if (!arr) return;
+
+			angular.forEach(arr, function (item) {
+				if (item.weather.length == 7) {
+					item.weather.splice(6, 7); // remove all unneccesary weather items except first
+				}
+			});
+		},
 		moveForeignCitiesToEnd: function (arr) {
 			if (!arr) return;
 
@@ -328,6 +346,15 @@ servModule.factory('$ihWeatherSrvc', function(){
 			angular.forEach(itemsToAdd, function (item) {
 				arr.push(item);
 			});
+		},
+		prepareWeatherObj: function (arr) {
+			var self = this;
+
+			angular.forEach(arr, function (item) {
+				self.moveForeignCitiesToEnd(item);
+			});
+			self.removeUnnItems(arr[0]); // delete day weather duplications
+			self.removeWeek7thItem(arr[1]); // for good UX look we need only 6 days
 		}
 	};
 });

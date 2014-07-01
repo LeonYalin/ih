@@ -9,6 +9,7 @@
 				<ion-list ng-show="day" class="ihList">
 					<ul class="ihArticleListSection ihWeatherList">
 						<li ng-repeat="item in day">
+							<div class="item item-divider item-assertive">{{item.city}}</div>
 							<ion-item class="ihListItem ihWeatherListItem">
 								<div ng-repeat="subItem in item.weather" class="item-thumbnail-right">
 									<img ng-src="{{subItem.icon_url}}" class="ihArticleImg"
@@ -18,7 +19,6 @@
 					 							'ihWeatherBGCloudRain': subItem.description === 'מעונן חלקית וגשום',
 					 							'ihWeatherBGRain': subItem.description === 'גשום',
 					 							'ihWeatherBGPartCloud': subItem.description === 'מעונן חלקית' }">
-									<h2 class="ihWeatherCity">{{item.city}}</h2>
 									<p class="ihWeatherDegreeSign">{{subItem.low}}-{{subItem.high}}</p>
 									<p class="ihWeatherDescr">{{subItem.description}}</p>
 								</div>
@@ -36,7 +36,7 @@
 							<li ng-repeat="item in week">
 								<div class="item item-divider item-assertive">{{item.city}}</div>
 								<ion-item class="ihListItem ihWeatherListItem ihWeeklyWeatherListItemContainer">
-									<ul>
+									<ul class="ihClearFix">
 										<li ng-repeat="subItem in item.weather" class="ihWeeklyWeatherListItem">
 											<img ng-src="{{subItem.icon_url}}" class="ihWeeklyImg"
 											ng-class="{ 'ihWeatherBGSunny': subItem.description === 'בהיר',
@@ -45,9 +45,9 @@
 						 							'ihWeatherBGCloudRain': subItem.description === 'מעונן חלקית וגשום',
 						 							'ihWeatherBGRain': subItem.description === 'גשום',
 						 							'ihWeatherBGPartCloud': subItem.description === 'מעונן חלקית' }">
-											<h2 class="ihWeatherCity">{{subItem.date}}</h2>
-											<p class="ihWeatherDescr">{{subItem.description}}</p>
+											<h2 class="ihWeatherCity">{{subItem.date | ihParseDate | date: 'dd/MM'}}</h2>
 											<p class="ihWeatherDegreeSign">{{subItem.low}}-{{subItem.high}}</p>
+											<p class="ihWeatherDescr">{{subItem.description}}</p>
 										</li>
 									</ul>
 								</ion-item>
