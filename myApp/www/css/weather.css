@@ -2,7 +2,7 @@
 .ihWeatherList .ihListItem.ihWeatherListItem {
 	padding: 10px;
 	border: none;
-	border-bottom: 1px solid #A70109;
+	/*border-bottom: 1px solid #A70109;*/
 }
 .ihWeatherList li:last-child .ihWeatherListItem {
 	border-bottom: none;
@@ -102,12 +102,12 @@
 	padding: 0;
 }
 .ihWeeklyWeatherListItem .ihWeatherDescr {
-	font-size: 24px;
+	font-size: 20px;
 	line-height: 24px;
-	padding: 5px 0 0 0;
+	padding: 0;
 }
 .ihWeeklyWeatherListItem .ihWeatherCity {
-	padding-bottom: 25px;
+	padding-bottom: 15px;
 }
 
 .ihWeatherList .ihListItem.ihWeatherListItem.ihWeeklyWeatherListItemContainer {

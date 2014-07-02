@@ -30,8 +30,8 @@
 	right: 14px;
 }
 .ihSideMenuList .ion-star {
-	font-size: 23px;
-	margin-top: -1px;
+	font-size: 24px;
+	margin-top: -2px;
 	right: 14px;
 }
 .ihSideMenuList .ion-person-stalker {
@@ -47,9 +47,8 @@
 	font-size: 16px;
 	right: 14px;
 }
-
 .ihSideMenuList .ion-home {
 	font-size: 21px;
-	right: 16px;
-	margin-top: 0px;
+	right: 15px;
+	margin-top: -1px;
 }

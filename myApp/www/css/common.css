@@ -71,9 +71,15 @@ body {
 	clear: both;
 }
 
+/* Red colors */
 .bar.bar-assertive, .item.item-assertive, .badge.badge-assertive {
 	background-color: #A70109;
 	border-color: #9C0008;
+}
+/* Grey colors */
+.item.item-divider.item-stable {
+	background-color: #DDD;
+	border-color: #707070;
 }
 .tab-item {
 	font-size: 18px;
@@ -85,6 +91,8 @@ body {
 }
 .item.item-divider {
 	background-color: #A70109;
+	border-left: none;
+	border-right: none;
 }
 
 .ihWeatherDegreeSign {
