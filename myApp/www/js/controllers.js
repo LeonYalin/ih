@@ -7,10 +7,19 @@ ctrlModule.controller('AppCtrl', function($scope, $ihUtil) {
 });
 
 ctrlModule.controller('ArticlesCtrl',
-	function($scope, $q, $state, $ihUtil, $ihHomepageSrvc, $ihREST, $ihCache, $ionicListDelegate, $timeout, $compile, toaster) {
+	function($scope, $q, $state, $ihUtil, $ihHomepageSrvc, $ihREST, $ihCache, $ionicListDelegate, toaster) {
 	var state = $state,
 		articlesCache = $ihCache.get('articlesObj'),
+		splashShown = $ihCache.get('splashShown'),
 		favoritesCache = $ihUtil.getObjectFromLocalStorage('favoritesObj');
+
+	if (splashShown === true) {
+		$scope.articles = articlesCache;
+		$ihHomepageSrvc.animateRSS();
+	}
+	if (splashShown === false) {
+		_init(state);
+	}
 
 	function _init(state, shouldRefreshCache) {
 		var deferred = $q.defer();
@@ -45,7 +54,11 @@ ctrlModule.controller('ArticlesCtrl',
 		return deferred.promise;
 	}
 
-	_init(state);
+	$scope.$on('ihSplashScreenShown', function(event, args) {
+		var newArticlesCache = $ihCache.get('articlesObj');
+		$scope.articles = newArticlesCache;
+		$ihHomepageSrvc.animateRSS();
+	});
 
 	$scope.doRefresh = function() {
 		_init(state, true).finally(function () {
@@ -194,7 +207,7 @@ ctrlModule.controller('CategoryCtrl', function($scope, $state, $stateParams, $q,
 ctrlModule.controller('ErrorCtrl', function($scope, $ihCache) {
 	var defaultErrorText = "אירעה שגיאה בעת טעינת נתונים";
 
-	$scope.errorTitle = 'אופס! משהו קרה פה..';
+	$scope.errorTitle = 'אופס!';
 	$scope.errorText = $ihCache.get('errorText') || defaultErrorText;
 });
 

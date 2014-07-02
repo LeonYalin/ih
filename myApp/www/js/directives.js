@@ -122,3 +122,40 @@ directModule.directive('ihPie', function ($compile, $timeout, $ihCache) {
 		}
 	};
 });
+
+directModule.directive('ihSplashScreen', function ($ihREST, $timeout, $state, $ihUtil, $ihCache, $ihHomepageSrvc) {
+	return {
+		restrict: 'E',
+		template: '<div class="ihSplash" ng-show="showLoading === true"><i class="icon ion-loading-c"></i></div>',
+		link: function($scope, element, attrs) {
+			var state = $state,
+				$el = angular.element(element),
+				articlesCache = $ihCache.get('articlesObj');
+
+			$scope.showLoading = true;
+			$ihREST.loadHomepageData().then(function (data) {
+				var articles = $ihHomepageSrvc.buildArticlesObj(data);
+
+				// cash articles object to prevent page reload
+				if (!articlesCache || shouldRefreshCache) {
+					$ihCache.put('splashShown', true);
+					$ihCache.put('articlesObj', articles);
+				}
+
+				var $splash = angular.element($el.children()[0]);
+				$splash.addClass('ihOpacity0');
+				$scope.$broadcast('ihSplashScreenShown');
+
+				/* Dismiss splash after 500ms */
+				$timeout(function () {
+					$scope.showLoading = false;
+				}, 300);
+			}, function () {
+				$ihCache.put('splashShown', false);
+				$scope.showLoading = false;
+
+				state.go('app.error');
+			});
+		}
+	};
+});

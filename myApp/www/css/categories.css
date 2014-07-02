@@ -10,6 +10,9 @@
 .ihCategoriesListItem a {
 	border: none;
 }
+.ihCategoriesListItem a:hover, .ihCategoriesListItem:active {
+	background-color: transparent;
+}
 .ihCategoriesListItem a h2 {
 	padding: 10px;
 }

@@ -76,7 +76,7 @@ servModule.factory('$ihUtil', function($ionicLoading, $ionicPopup, $ihCONSTS, $w
 	};
 });
 
-servModule.factory('$ihPopupUtil', function($ionicPopup, $ionicModal, $timeout){
+servModule.factory('$ihPopupUtil', function($ionicPopup, $ionicModal){
 	return {
 		showPopup: function ($scope) {
 			var myPopup = $ionicPopup.show({
