@@ -320,6 +320,29 @@ servModule.factory('$ihCategorySrvc', function($ihCONSTS, $ihHomepageSrvc){
 	};
 });
 
+servModule.factory('$ihSearchSrvc', function($ihCONSTS, $ihHomepageSrvc, $ihOpinionsSrvc){
+	return {
+		checkForOpinions: function (arr) {
+			if (!arr) return;
+
+			angular.forEach(arr, function(item) {
+				if (item.type === 'opinion') {
+					item.content.intro = $ihOpinionsSrvc.fixOpinionIntro(item.content.intro);
+				}
+			});
+		},
+		buildSearchObj: function (data) {
+			if (!data) return;
+
+			var searchObj = data;
+			$ihHomepageSrvc.fixImagePath(searchObj);
+			this.checkForOpinions(searchObj);
+
+			return searchObj;
+		}
+	};
+});
+
 servModule.factory('$ihWeatherSrvc', function(){
 	return {
 		removeUnnItems: function (arr) {

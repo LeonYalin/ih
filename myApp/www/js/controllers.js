@@ -198,14 +198,16 @@ ctrlModule.controller('ErrorCtrl', function($scope, $ihCache) {
 	$scope.errorText = $ihCache.get('errorText') || defaultErrorText;
 });
 
-ctrlModule.controller('SearchCtrl', function($scope, $state, $q, $ihUtil, $ihREST, $ihCategorySrvc, $ihPopupUtil) {
-	var state = $state;
+ctrlModule.controller('SearchCtrl', function($scope, $state, $q, $ihUtil, $ihREST, $ihSearchSrvc, $ihCache, $ihPopupUtil) {
+	var state = $state,
+		searchCache = $ihCache.get('searchObj');
 
 	$scope.search = function (query) {
 		_searchIH(state, query);
 	};
+	$scope.searchQuery = '';
 
-	$scope.showModal = function () {
+	$scope.showModal = function() {
 		$ihPopupUtil.showModal($scope);
 	};
 
@@ -217,7 +219,15 @@ ctrlModule.controller('SearchCtrl', function($scope, $state, $q, $ihUtil, $ihRES
 		$ihUtil.showLoading();
 		$ihREST.loadSearchResults(query).then(function (data) {
 
-			$scope.results = $ihCategorySrvc.buildCategoryObj(data.results);
+			var results = $ihSearchSrvc.buildSearchObj(data.results);
+			$scope.results = results;
+
+			if (!searchCache) {
+				$ihCache.put('searchObj', {
+					results: results,
+					searchQuery: query
+				});
+			}
 
 			deferred.resolve();
 			$ihUtil.hideLoading();
@@ -230,6 +240,15 @@ ctrlModule.controller('SearchCtrl', function($scope, $state, $q, $ihUtil, $ihRES
 
 		return deferred.promise;
 	}
+
+	function _init() {
+		if (searchCache) {
+			$scope.results = searchCache.results;
+			$scope.searchQuery = searchCache.searchQuery;
+		}
+	}
+	_init();
+
 });
 
 ctrlModule.controller('FavoritesCtrl', function($scope, $ihCache, $ihUtil, $ihFavoritesSrvc, toaster) {

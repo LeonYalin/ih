@@ -3,24 +3,22 @@
 		<button menu-toggle="right" class="button button-icon icon ion-navicon"></button>
 	</ion-nav-buttons>
 
-	<ion-content scroll="false">
-		<div class="list list-inset ihSearchContainer">
-			<button class="button button-block button-stable" ng-click="showModal()">Show Popup</button>
-			<form action="">
-				<label class="item item-input">
-					<i class="icon ion-search placeholder-icon"></i>
-					<input type="text" ng-model="searchQuery" placeholder="אני רוצה לקרוא על...">
-				</label>
-				<button type="submit" class="button button-block button-stable" ng-click="search(searchQuery)">חפש</button>
-			</form>
-		</div>
-	</ion-content>
+	<div class="list list-inset has-header ihSearchContainer">
+		<button class="button button-block button-stable" ng-click="showModal()">Show Popup</button>
+		<form action="">
+			<label class="item item-input">
+				<i class="icon ion-search placeholder-icon"></i>
+				<input type="text" ng-model="searchQuery" placeholder="אני רוצה לקרוא על...">
+			</label>
+			<button type="submit" class="button button-block button-stable" ng-click="search(searchQuery)">חפש</button>
+		</form>
+	</div>
 	<ion-content class="ihSearchResultsContainer">
 		<ion-list can-swipe="false" ng-show="results" class="ihList">
 			<ul class="ihArticleListSection">
 				<li ng-repeat="res in results">
 					<ion-item class="ihListItem ihArticleListItem">
-						<a class="item item-thumbnail-right" href="#/app/articles/{{res.nid}}">
+						<a class="item item-thumbnail-right" href="#/app/{{res.type + 's'}}/{{res.nid}}">
 							<img ng-src="{{res.images[0].path}}" class="ihArticleImg">
 							<h2>{{res.content.title}}</h2>
 							<p class="ihArticleListItemIntro">{{res.content.intro}}</p>

@@ -3,7 +3,6 @@
 	position: relative;
 	width: 100%;
 }
-
 .ihSearchContainer .ion-search {
 	font-size: 18px;
 	position: relative;
@@ -13,7 +12,6 @@
 .ihSearchResultsContainer {
 	top: 244px;
 }
-
 .ihSearchResultsContainer .ihNoResults {
 	padding: 10px;
 }
