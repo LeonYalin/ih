@@ -131,31 +131,34 @@ directModule.directive('ihSplashScreen', function ($ihREST, $timeout, $state, $i
 			var state = $state,
 				$el = angular.element(element),
 				articlesCache = $ihCache.get('articlesObj');
-
 			$scope.showLoading = true;
-			$ihREST.loadHomepageData().then(function (data) {
-				var articles = $ihHomepageSrvc.buildArticlesObj(data);
 
-				// cash articles object to prevent page reload
-				if (!articlesCache || shouldRefreshCache) {
-					$ihCache.put('splashShown', true);
-					$ihCache.put('articlesObj', articles);
-				}
+			/* Show splash for 500ms */
+			$timeout(function () {
+				$ihREST.loadHomepageData().then(function (data) {
+					var articles = $ihHomepageSrvc.buildArticlesObj(data);
 
-				var $splash = angular.element($el.children()[0]);
-				$splash.addClass('ihOpacity0');
-				$scope.$broadcast('ihSplashScreenShown');
+					// cash articles object to prevent page reload
+					if (!articlesCache || shouldRefreshCache) {
+						$ihCache.put('splashShown', true);
+						$ihCache.put('articlesObj', articles);
+					}
 
-				/* Dismiss splash after 500ms */
-				$timeout(function () {
+					var $splash = angular.element($el.children()[0]);
+					$splash.addClass('ihOpacity0');
+					$scope.$broadcast('ihSplashScreenShown');
+
+					/* Dismiss splash after 500ms */
+					$timeout(function () {
+						$scope.showLoading = false;
+					}, 300);
+				}, function () {
+					$ihCache.put('splashShown', false);
 					$scope.showLoading = false;
-				}, 300);
-			}, function () {
-				$ihCache.put('splashShown', false);
-				$scope.showLoading = false;
 
-				state.go('app.error');
-			});
+					state.go('app.error');
+				});
+			}, 500);
 		}
 	};
 });
