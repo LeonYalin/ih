@@ -14,8 +14,10 @@ ctrlModule.controller('ArticlesCtrl',
 		favoritesCache = $ihUtil.getObjectFromLocalStorage('favoritesObj');
 
 	if (splashShown === true) {
-		$scope.articles = articlesCache;
-		$ihHomepageSrvc.animateRSS();
+		$ihUtil.delayCacheLoad(function () {
+			$scope.articles = articlesCache;
+			$ihHomepageSrvc.animateRSS();
+		});
 	}
 	if (splashShown === false) {
 		_init(state);
@@ -143,8 +145,10 @@ ctrlModule.controller('CategoriesCtrl', function($scope, $state, $q, $ihUtil, $i
 		var deferred = $q.defer();
 
 		if (categoriesCache) {
-			$scope.categories = categoriesCache;
-			deferred.resolve();
+			$ihUtil.delayCacheLoad(function () {
+				$scope.categories = categoriesCache;
+				deferred.resolve();
+			});
 		} else {
 			$ihUtil.showLoading();
 			$ihREST.loadCategoriesData().then(function (data) {
@@ -256,8 +260,10 @@ ctrlModule.controller('SearchCtrl', function($scope, $state, $q, $ihUtil, $ihRES
 
 	function _init() {
 		if (searchCache) {
-			$scope.results = searchCache.results;
-			$scope.searchQuery = searchCache.searchQuery;
+			$ihUtil.delayCacheLoad(function () {
+				$scope.results = searchCache.results;
+				$scope.searchQuery = searchCache.searchQuery;
+			});
 		}
 	}
 	_init();
@@ -268,11 +274,13 @@ ctrlModule.controller('FavoritesCtrl', function($scope, $ihCache, $ihUtil, $ihFa
 	var favoritesCache = $ihUtil.getObjectFromLocalStorage('favoritesObj'),
 		articlesCache = $ihCache.get('articlesObj');
 
-	$scope.noFavoritesTitle = 'לא נמצאו מועדפים';
-	$scope.noFavoritesMsg = 'ניתן להיסיף למועדפים על ידי ביצוע סוואיפ על הכתבה';
+	$ihUtil.delayCacheLoad(function () {
+		$scope.noFavoritesTitle = 'לא נמצאו מועדפים';
+		$scope.noFavoritesMsg = 'ניתן להיסיף למועדפים על ידי ביצוע סוואיפ על הכתבה';
 
-	$scope.noResultsFlag = favoritesCache && !Object.keys(favoritesCache).length;
-	$scope.favorites = angular.copy(favoritesCache);
+		$scope.noResultsFlag = favoritesCache && !Object.keys(favoritesCache).length;
+		$scope.favorites = angular.copy(favoritesCache);
+	});
 
 	$scope.onDeleteFavorite = function (favId) {
 		$scope.favToRetain = favoritesCache[favId];
@@ -333,8 +341,10 @@ ctrlModule.controller('OpinionsCtrl', function($scope, $state, $q, $ihREST, $ihC
 		var deferred = $q.defer();
 
 		if (opinionsCache) {
-			$scope.opinions = opinionsCache;
-			deferred.resolve();
+			$ihUtil.delayCacheLoad(function () {
+				$scope.opinions = opinionsCache;
+				deferred.resolve();
+			});
 		} else {
 			$ihUtil.showLoading();
 			$ihREST.loadOpinionsData().then(function (data) {
@@ -405,9 +415,11 @@ ctrlModule.controller('WeatherCtrl', function($scope, $state, $q, $ihUtil, $ihRE
 		var deferred = $q.defer();
 
 		if (weatherCache) {
-			$scope.day = weatherCache[0];
-			$scope.week = weatherCache[1];
-			deferred.resolve();
+			$ihUtil.delayCacheLoad(function () {
+				$scope.day = weatherCache[0];
+				$scope.week = weatherCache[1];
+				deferred.resolve();
+			});
 		} else {
 			$ihUtil.showLoading();
 			$ihREST.loadWeatherData().then(function (data) {
@@ -436,6 +448,10 @@ ctrlModule.controller('WeatherCtrl', function($scope, $state, $q, $ihUtil, $ihRE
 
 	_init(state);
 
+	$scope.showTabLoading = function () {
+		$ihUtil.delayCacheLoad(function () {});
+	};
+
 });
 
 ctrlModule.controller('HoroscopeCtrl', function($scope, $state, $q, $ihUtil, $ihREST, $ihHoroscopeSrvc, $ihCache) {
@@ -446,8 +462,10 @@ ctrlModule.controller('HoroscopeCtrl', function($scope, $state, $q, $ihUtil, $ih
 		var deferred = $q.defer();
 
 		if (horoscopeCache) {
-			$scope.week = horoscopeCache;
-			deferred.resolve();
+			$ihUtil.delayCacheLoad(function () {
+				$scope.week = horoscopeCache;
+				deferred.resolve();
+			});
 		} else {
 			$ihUtil.showLoading();
 			$ihREST.loadHoroscopeData().then(function (data) {

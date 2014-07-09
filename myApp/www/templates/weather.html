@@ -4,8 +4,8 @@
 	</ion-nav-buttons>
 		<ion-tabs class="tabs-assertive">
 
-			<ion-tab title="היום">
-			<ion-content class="has-header" overflow-scroll="true">
+			<ion-tab title="היום" on-select="showTabLoading()">
+			<ion-content class="has-header ihOverflowScroll" overflow-scroll="true">
 				<ion-list ng-show="day" class="ihList">
 					<ul class="ihArticleListSection ihWeatherList">
 						<li ng-repeat="item in day">
@@ -29,8 +29,8 @@
 			</ion-content>
 			</ion-tab>
 
-			<ion-tab title="שבועי">
-				<ion-content class="has-header" overflow-scroll="true">
+			<ion-tab title="שבועי" on-select="showTabLoading()">
+				<ion-content class="has-header ihOverflowScroll" overflow-scroll="true">
 					<ion-list ng-show="week" class="ihList">
 						<ul class="ihWeatherList">
 							<li ng-repeat="item in week">

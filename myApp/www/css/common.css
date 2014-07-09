@@ -98,6 +98,10 @@ body {
 	clear: both;
 }
 
+.ihOverflowScroll {
+	overflow-y: auto !important;
+}
+
 /* Red colors */
 .bar.bar-assertive, .item.item-assertive, .badge.badge-assertive {
 	background-color: #A70109;

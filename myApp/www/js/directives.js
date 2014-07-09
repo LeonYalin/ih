@@ -133,7 +133,7 @@ directModule.directive('ihSplashScreen', function ($ihREST, $timeout, $state, $i
 				articlesCache = $ihCache.get('articlesObj');
 			$scope.showLoading = true;
 
-			/* Show splash for 500ms */
+			/* Show splash for 1s */
 			$timeout(function () {
 				$ihREST.loadHomepageData().then(function (data) {
 					var articles = $ihHomepageSrvc.buildArticlesObj(data);
@@ -158,7 +158,7 @@ directModule.directive('ihSplashScreen', function ($ihREST, $timeout, $state, $i
 
 					state.go('app.error');
 				});
-			}, 500);
+			}, 1000);
 		}
 	};
 });

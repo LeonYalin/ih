@@ -55,7 +55,7 @@ servModule.factory('$ihGlobalObj', function($cacheFactory) {
 	return $cacheFactory('data');
 });
 
-servModule.factory('$ihUtil', function($ionicLoading, $ionicPopup, $ihCONSTS, $window){
+servModule.factory('$ihUtil', function($ionicLoading, $ionicPopup, $ihCONSTS, $window, $timeout){
 	return {
 		showLoading: function () {
 			$ionicLoading.show({
@@ -64,6 +64,16 @@ servModule.factory('$ihUtil', function($ionicLoading, $ionicPopup, $ihCONSTS, $w
 		},
 		hideLoading: function () {
 			$ionicLoading.hide();
+		},
+		delayCacheLoad: function (callback) {
+			var self = this;
+
+			/* Show loading for 300ms */
+			self.showLoading();
+			$timeout(function () {
+				callback();
+				self.hideLoading();
+			}, 300);
 		},
 		getWindowWidth: function () { return $window.innerWidth; },
 		getWindowHeight: function () { return $window.innerHeight; },
