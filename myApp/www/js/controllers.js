@@ -103,18 +103,13 @@ ctrlModule.controller('ArticleCtrl', function($scope, $stateParams, $state, $q, 
 		$ihREST.loadArticleData(artId).then(function (data) {
 
 			var article = $ihArticleSrvc.buildArticleObj(data);
+
+			/* Compile video directives */
+			var $articleHtml = angular.element(document.getElementsByClassName('ihArticleHtml'));
+			$articleHtml.html(article.content.html);
+			$compile($articleHtml.contents())($scope);
+
 			$scope.article = article;
-
-			// var markup = article.content.html;
-			// var domEl = angular.element();
-			// angular.element(domEl).html($compile(markup)($scope));
-
-			// var element = angular.element(article.content.html);
-			// $compile(element.contents())($scope);
-			// console.log('done');
-
-			// var el = $compile(article.content.html)($scope);
-			// $element.append(el);
 
 			deferred.resolve();
 			$ihUtil.hideLoading();
@@ -150,23 +145,25 @@ ctrlModule.controller('CategoriesCtrl', function($scope, $state, $q, $ihUtil, $i
 				deferred.resolve();
 			});
 		} else {
-			$ihUtil.showLoading();
-			$ihREST.loadCategoriesData().then(function (data) {
+			$ihUtil.delayCacheLoad(function () {
+				$ihUtil.showLoading();
+				$ihREST.loadCategoriesData().then(function (data) {
 
-				data = $ihCategoriesSrvc.filterByLangHeb(data);
-				$scope.categories = angular.copy(data);
+					data = $ihCategoriesSrvc.filterByLangHeb(data);
+					$scope.categories = angular.copy(data);
 
-				if (!categoriesCache) {
-					$ihCache.put('categoriesObj', data);
-				}
+					if (!categoriesCache) {
+						$ihCache.put('categoriesObj', data);
+					}
 
-				deferred.resolve();
-				$ihUtil.hideLoading();
-			}, function () {
-				deferred.reject();
-				$ihUtil.hideLoading();
+					deferred.resolve();
+					$ihUtil.hideLoading();
+				}, function () {
+					deferred.reject();
+					$ihUtil.hideLoading();
 
-				state.go('app.error');
+					state.go('app.error');
+				});
 			});
 		}
 
@@ -449,7 +446,7 @@ ctrlModule.controller('WeatherCtrl', function($scope, $state, $q, $ihUtil, $ihRE
 	_init(state);
 
 	$scope.showTabLoading = function () {
-		$ihUtil.delayCacheLoad(function () {});
+		$ihUtil.delayCacheLoad(function (){}, 500);
 	};
 
 });

@@ -1,42 +1,42 @@
 var directModule = angular.module('starter.directives', []);
 
-directModule.directive("ihBesttvPlayer",function($http, $q){
-	function _loadScripts () {
-		var deferred = $q.defer();
-		$http({
-			method: 'JSONP',
-			url: 'http://admin.brightcove.com/js/BrightcoveExperiences.js',
-			dataType: 'script',
-			headers: {
-				'Content-type': 'application/x-javascript'
-			}
-		}).success(function(data){
-			console.log('get succeded. Data is: ');
-			console.log(data);
-			deferred.resolve();
-		}).error(function (err) {
-			console.log('fail: error is: ' + err);
-			deferred.reject();
-		});
+directModule.directive("ihBesttvPlayer",function($http, $q, $compile, $timeout, $http){
+	// function _loadScripts () {
+	// 	var deferred = $q.defer();
+	// 	$http({
+	// 		method: 'JSONP',
+	// 		url: 'http://admin.brightcove.com/js/BrightcoveExperiences.js',
+	// 		dataType: 'script',
+	// 		headers: {
+	// 			'Content-type': 'application/x-javascript'
+	// 		}
+	// 	}).success(function(data){
+	// 		console.log('get succeded. Data is: ');
+	// 		console.log(data);
+	// 		deferred.resolve();
+	// 	}).error(function (err) {
+	// 		console.log('fail: error is: ' + err);
+	// 		deferred.reject();
+	// 	});
 
-		return deferred.promise;
-	}
+	// 	return deferred.promise;
+	// }
 
-	_loadScripts().finally(function ($window) {
-		console.log('in finally');
-		brightcove.createExperiences();
+	// _loadScripts().finally(function ($window) {
+	// 	console.log('in finally');
+	// 	brightcove.createExperiences();
 	
-		var player, APIModules, videoPlayer;
-		$window.onTemplateLoad = function (experienceID){
-			player = brightcove.api.getExperience(experienceID);
-			APIModules = brightcove.api.modules.APIModules;
-		};
+	// 	var player, APIModules, videoPlayer;
+	// 	$window.onTemplateLoad = function (experienceID){
+	// 		player = brightcove.api.getExperience(experienceID);
+	// 		APIModules = brightcove.api.modules.APIModules;
+	// 	};
 	 
-		$window.onTemplateReady = function (evt){
-			videoPlayer = player.getModule(APIModules.VIDEO_PLAYER);
-			videoPlayer.play();
-		};
-	});
+	// 	$window.onTemplateReady = function (evt){
+	// 		videoPlayer = player.getModule(APIModules.VIDEO_PLAYER);
+	// 		videoPlayer.play();
+	// 	};
+	// });
 
 	return {
 		restrict: 'E',
@@ -45,6 +45,11 @@ directModule.directive("ihBesttvPlayer",function($http, $q){
 			vid: '@vid',
 			width: '@width',
 			height: '@height'
+		},
+		link: function(scope, element, attrs) {
+			$timeout(function() {
+				brightcove.createExperiences();
+			}, 0);
 		}
 	};
 });

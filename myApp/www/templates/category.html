@@ -6,6 +6,7 @@
 					<ion-item class="ihListItem ihArticleListItem">
 						<a class="item item-thumbnail-right" href="#/app/articles/{{cat.nid}}">
 							<img ng-src="{{cat.images[0].path}}" class="ihArticleImg">
+							<i class="icon ion-ios7-videocam" ng-show="cat.videos && cat.videos.items.length > 0"></i>
 							<h2>{{cat.content.title}}</h2>
 							<p>{{cat.content.intro}}</p>
 						</a>

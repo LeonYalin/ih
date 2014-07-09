@@ -2,8 +2,9 @@
 
 .ihPieContainer {
 	text-align: center;
-	bottom: auto;
+	top: auto;
 	min-height: 500px;
+	width: 420px;
 }
 
 .ihPieHeaderContainer h1{

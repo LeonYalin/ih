@@ -1,6 +1,5 @@
 <ion-view title="{{article.content.title}}">
 	<ion-content class="has-header ihOverflowScroll" overflow-scroll="true">
-	<!-- <ih-besttv-player width="300" height="200" vid="3597877645001"></ih-besttv-player> -->
 
 	<div class="card ihArticleContainer" ng-show="article">
 		<div class="item ihListItem">
@@ -17,7 +16,7 @@
 
 		<div class="item item-body ihListItem">
 			<img class="full-image" ng-src="{{article.mainImageSrc}}">
-			<div ng-bind-html="article.content.html"></div>
+			<div class="ihArticleHtml"></div>
 		</div>
 	</div>
 

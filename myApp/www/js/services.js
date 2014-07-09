@@ -33,6 +33,7 @@ servModule.factory('$ihCONSTS', function(){
 			thumbnail: 'thumbnail',
 			medium: 'medium',
 			large: 'large',
+			fullscreen: '700x430',
 			s_100x70: '100x70',
 			s_125x125: '125x125',
 			s_237x98: '237x98',
@@ -65,15 +66,16 @@ servModule.factory('$ihUtil', function($ionicLoading, $ionicPopup, $ihCONSTS, $w
 		hideLoading: function () {
 			$ionicLoading.hide();
 		},
-		delayCacheLoad: function (callback) {
-			var self = this;
+		delayCacheLoad: function (callback, customDelay) {
+			var self = this,
+				delay = (customDelay && typeof customDelay === "number") ? customDelay : 300;
 
-			/* Show loading for 300ms */
+			/* Show loading for customDelay or 300ms by default */
 			self.showLoading();
 			$timeout(function () {
 				callback();
 				self.hideLoading();
-			}, 300);
+			}, delay);
 		},
 		getWindowWidth: function () { return $window.innerWidth; },
 		getWindowHeight: function () { return $window.innerHeight; },
@@ -193,7 +195,7 @@ servModule.factory('$ihHomepageSrvc', function($ihCONSTS, $ihUtil, $timeout){
 				news: this.buildSingleArticle(data.news)
 			};
 
-			this.fixImagePath(articlesObj.primary, 'large');
+			this.fixImagePath(articlesObj.primary, $ihCONSTS.imageSizes.fullscreen);
 			this.fixImagePath(articlesObj.secondary);
 			this.fixImagePath(articlesObj.news);
 			articlesObj.rss = this.filterByRSS(data.excluded);
@@ -493,7 +495,7 @@ servModule.factory('$ihArticleSrvc', function($ihCONSTS, $ihUtil){
 
 			angular.forEach(arr, function(item) {
 				imagePath = item.path;
-				imagePath = imagePath.replace('[DEFAULT]', $ihCONSTS.imageSizes.large);
+				imagePath = imagePath.replace('[DEFAULT]', $ihCONSTS.imageSizes.fullscreen);
 				imagePath = $ihCONSTS.url.webDomain + imagePath;
 
 				item.path = imagePath;
@@ -535,7 +537,7 @@ servModule.factory('$ihArticleSrvc', function($ihCONSTS, $ihUtil){
 
 			// there are sill images with relative src path. We need to replace the "src" attr with the absolute path
 			var srcRelatRegex = new RegExp(/src="\/sites\/default\/files/g),
-				srcAbsolFixed = 'http://www.israelhayom.co.il/sites/default/files/styles/large/public';
+				srcAbsolFixed = 'http://www.israelhayom.co.il/sites/default/files/styles/700x430/public';
 			rawHtml = rawHtml.replace(srcRelatRegex, imgClass + ' src="' + srcAbsolFixed);
 
 			// remove all "target="_blank" occurences
