@@ -506,7 +506,7 @@ servModule.factory('$ihArticleSrvc', function($ihCONSTS, $ihUtil){
 
 			var rawHtml = angular.copy(raw.body),
 				padding = 20,
-				width = $ihUtil.getWindowWidth() - (2 * padding),
+				width = $ihUtil.getWindowWidth() - padding,
 				height = parseInt( width * (9/16), 10 ),
 				videos = articleObj.videos,
 				images = articleObj.images;

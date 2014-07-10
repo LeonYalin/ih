@@ -49,7 +49,7 @@ directModule.directive("ihBesttvPlayer",function($http, $q, $compile, $timeout, 
 		link: function(scope, element, attrs) {
 			$timeout(function() {
 				brightcove.createExperiences();
-			}, 0);
+			}, 300);
 		}
 	};
 });

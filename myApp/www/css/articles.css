@@ -40,9 +40,9 @@
 }
 .ihArticleListItem .icon, .ihArticleMainItem .icon {
 	position: absolute;
-	top: 16px;
-	left: 8px;
-	font-size: 20px;
+	top: 15px;
+	left: 4px;
+	font-size: 19px;
 	color: #707070;
 }
 .ihArticleMainItem .icon {

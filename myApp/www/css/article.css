@@ -13,11 +13,9 @@
 }
 .ihArticleContainer .item-body div {
 	margin-bottom: 10px;
+	overflow-x: hidden;
 }
-/*.ihArticleContainer .item-body a {
-	text-decoration: none;
-	color: #d70010;
-}*/
+
 /* facebook links */
 .ihArticleContainer .item-body a[href*="on.fb"] {
 	color: #3b5998;
