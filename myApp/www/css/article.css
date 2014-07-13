@@ -11,6 +11,15 @@
 	text-overflow: clip;
 	white-space: normal;
 }
+.ihArticleContainer .ihListItem h2 {
+	margin-top: 0px;
+}
+.ihArticleContainer .ihListItem p {
+	margin-top: 0px;
+}
+.ihArticleContainer .ihArticleIntro {
+	padding-bottom: 10px;
+}
 .ihArticleContainer .item-body div {
 	margin-bottom: 10px;
 	overflow-x: hidden;

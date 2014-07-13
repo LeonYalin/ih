@@ -4,8 +4,8 @@
 	</ion-nav-buttons>
 		<ion-tabs class="tabs-assertive">
 
-			<ion-tab title="היום" on-select="showTabLoading()">
-			<ion-content class="has-header ihOverflowScroll" overflow-scroll="true">
+			<ion-tab title="היום" on-select="showTabLoading(0)">
+			<ion-content class="has-header ihOverflowScroll" overflow-scroll="true" ng-show="selectedTab == 0">
 				<ion-list ng-show="day" class="ihList">
 					<ul class="ihArticleListSection ihWeatherList">
 						<li ng-repeat="item in day">
@@ -15,6 +15,7 @@
 									<img ng-src="{{subItem.icon_url}}" class="ihArticleImg"
 									ng-class="{ 'ihWeatherBGSunny': subItem.description === 'בהיר',
 					 							'ihWeatherBGWarm': subItem.description === 'חם',
+					 							'ihWeatherBGWarmDry': subItem.description === 'חם ויבש',
 					 							'ihWeatherBGCloud': subItem.description === 'מעונן',
 					 							'ihWeatherBGCloudRain': subItem.description === 'מעונן חלקית וגשום',
 					 							'ihWeatherBGRain': subItem.description === 'גשום',
@@ -29,8 +30,8 @@
 			</ion-content>
 			</ion-tab>
 
-			<ion-tab title="שבועי" on-select="showTabLoading()">
-				<ion-content class="has-header ihOverflowScroll" overflow-scroll="true">
+			<ion-tab title="שבועי" on-select="showTabLoading(1)">
+				<ion-content class="has-header ihOverflowScroll" overflow-scroll="true" ng-show="selectedTab == 1">
 					<ion-list ng-show="week" class="ihList">
 						<ul class="ihWeatherList">
 							<li ng-repeat="item in week">
@@ -41,6 +42,7 @@
 											<img ng-src="{{subItem.icon_url}}" class="ihWeeklyImg"
 											ng-class="{ 'ihWeatherBGSunny': subItem.description === 'בהיר',
 						 							'ihWeatherBGWarm': subItem.description === 'חם',
+						 							'ihWeatherBGWarmDry': subItem.description === 'חם ויבש',
 						 							'ihWeatherBGCloud': subItem.description === 'מעונן',
 						 							'ihWeatherBGCloudRain': subItem.description === 'מעונן חלקית וגשום',
 						 							'ihWeatherBGRain': subItem.description === 'גשום',

@@ -52,7 +52,7 @@
 	text-decoration: none;
 	display: block;
 	border: none;
-	padding: 0px 110px 0px 10px;
+	padding: 0px 110px 0px 0px;
 	height: 100px;
 }
 .ihArticleListItem a:hover, .ihArticleListItem a:active {
@@ -81,15 +81,21 @@
 .ihArticleMainItem.ihListItem .ihArticleListItemIntro {
 	padding-bottom: 0px;
 	overflow: hidden;
+	height: auto;
+	min-height: 36px;
+	max-height: 54px;
 }
 .ihArticleMainItem h2, .ihArticleMainItem p, .ihArticleMainItem .ihArticleListItemDate {
 	padding-left: 10px;
 	padding-right: 10px;
+
 }
-/*.ihArticleMainItem h2 {
-	position: relative;
-	padding-left: 20px;
-}*/
+.ihArticleMainItem h2 {
+	margin-top: 2px;
+
+/*	position: relative;
+	padding-left: 20px;*/
+}
 .ihArticleMainItem .ihArticleListItemDate {
 	padding-top: 0;
 }

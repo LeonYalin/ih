@@ -5,6 +5,10 @@ body {
 .item {
 	margin: 0;
 }
+.item h2 {
+	font-size: 18px;
+	line-height: 22px;
+}
 
 .ihList .item-content{
 	padding: 10px;
@@ -27,15 +31,16 @@ body {
 }
 .ihListItem h2, .ihListItem p {
 	margin: 0;
-	padding: 5px 0;
+	/*padding: 5px 0;*/
 }
 .ihListItem h2 {
-	padding-bottom: 10px;
+	padding-bottom: 5px;
+	margin-top: -4px;
 }
 .ihListItem .ihArticleListItemIntro {
 	position: relative;
-	line-height: 20px;
-	height: 40px;
+	line-height: 18px;
+	height: 54px;
 	padding-top: 0px;
 	text-overflow: clip;
 	white-space: normal;
@@ -45,12 +50,12 @@ body {
   position: absolute;
   bottom: 0;
   left: 0;
-  width: 70%;
-  height: 20px;
+  width: 60%;
+  height: 18px;
   background: linear-gradient(to right, rgba(255, 255, 255, 1), rgba(255, 255, 255, 0) 50%);
 }
 .ihListItem .ihArticleListItemDate {
-	padding: 7px 0 0 0;
+	padding: 3px 0 0 0;
 }
 
 .ihSplash {

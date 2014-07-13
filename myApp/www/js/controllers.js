@@ -448,8 +448,11 @@ ctrlModule.controller('WeatherCtrl', function($scope, $state, $q, $ihUtil, $ihRE
 
 	_init(state);
 
-	$scope.showTabLoading = function () {
-		$ihUtil.delayCacheLoad(function (){}, 500);
+	$scope.selectedTab = 0;
+	$scope.showTabLoading = function (index) {
+		$ihUtil.delayCacheLoad(function (){
+			$scope.selectedTab = index;
+		});
 	};
 
 });

@@ -16,4 +16,7 @@
 .ihRSSList h2 {
 	text-overflow: clip;
 	white-space: normal;
+	margin-top: 0;
+	font-size: 16px;
+	line-height: 20px;
 }
