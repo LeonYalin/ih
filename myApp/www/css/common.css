@@ -34,8 +34,8 @@ body {
 	/*padding: 5px 0;*/
 }
 .ihListItem h2 {
-	padding-bottom: 5px;
-	margin-top: -4px;
+	padding-bottom: 3px;
+	/*margin-top: -4px;*/
 }
 .ihListItem .ihArticleListItemIntro {
 	position: relative;
@@ -55,7 +55,7 @@ body {
   background: linear-gradient(to right, rgba(255, 255, 255, 1), rgba(255, 255, 255, 0) 50%);
 }
 .ihListItem .ihArticleListItemDate {
-	padding: 3px 0 0 0;
+	/*padding: 3px 0 0 0;*/
 }
 
 .ihSplash {
