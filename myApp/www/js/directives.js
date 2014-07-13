@@ -1,43 +1,6 @@
 var directModule = angular.module('starter.directives', []);
 
-directModule.directive("ihBesttvPlayer",function($http, $q, $compile, $timeout, $http){
-	// function _loadScripts () {
-	// 	var deferred = $q.defer();
-	// 	$http({
-	// 		method: 'JSONP',
-	// 		url: 'http://admin.brightcove.com/js/BrightcoveExperiences.js',
-	// 		dataType: 'script',
-	// 		headers: {
-	// 			'Content-type': 'application/x-javascript'
-	// 		}
-	// 	}).success(function(data){
-	// 		console.log('get succeded. Data is: ');
-	// 		console.log(data);
-	// 		deferred.resolve();
-	// 	}).error(function (err) {
-	// 		console.log('fail: error is: ' + err);
-	// 		deferred.reject();
-	// 	});
-
-	// 	return deferred.promise;
-	// }
-
-	// _loadScripts().finally(function ($window) {
-	// 	console.log('in finally');
-	// 	brightcove.createExperiences();
-	
-	// 	var player, APIModules, videoPlayer;
-	// 	$window.onTemplateLoad = function (experienceID){
-	// 		player = brightcove.api.getExperience(experienceID);
-	// 		APIModules = brightcove.api.modules.APIModules;
-	// 	};
-	 
-	// 	$window.onTemplateReady = function (evt){
-	// 		videoPlayer = player.getModule(APIModules.VIDEO_PLAYER);
-	// 		videoPlayer.play();
-	// 	};
-	// });
-
+directModule.directive("ihBesttvPlayer",function($http, $q, $compile, $timeout){
 	return {
 		restrict: 'E',
 		templateUrl: 'templates/besttv-player.html',
@@ -101,10 +64,6 @@ directModule.directive('ihPie', function ($compile, $timeout, $ihCache) {
 					}, 0);
 				}
 			};
-
-			// var markup = "<input type='text' ng=model='sampleData'/> {{sampleData}} <br/>";
-			// angular.element(element).html($compile(markup)(scope));
-			// console.log($compile(markup)(scope));
 
 			$scope.$on('$destroy', function() {
 				$scope.modal.remove();

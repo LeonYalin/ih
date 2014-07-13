@@ -16,7 +16,8 @@
 
 		<div class="item item-body ihListItem">
 			<img class="full-image" ng-src="{{article.mainImageSrc}}">
-			<div class="ihArticleHtml"></div>
+			<!-- <div class="ihArticleHtml"></div> -->
+			<div ng-bind-html="article.content.html"></div>
 		</div>
 	</div>
 

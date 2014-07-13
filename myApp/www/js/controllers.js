@@ -105,9 +105,12 @@ ctrlModule.controller('ArticleCtrl', function($scope, $stateParams, $state, $q, 
 			var article = $ihArticleSrvc.buildArticleObj(data);
 
 			/* Compile video directives */
+			/* Temporary disable videos as it requires payment on mobile */
+			/*
 			var $articleHtml = angular.element(document.getElementsByClassName('ihArticleHtml'));
 			$articleHtml.html(article.content.html);
 			$compile($articleHtml.contents())($scope);
+			*/
 
 			$scope.article = article;
 

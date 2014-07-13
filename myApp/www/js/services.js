@@ -514,7 +514,10 @@ servModule.factory('$ihArticleSrvc', function($ihCONSTS, $ihUtil){
 			// replace [video] tags with video player directive
 			angular.forEach(videos, function (item) {
 				var videoDrct = '<ih-besttv-player width="' + width + '" height="' + height + '" vid="' + item.id + '"></ih-besttv-player>';
-				rawHtml = rawHtml.replace('[video]', videoDrct);
+				// rawHtml = rawHtml.replace('[video]', videoDrct);
+
+				/* Temporary disable videos as it requires payment on mobile */
+				rawHtml = rawHtml.replace('[video]', '');
 			});
 
 			var imageRegex = new RegExp(/\<img (.*?)\>/),
