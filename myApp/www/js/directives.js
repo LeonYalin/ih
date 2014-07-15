@@ -17,7 +17,7 @@ directModule.directive("ihBesttvPlayer",function($http, $q, $compile, $timeout){
 	};
 });
 
-directModule.directive('ihPie', function ($compile, $timeout, $ihCache) {
+directModule.directive('ihPie', function ($compile, $timeout, $ihCache, $ihPieSrvc, $ihUtil) {
 	return {
 		restrict: 'E',
 		templateUrl: 'templates/pie.html',
@@ -71,6 +71,7 @@ directModule.directive('ihPie', function ($compile, $timeout, $ihCache) {
 			$scope.$on('modal.hidden', function() {
 				$scope.sliceAnimState = 'hide';
 				$scope.selectedSlice = 0;
+				$ihPieSrvc.clearResults($scope);
 				$timeout(function() {
 					$scope.shouldShowPie = false;
 				}, 200, false);
@@ -83,6 +84,53 @@ directModule.directive('ihPie', function ($compile, $timeout, $ihCache) {
 				$scope.sliceAnimState = 'show';
 				$scope.title = 'Menu';
 			});
+
+			$scope.noResultsFlag = false;
+			$scope.search = function (query) {
+				$ihPieSrvc.getSearchData($scope, query);
+			};
+
+			$scope.$watch('selectedSlice', function(newValue, oldValue){
+				// Check if value has changes
+				if(newValue === oldValue || newValue === 0){
+					return;
+				}
+
+				$scope.results = [];
+				switch (newValue) {
+					case 1: // Favorites
+						$ihPieSrvc.clearResults($scope);
+						$ihPieSrvc.getFavoritesData($scope);
+						break;
+					case 2: // RSS
+						$ihPieSrvc.clearResults($scope);
+						$ihPieSrvc.getRSSData($scope);
+						break;
+					case 3: // Search
+						$ihPieSrvc.clearResults($scope);
+						$ihPieSrvc.showSearchInput($scope);
+						break;
+					case 4: // Categories
+						$ihPieSrvc.clearResults($scope);
+						$ihPieSrvc.getCategoriesData($scope);
+						break;
+					case 5: // Opinions
+						$ihPieSrvc.clearResults($scope);
+						$ihPieSrvc.getOpinionsData($scope);
+						break;
+					case 6: // Horoscope
+						$ihPieSrvc.clearResults($scope);
+						$ihPieSrvc.getHoroscopeData($scope);
+						break;
+					case 7: // Weather
+						$ihPieSrvc.clearResults($scope);
+						$ihPieSrvc.getWeatherData($scope);
+						break;
+					default:
+						$ihPieSrvc.clearResults($scope);
+						break;
+				}
+			});
 		}
 	};
 });
@@ -90,7 +138,7 @@ directModule.directive('ihPie', function ($compile, $timeout, $ihCache) {
 directModule.directive('ihSplashScreen', function ($ihREST, $timeout, $state, $ihUtil, $ihCache, $ihHomepageSrvc) {
 	return {
 		restrict: 'E',
-		template: '<div class="ihSplash" ng-show="showLoading === true"><i class="icon ion-loading-c"></i></div>',
+		template: '<div class="ihSplash ihNoScrollX ihNoScrollY" ng-show="showLoading === true"><i class="icon ion-loading-c"></i></div>',
 		link: function($scope, element, attrs) {
 			var state = $state,
 				$el = angular.element(element),

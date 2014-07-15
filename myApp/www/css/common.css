@@ -103,8 +103,17 @@ body {
 	clear: both;
 }
 
-.ihOverflowScroll {
+.ihOverflowScrollY {
 	overflow-y: auto !important;
+}
+.ihOverflowScrollX {
+	overflow-x: auto !important;
+}
+.ihNoScrollY {
+	overflow-y: hidden !important;
+}
+.ihNoScrollX {
+	overflow-x: hidden !important;
 }
 
 /* Red colors */

@@ -53,10 +53,6 @@ servModule.factory('$ihCache', function($cacheFactory) {
 	return $cacheFactory('data');
 });
 
-servModule.factory('$ihGlobalObj', function($cacheFactory) {
-	return $cacheFactory('data');
-});
-
 servModule.factory('$ihUtil', function($ionicLoading, $ionicPopup, $ihCONSTS, $window, $timeout){
 	return {
 		showLoading: function () {
@@ -352,6 +348,159 @@ servModule.factory('$ihSearchSrvc', function($ihCONSTS, $ihHomepageSrvc, $ihOpin
 			this.checkForOpinions(searchObj);
 
 			return searchObj;
+		}
+	};
+});
+
+servModule.factory('$ihPieSrvc',
+function($ihCONSTS, $ihREST, $ihUtil, $q, $ihRSSSrvc, $ihSearchSrvc, $ihCategoriesSrvc, $ihOpinionsSrvc, $ihHoroscopeSrvc, $ihWeatherSrvc){
+	return {
+		showLoading: function ($scope) {
+			$scope.showLoading = true;
+		},
+		hideLoading: function ($scope) {
+			$scope.showLoading = false;
+		},
+		showSearchInput: function ($scope) {
+			$scope.showSearchInput = true;
+		},
+		hideSearchInput: function ($scope) {
+			$scope.showSearchInput = false;
+		},
+		getFavoritesData: function ($scope) {
+			this.showLoading($scope);
+			var favoritesCache = $ihUtil.getObjectFromLocalStorage('favoritesObj');
+			$scope.noResultsFlag = favoritesCache && !Object.keys(favoritesCache).length;
+			$scope.favorites = angular.copy(favoritesCache);
+			this.hideLoading($scope);
+		},
+		getRSSData: function ($scope) {
+			var self = this;
+
+			self.showLoading($scope);
+			var deferred = $q.defer();
+
+			$ihREST.loadRSSData().then(function (data) {
+				$scope.rss = $ihRSSSrvc.buildRSSObj(data);
+				self.hideLoading($scope);
+
+				deferred.resolve();
+			}, function () {
+				deferred.reject();
+				self.hideLoading($scope);
+			});
+
+			return deferred.promise;
+		},
+		getSearchData: function ($scope, query) {
+			var self = this;
+
+			if (!query) { return; }
+
+			var deferred = $q.defer();
+			self.showLoading($scope);
+			self.hideSearchInput($scope);
+			$ihREST.loadSearchResults(query).then(function (data) {
+
+				var results = $ihSearchSrvc.buildSearchObj(data.results);
+				$scope.searchResults = results;
+				self.hideLoading($scope);
+
+				deferred.resolve();
+			}, function () {
+				deferred.reject();
+				self.hideLoading($scope);
+			});
+
+			return deferred.promise;
+		},
+		getCategoriesData: function ($scope) {
+			var self = this;
+
+			var deferred = $q.defer();
+			self.showLoading($scope);
+			$ihREST.loadCategoriesData().then(function (data) {
+
+				data = $ihCategoriesSrvc.filterByLangHeb(data);
+				$scope.categories = angular.copy(data);
+
+				self.hideLoading($scope);
+				deferred.resolve();
+			}, function () {
+				deferred.reject();
+				self.hideLoading($scope);
+			});
+
+			return deferred.promise;
+		},
+		getOpinionsData: function ($scope) {
+			var self = this;
+
+			var deferred = $q.defer();
+			self.showLoading($scope);
+			$ihREST.loadOpinionsData().then(function (data) {
+				var opinions = $ihOpinionsSrvc.buildOpinionsObj(data);
+				$scope.opinions = opinions;
+
+				self.hideLoading($scope);
+				deferred.resolve();
+			}, function () {
+				deferred.reject();
+				self.hideLoading($scope);
+			});
+
+			return deferred.promise;
+		},
+		getHoroscopeData: function ($scope) {
+			var self = this;
+
+			var deferred = $q.defer();
+			self.showLoading($scope);
+			$ihREST.loadHoroscopeData().then(function (data) {
+
+				var horObj = $ihHoroscopeSrvc.buildHoroscopeObj(data);
+				if (horObj[0] && horObj[0].forecasts) {
+					$scope.horoscope = angular.copy(horObj[0].forecasts); // we want results for 1 day only
+				}
+
+				self.hideLoading($scope);
+				deferred.resolve();
+			}, function () {
+				self.hideLoading($scope);
+				deferred.reject();
+			});
+
+			return deferred.promise;
+		},
+		getWeatherData: function ($scope) {
+			var self = this;
+
+			var deferred = $q.defer();
+			self.showLoading($scope);
+			$ihREST.loadWeatherData().then(function (data) {
+
+				$ihWeatherSrvc.prepareWeatherObj(data);
+				$scope.weather = angular.copy(data[0]);
+
+				deferred.resolve();
+				self.hideLoading($scope);
+			}, function () {
+				deferred.reject();
+				self.hideLoading($scope);
+			});
+
+			return deferred.promise;
+		},
+		clearResults: function ($scope, exceptResult) {
+			if ($scope.results ) { $scope.results = []; }
+			if ($scope.rss ) { $scope.rss = []; }
+			if ($scope.favorites ) { $scope.favorites = {}; }
+			if ($scope.showSearchInput ) { $scope.showSearchInput = false; }
+			if ($scope.searchResults ) { $scope.searchResults = []; }
+			if ($scope.categories ) { $scope.categories = {}; }
+			if ($scope.opinions ) { $scope.opinions = []; }
+			if ($scope.horoscope ) { $scope.horoscope = []; }
+			if ($scope.weather ) { $scope.weather = []; }
 		}
 	};
 });

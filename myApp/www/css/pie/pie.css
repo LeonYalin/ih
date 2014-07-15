@@ -3,7 +3,7 @@
 .ihPieContainer {
 	text-align: center;
 	top: auto;
-	min-height: 350px;
+	min-height: 500px;
 	width: 280px;
 }
 
@@ -260,4 +260,85 @@
 	top: -7px;
 	left: -5px;
 	background-color: white;
+}
+
+.ihPieResultsContainer {
+	height: 150px;
+	background-color: #DDD;
+	/*text-align: right;*/
+}
+.ihPieResultsContainer > ul {
+	white-space: nowrap;
+}
+
+.ihPieResult {
+	height: 149px;
+	width: 80px;
+	padding: 0;
+	display: inline-block;
+	border: none;
+	margin-left: 5px;
+}
+.ihPieResult:last-of-type {
+	margin-left: 0;
+}
+.ihPieResult .item-body {
+	padding: 5px;
+	height: 100%;
+}
+.ihPieResult img {
+	width: 70px;
+	height: 70px;
+	border: 1px solid #707070;
+	border-radius: 50%;
+}
+.ihPieResult h2 {
+	font-size: 15px;
+	line-height: 16px;
+	max-height: 64px;
+	overflow: hidden;
+	text-align: right;
+}
+
+.ihPieLoadingResult {
+	font-size: 60px;
+	position: absolute;
+	left: 0;
+	right: 0;
+	top: 75px;
+	margin-top: -30px;
+}
+
+.ihPieSearchForm {
+	position: absolute;
+	width: 100%;
+	top: 88px;
+}
+.ihPieSearchForm button {
+	visibility: hidden;
+	position: absolute;
+	top: -88px;
+}
+
+.ihPieResultRSSItem h2 {
+	padding-top: 10px;
+	max-height: 103px;
+}
+
+.ihPieResultCategoriesItem h2 {
+	position: relative;
+	top: 74px;
+	text-align: center;
+}
+.ihPieResultCategoriesItem .badge {
+	top: 48px;
+}
+
+.ihPieResultHoroscopeItem .title {
+	text-align: center;
+}
+.ihPieResultHoroscopeItem h2 {
+	font-size: 14px;
+	line-height: 14px;
+	max-height: 44px;
 }

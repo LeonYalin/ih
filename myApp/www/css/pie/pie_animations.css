@@ -161,3 +161,43 @@
 		opacity: 0;
 	}
 }
+
+/* Pie results animations */
+.ihPieResult.ng-enter, .ihPieResult.ng-move,
+.ihPieSearchForm.ng-enter, .ihPieSearchForm.ng-move,
+.ihPieLoadingResult.ng-enter, .ihPieLoadingResult.ng-move {
+ 	-webkit-transition:0.5s linear all;
+ 	opacity:0;
+}
+
+/*
+ The ng-enter-active and ng-move-active
+ are where the transition destination properties
+ are set so that the animation knows what to
+ animate.
+*/
+.ihPieResult.ng-enter.ng-enter-active,
+.ihPieResult.ng-move.ng-move-active,
+.ihPieSearchForm.ng-enter.ng-enter-active,
+.ihPieSearchForm.ng-move.ng-move-active,
+.ihPieLoadingResult.ng-enter.ng-enter-active,
+.ihPieLoadingResult.ng-move.ng-move-active {
+	opacity:1;
+}
+
+/*
+  We're using CSS keyframe animations for when
+  the leave event is triggered for the element
+  that has the .ihPieResult class
+*/
+.ihPieResult.ng-leave,
+.ihPieSearchForm.ng-leave,
+.ihPieLoadingResult.ng-leave {
+	-webkit-animation:0.5s my_animation;
+	/*opacity: 0;*/
+}
+
+@-webkit-keyframes my_animation {
+	from { opacity:1; }
+	to { opacity:0; }
+}

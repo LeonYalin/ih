@@ -1,5 +1,71 @@
 <div class="modal ihPieContainer"  ng-if="shouldShowPie == true">
 	<ion-pane>
+		<section class="ihPieResultsContainer">
+			<i class="icon ion-loading-c ihPieLoadingResult" ng-if="showLoading == true"></i>
+			<form action="" ng-if="showSearchInput == true" class="ihPieSearchForm">
+				<label class="item item-input">
+					<i class="icon ion-search placeholder-icon"></i>
+					<input type="text" ng-model="searchQuery" placeholder="אני רוצה לקרוא על...">
+				</label>
+				<button type="submit" class="button button-block button-stable" ng-click="search(searchQuery)">חפש</button>
+			</form>
+			<ul class="ihClearFix ihOverflowScrollX ihNoScrollY">
+				<li ng-repeat="(key, value) in favorites" class="item ihListItem ihPieResult">
+					<a class="item item-body" href="#/app/articles/{{value.nid}}">
+						<img class="full-image" ng-src="{{value.images[0].path}}">
+						<h2>{{value.content.title}}</h2>
+					</a>
+				</li>
+				<li ng-repeat="item in rss" class="item ihListItem ihPieResult ihPieResultRSSItem">
+					<a class="item item-body" href="#/app/articles/{{value.nid}}">
+						<span class="ihDoubleSlash ihColorRed">{{item.date.timestamp | date: 'H:mm'}}</span>
+						<h2>{{item.text}}</h2>
+					</a>
+				</li>
+				<li ng-repeat="item in searchResults" class="item ihListItem ihPieResult">
+					<a class="item item-body" href="#/app/{{item.type + 's'}}/{{item.nid}}">
+						<img class="full-image" ng-src="{{item.images[0].path}}">
+						<h2>{{item.content.title}}</h2>
+					</a>
+				</li>
+				<li ng-repeat="(key, value) in categories" class="item ihListItem ihPieResult ihPieResultCategoriesItem">
+					<a class="item item-body" href="#/app/categories/{{key}}">
+						<span class="badge badge-left badge-assertive">{{value.count}}</span>
+						<h2>{{key}}</h2>
+					</a>
+				</li>
+				<li ng-repeat="item in opinions" class="item ihListItem ihPieResult">
+					<a class="item item-body" href="#/app/opinions/{{item.nid}}">
+						<img class="full-image" ng-src="{{item.images[0].path}}">
+						<h2>{{item.content.title}}</h2>
+					</a>
+				</li>
+				<li ng-repeat="subItem in horoscope" class="item ihListItem ihPieResult ihPieResultHoroscopeItem">
+					<div class="item item-body">
+						<div class="title">{{subItem.name}}</div>
+						<img ng-src="{{subItem.icon}}" class="ihHoroscopeImg">
+						<h2>{{subItem.forecast}}</h2>
+					</div>
+				</li>
+				<li ng-repeat="item in weather" class="item ihListItem ihPieResult">
+					<div class="item item-body">
+						<div>{{item.city}}</div>
+							<div ng-repeat="subItem in item.weather">
+								<img ng-src="{{subItem.icon_url}}" class="ihPieResultWeatherImg"
+								ng-class="{ 'ihWeatherBGSunny': subItem.description === 'בהיר',
+				 							'ihWeatherBGWarm': subItem.description === 'חם',
+				 							'ihWeatherBGWarmDry': subItem.description === 'חם ויבש',
+				 							'ihWeatherBGCloud': subItem.description === 'מעונן',
+				 							'ihWeatherBGCloudRain': subItem.description === 'מעונן חלקית וגשום',
+				 							'ihWeatherBGRain': subItem.description === 'גשום',
+				 							'ihWeatherBGPartCloud': subItem.description === 'מעונן חלקית' }">
+								<p class="ihWeatherDegreeSign">{{subItem.low}}-{{subItem.high}}</p>
+								<p class="ihWeatherDescr">{{subItem.description}}</p>
+							</div>
+					</div>
+				</li>
+			</ul>
+		</section>
 		<header class="ihPieHeaderContainer">
 			<h1 class="title">{{title}}</h1>
 		</header>
