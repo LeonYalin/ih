@@ -11,6 +11,8 @@
 				<button type="submit" class="button button-block button-stable" ng-click="search(searchQuery)">חפש</button>
 			</form>
 			<p ng-if="noResultsFlag == true" class="item item-text-wrap ihPieNoResults">לא נמצאו תוצאות</p>
+			<p ng-if="connErrorFlag == true" class="item item-text-wrap ihPieNoResults">אירעה שגיאה בעת טעינת נתונים</p>
+			<p class="ihPieFullResult ihPieNoResults ihOverflowScrollY" ng-if="showFullResult === true">{{fullResultText}}</p>
 
 			<ul class="ihClearFix ihOverflowScrollX ihNoScrollY">
 				<li ng-repeat="(key, value) in favorites" class="item ihListItem ihPieResult">
@@ -20,10 +22,10 @@
 					</a>
 				</li>
 				<li ng-repeat="item in rss" class="item ihListItem ihPieResult ihPieResultRSSItem">
-					<a class="item item-body" href="#/app/articles/{{value.nid}}">
+					<div class="item item-body">
 						<span class="ihDoubleSlash ihColorRed">{{item.date.timestamp | date: 'H:mm'}}</span>
 						<h2>{{item.text}}</h2>
-					</a>
+					</div>
 				</li>
 				<li ng-repeat="item in searchResults" class="item ihListItem ihPieResult">
 					<a class="item item-body" href="#/app/{{item.type + 's'}}/{{item.nid}}">
@@ -32,11 +34,17 @@
 					</a>
 				</li>
 				<li ng-repeat="(key, value) in categories" class="item ihListItem ihPieResult ihPieResultCategoriesItem">
-					<a class="item item-body" href="#/app/categories/{{key}}">
+					<div class="item item-body" ng-click="goToCategory(key)">
 						<div class="ihPieResultBadgeWrapper">
 							<span class="badge badge-left badge-assertive">{{value.count}}</span>							
 						</div>
 						<h2>{{key}}</h2>
+					</div>
+				</li>
+				<li ng-repeat="item in category" class="item ihListItem ihPieResult">
+					<a class="item item-body" href="#/app/articles/{{item.nid}}">
+						<img class="full-image" ng-src="{{item.images[0].path}}">
+						<h2>{{item.content.title}}</h2>
 					</a>
 				</li>
 				<li ng-repeat="item in opinions" class="item ihListItem ihPieResult">
@@ -45,7 +53,8 @@
 						<h2>{{item.content.title}}</h2>
 					</a>
 				</li>
-				<li ng-repeat="subItem in horoscope" class="item ihListItem ihPieResult ihPieResultHoroscopeItem">
+				<li ng-repeat="subItem in horoscope" class="item ihListItem ihPieResult ihPieResultHoroscopeItem"
+					ng-click="showSingleResult(subItem)">
 					<div class="item item-body">
 						<div class="ihTitle">{{subItem.name}}</div>
 						<img ng-src="{{subItem.icon}}" class="ihHoroscopeImg">
@@ -72,7 +81,10 @@
 			</ul>
 		</section>
 		<header class="ihPieHeaderContainer">
-			<h1 class="title">{{title}}</h1>
+			<h1 class="title" ng-show="showBackLink !== true">{{title}}</h1>
+			<h1 class="ihPieBackLink" ng-show="showBackLink === true" ng-click="goBack()">
+				<i class="icon ion-chevron-right"></i>{{backLinkText}}
+			</h1>
 		</header>
 		<div class="ihPieBodyContainer">
 			<div class="ihPieCenter"

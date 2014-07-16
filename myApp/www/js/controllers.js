@@ -31,7 +31,7 @@ ctrlModule.controller('ArticlesCtrl',
 			$ihHomepageSrvc.animateRSS();
 			deferred.resolve();
 		} else {
-			$ihUtil.showLoading();
+			if (!shouldRefreshCache) { $ihUtil.showLoading(); }
 			$ihREST.loadHomepageData().then(function (data) {
 				var articles = $ihHomepageSrvc.buildArticlesObj(data);
 
@@ -44,10 +44,10 @@ ctrlModule.controller('ArticlesCtrl',
 				}
 
 				deferred.resolve();
-				$ihUtil.hideLoading();
+				if (!shouldRefreshCache) { $ihUtil.hideLoading(); }
 			}, function () {
 				deferred.reject();
-				$ihUtil.hideLoading();
+				if (!shouldRefreshCache) { $ihUtil.hideLoading(); }
 
 				state.go('app.error');
 			});

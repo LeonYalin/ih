@@ -25,17 +25,24 @@ directModule.directive('ihPie', function ($compile, $timeout, $ihCache, $ihPieSr
 			$scope.title = 'Menu';
 			$scope.selectedSlice = 0;
 			$scope.noResultsFlag = false;
+			$scope.connErrorFlag = false;
 			$scope.shouldShowPie = true;
+			$scope.showLoading = false;
+			$scope.showSearchInput = false;
+			$scope.showFullResult = false;
+			$scope.fullResultText = '';
 			$scope.sliceAnimState = 'show';
+			$scope.showBackLink = false;
+			$scope.backLinkText = '';
 			$scope.slices = [
-				{ index: 1, title: 'Favorites', icon: 'star' },
-				{ index: 2, title: 'RSS', icon: 'radio-waves' },
-				{ index: 3, title: 'Search', icon: 'ios7-search-strong' },
-				{ index: 4, title: 'Categories', icon: 'android-sort' },
-				{ index: 5, title: 'Opinions', icon: 'person-stalker' },
-				{ index: 6, title: 'Horoscope', icon: 'aperture' },
-				{ index: 7, title: 'Weather', icon: 'ios7-partlysunny' },
-				{ index: 8, title: 'Share', icon: 'android-share' }
+				{ index: $ihPieSrvc.SLICE_INDEXES.favorites, title: 'מועדפים', icon: 'star' },
+				{ index: $ihPieSrvc.SLICE_INDEXES.rss, title: 'מבזקים', icon: 'radio-waves' },
+				{ index: $ihPieSrvc.SLICE_INDEXES.search, title: 'חיפוש', icon: 'ios7-search-strong' },
+				{ index: $ihPieSrvc.SLICE_INDEXES.categories, title: 'קטגוריות', icon: 'android-sort' },
+				{ index: $ihPieSrvc.SLICE_INDEXES.opinions, title: 'דעות', icon: 'person-stalker' },
+				{ index: $ihPieSrvc.SLICE_INDEXES.horoscope, title: 'הורוסקופ', icon: 'aperture' },
+				{ index: $ihPieSrvc.SLICE_INDEXES.weather, title: 'מזג האוויר', icon: 'ios7-partlysunny' },
+				{ index: $ihPieSrvc.SLICE_INDEXES.share, title: 'שיטוף', icon: 'android-share' }
 			];
 			$scope.onSliceClick = function ($event, $index) {
 				var el = angular.element($event.target);
@@ -59,7 +66,7 @@ directModule.directive('ihPie', function ($compile, $timeout, $ihCache, $ihPieSr
 				if (isLastSliceClicked) {
 					$ihCache.put('isLastSliceClicked', true);
 				}
-				if ($index == 7 && !isIconClicked) {
+				if ($index == $ihPieSrvc.SLICE_INDEXES.weather && !isIconClicked) {
 					$timeout(function() {
 						angular.element(document.querySelector('.ihPieSliceInner-1_8')).triggerHandler('click');
 					}, 0);
@@ -71,11 +78,11 @@ directModule.directive('ihPie', function ($compile, $timeout, $ihCache, $ihPieSr
 			});
 			$scope.$on('modal.hidden', function() {
 				$scope.sliceAnimState = 'hide';
-				$scope.selectedSlice = 0;
+				$scope.selectedSlice = $ihPieSrvc.SLICE_INDEXES.none;
 				$ihPieSrvc.clearResults($scope);
 				$timeout(function() {
 					$scope.shouldShowPie = false;
-				}, 200, false);
+				}, 300, false);
 			});
 			$scope.$on('modal.removed', function() {
 				console.log('in modal.removed');
@@ -90,39 +97,56 @@ directModule.directive('ihPie', function ($compile, $timeout, $ihCache, $ihPieSr
 				$ihPieSrvc.getSearchData($scope, query);
 			};
 
+			$scope.showSingleResult = function (item) {
+				if ($scope.selectedSlice === $ihPieSrvc.SLICE_INDEXES.horoscope) {
+					$ihPieSrvc.showFullHoroscope($scope, item);
+				}
+			};
+
+			$scope.goBack = function () {
+				$ihPieSrvc.goBack($scope);
+			};
+
+			$scope.goToCategory = function (key) {
+				$ihPieSrvc.goToCategory($scope, key);
+			};
+
 			$scope.$watch('selectedSlice', function(newValue, oldValue){
 				// Check if value has changes
-				if(newValue === oldValue || newValue === 0){
+				if(newValue === oldValue || newValue === $ihPieSrvc.SLICE_INDEXES.none){
 					return;
 				}
 
+				if (newValue !== $ihPieSrvc.SLICE_INDEXES.search && newValue !== $ihPieSrvc.SLICE_INDEXES.share) {
+					$ihPieSrvc.showLoading($scope);
+				}
 				$timeout(function () {
 					switch (newValue) {
-						case 1: // Favorites
+						case $ihPieSrvc.SLICE_INDEXES.favorites:
 							$ihPieSrvc.clearResults($scope);
 							$ihPieSrvc.getFavoritesData($scope);
 							break;
-						case 2: // RSS
+						case $ihPieSrvc.SLICE_INDEXES.rss:
 							$ihPieSrvc.clearResults($scope);
 							$ihPieSrvc.getRSSData($scope);
 							break;
-						case 3: // Search
+						case $ihPieSrvc.SLICE_INDEXES.search:
 							$ihPieSrvc.clearResults($scope);
 							$ihPieSrvc.showSearchInput($scope);
 							break;
-						case 4: // Categories
+						case $ihPieSrvc.SLICE_INDEXES.categories:
 							$ihPieSrvc.clearResults($scope);
 							$ihPieSrvc.getCategoriesData($scope);
 							break;
-						case 5: // Opinions
+						case $ihPieSrvc.SLICE_INDEXES.opinions:
 							$ihPieSrvc.clearResults($scope);
 							$ihPieSrvc.getOpinionsData($scope);
 							break;
-						case 6: // Horoscope
+						case $ihPieSrvc.SLICE_INDEXES.horoscope:
 							$ihPieSrvc.clearResults($scope);
 							$ihPieSrvc.getHoroscopeData($scope);
 							break;
-						case 7: // Weather
+						case $ihPieSrvc.SLICE_INDEXES.weather:
 							$ihPieSrvc.clearResults($scope);
 							$ihPieSrvc.getWeatherData($scope);
 							break;

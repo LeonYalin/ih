@@ -353,25 +353,44 @@ servModule.factory('$ihSearchSrvc', function($ihCONSTS, $ihHomepageSrvc, $ihOpin
 });
 
 servModule.factory('$ihPieSrvc',
-function($ihCONSTS, $ihREST, $ihUtil, $q, $ihRSSSrvc, $ihSearchSrvc, $ihCategoriesSrvc, $ihOpinionsSrvc, $ihHoroscopeSrvc, $ihWeatherSrvc){
+function($ihCONSTS, $ihREST, $ihUtil, $q, $ihRSSSrvc, $ihSearchSrvc, $ihCategoriesSrvc,
+			$ihCategorySrvc, $ihOpinionsSrvc, $ihHoroscopeSrvc, $ihWeatherSrvc){
 	return {
 		showLoading: function ($scope) {
-			$scope.showLoading = true;
+			if ($scope.showLoading === false) { $scope.showLoading = true; }
 		},
 		hideLoading: function ($scope) {
-			$scope.showLoading = false;
+			if ($scope.showLoading === true) { $scope.showLoading = false; }
 		},
 		showSearchInput: function ($scope) {
-			$scope.showSearchInput = true;
+			if ($scope.showSearchInput === false) { $scope.showSearchInput = true; }
 		},
 		hideSearchInput: function ($scope) {
-			$scope.showSearchInput = false;
+			if ($scope.showSearchInput === true) { $scope.showSearchInput = false; }
 		},
 		showNoResultsMsg: function ($scope) {
-			$scope.noResultsFlag = true;
+			if ($scope.noResultsFlag === false) { $scope.noResultsFlag = true; }
 		},
 		hideNoResultsMsg: function ($scope) {
-			$scope.noResultsFlag = false;
+			if ($scope.noResultsFlag === true) { $scope.noResultsFlag = false; }
+		},
+		showConnErrorMsg: function ($scope) {
+			if ($scope.connErrorFlag === false) { $scope.connErrorFlag = true; }
+		},
+		hideConnErrorMsg: function ($scope) {
+			if ($scope.connErrorFlag === true) { $scope.connErrorFlag = false; }
+		},
+		showFullResult: function ($scope) {
+			if ($scope.showFullResult === false) { $scope.showFullResult = true; }
+		},
+		hideFullResult: function ($scope) {
+			if ($scope.showFullResult === true) { $scope.showFullResult = false; }
+		},
+		showBackLink: function ($scope) {
+			if ($scope.showBackLink === false) { $scope.showBackLink = true; }
+		},
+		hideBackLink: function ($scope) {
+			if ($scope.showBackLink === true) { $scope.showBackLink = false; }
 		},
 		getFavoritesData: function ($scope) {
 			this.showLoading($scope);
@@ -401,6 +420,7 @@ function($ihCONSTS, $ihREST, $ihUtil, $q, $ihRSSSrvc, $ihSearchSrvc, $ihCategori
 		getSearchData: function ($scope, query) {
 			var self = this;
 
+			self.showSearchInput($scope);
 			if (!query) { return; }
 
 			var deferred = $q.defer();
@@ -410,9 +430,11 @@ function($ihCONSTS, $ihREST, $ihUtil, $q, $ihRSSSrvc, $ihSearchSrvc, $ihCategori
 
 				var results = $ihSearchSrvc.buildSearchObj(data.results);
 				$scope.searchResults = results;
-				if ($scope.searchResults && !$scope.searchResults.length) { $scope.noResultsFlag = true; }
-				self.hideLoading($scope);
+				if ($scope.searchResults && !$scope.searchResults.length) { self.showNoResultsMsg($scope); }
 
+				self.hideLoading($scope);
+				$scope.backLinkText = 'חזרה לחיפוש';
+				self.showBackLink($scope);
 				deferred.resolve();
 			}, function () {
 				deferred.reject();
@@ -498,17 +520,95 @@ function($ihCONSTS, $ihREST, $ihUtil, $q, $ihRSSSrvc, $ihSearchSrvc, $ihCategori
 
 			return deferred.promise;
 		},
+		showFullHoroscope: function ($scope, item) {
+			var self = this;
+
+			self.clearResults($scope);
+			$scope.fullResultText = item.forecast;
+			$scope.backLinkText = 'חזרה להורוסקופ';
+			self.showBackLink($scope);
+			self.showFullResult($scope);
+		},
+		goToCategory: function ($scope, catName) {
+			var self = this;
+
+			var deferred = $q.defer();
+			self.showLoading($scope);
+			self.clearResults($scope);
+			$ihREST.loadCategoryData(catName).then(function (data) {
+
+			// $scope.categoryName = catName;
+			$scope.category = $ihCategorySrvc.buildCategoryObj(data);
+
+				$scope.backLinkText = 'חזרה לקטגוריות';
+				self.showBackLink($scope);
+				self.hideLoading($scope);
+				deferred.resolve();
+			}, function () {
+				self.showConnErrorMsg($scope);
+				$scope.backLinkText = 'חזרה לקטגוריות';
+				self.showBackLink($scope);
+				self.hideLoading($scope);
+				deferred.reject();
+			});
+
+			return deferred.promise;
+		},
+		goBack: function ($scope) {
+			var self = this;
+
+			switch ($scope.selectedSlice) {
+				case self.SLICE_INDEXES.horoscope:
+					self.hideBackLink($scope);
+					self.hideFullResult($scope);
+					self.getHoroscopeData($scope);
+					break;
+				case self.SLICE_INDEXES.search:
+					if ($scope.searchResults && $scope.searchResults.length > 0) {
+						$scope.searchResults = []; // hide search results
+					} else {
+						self.hideNoResultsMsg($scope);
+					}
+					self.hideBackLink($scope);
+					self.showSearchInput($scope);
+					break;
+				case self.SLICE_INDEXES.categories:
+					if ($scope.category && $scope.category.length > 0) { $scope.category = []; } // hide category results
+					self.hideConnErrorMsg($scope);
+					self.hideBackLink($scope);
+					self.getCategoriesData($scope);
+					break;
+				default:
+					break;
+			}
+		},
 		clearResults: function ($scope, exceptResult) {
 			if ($scope.results && $scope.results.length > 0) { $scope.results = []; }
 			if ($scope.rss && $scope.rss.length > 0) { $scope.rss = []; }
-			if ($scope.favorites ) { $scope.favorites = {}; }
+			if ($scope.favorites && Object.keys($scope.favorites).length > 0) { $scope.favorites = {}; }
 			if ($scope.showSearchInput && $scope.showSearchInput === true) { $scope.showSearchInput = false; }
 			if ($scope.noResultsFlag && $scope.noResultsFlag === true) { $scope.noResultsFlag = false; }
+			if ($scope.connErrorFlag && $scope.connErrorFlag === true) { $scope.connErrorFlag = false; }
+			if ($scope.showFullResult && $scope.showFullResult === true) { $scope.showFullResult = false; }
+			if ($scope.showBackLink && $scope.showBackLink === true) { $scope.showBackLink = false; }
+			if ($scope.fullResultText && $scope.fullResultText.length > 0) { $scope.fullResultText = ''; }
 			if ($scope.searchResults && $scope.searchResults.length > 0) { $scope.searchResults = []; }
-			if ($scope.categories ) { $scope.categories = {}; }
+			if ($scope.categories && Object.keys($scope.categories).length > 0) { $scope.categories = {}; }
+			if ($scope.category && $scope.category.length > 0) { $scope.category = []; }
 			if ($scope.opinions && $scope.opinions.length > 0) { $scope.opinions = []; }
 			if ($scope.horoscope && $scope.horoscope.length > 0) { $scope.horoscope = []; }
 			if ($scope.weather && $scope.weather.length > 0) { $scope.weather = []; }
+		},
+		SLICE_INDEXES: {
+			none: 0,
+			favorites: 1,
+			rss: 2,
+			search: 3,
+			categories: 4,
+			opinions: 5,
+			horoscope: 6,
+			weather: 7,
+			share: 8
 		}
 	};
 });
