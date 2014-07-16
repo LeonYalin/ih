@@ -1,6 +1,7 @@
 <div class="modal ihPieContainer"  ng-if="shouldShowPie == true">
 	<ion-pane>
 		<section class="ihPieResultsContainer">
+
 			<i class="icon ion-loading-c ihPieLoadingResult" ng-if="showLoading == true"></i>
 			<form action="" ng-if="showSearchInput == true" class="ihPieSearchForm">
 				<label class="item item-input">
@@ -9,6 +10,8 @@
 				</label>
 				<button type="submit" class="button button-block button-stable" ng-click="search(searchQuery)">חפש</button>
 			</form>
+			<p ng-if="noResultsFlag == true" class="item item-text-wrap ihPieNoResults">לא נמצאו תוצאות</p>
+
 			<ul class="ihClearFix ihOverflowScrollX ihNoScrollY">
 				<li ng-repeat="(key, value) in favorites" class="item ihListItem ihPieResult">
 					<a class="item item-body" href="#/app/articles/{{value.nid}}">
@@ -30,7 +33,9 @@
 				</li>
 				<li ng-repeat="(key, value) in categories" class="item ihListItem ihPieResult ihPieResultCategoriesItem">
 					<a class="item item-body" href="#/app/categories/{{key}}">
-						<span class="badge badge-left badge-assertive">{{value.count}}</span>
+						<div class="ihPieResultBadgeWrapper">
+							<span class="badge badge-left badge-assertive">{{value.count}}</span>							
+						</div>
 						<h2>{{key}}</h2>
 					</a>
 				</li>
@@ -42,7 +47,7 @@
 				</li>
 				<li ng-repeat="subItem in horoscope" class="item ihListItem ihPieResult ihPieResultHoroscopeItem">
 					<div class="item item-body">
-						<div class="title">{{subItem.name}}</div>
+						<div class="ihTitle">{{subItem.name}}</div>
 						<img ng-src="{{subItem.icon}}" class="ihHoroscopeImg">
 						<h2>{{subItem.forecast}}</h2>
 					</div>
@@ -60,7 +65,7 @@
 				 							'ihWeatherBGRain': subItem.description === 'גשום',
 				 							'ihWeatherBGPartCloud': subItem.description === 'מעונן חלקית' }">
 								<p class="ihWeatherDegreeSign">{{subItem.low}}-{{subItem.high}}</p>
-								<p class="ihWeatherDescr">{{subItem.description}}</p>
+								<p class="ihWeatherDescr ihEllipsis">{{subItem.description}}</p>
 							</div>
 					</div>
 				</li>

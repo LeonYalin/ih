@@ -24,6 +24,7 @@ directModule.directive('ihPie', function ($compile, $timeout, $ihCache, $ihPieSr
 		link: function($scope, element, attrs) {
 			$scope.title = 'Menu';
 			$scope.selectedSlice = 0;
+			$scope.noResultsFlag = false;
 			$scope.shouldShowPie = true;
 			$scope.sliceAnimState = 'show';
 			$scope.slices = [
@@ -85,7 +86,6 @@ directModule.directive('ihPie', function ($compile, $timeout, $ihCache, $ihPieSr
 				$scope.title = 'Menu';
 			});
 
-			$scope.noResultsFlag = false;
 			$scope.search = function (query) {
 				$ihPieSrvc.getSearchData($scope, query);
 			};
@@ -96,40 +96,41 @@ directModule.directive('ihPie', function ($compile, $timeout, $ihCache, $ihPieSr
 					return;
 				}
 
-				$scope.results = [];
-				switch (newValue) {
-					case 1: // Favorites
-						$ihPieSrvc.clearResults($scope);
-						$ihPieSrvc.getFavoritesData($scope);
-						break;
-					case 2: // RSS
-						$ihPieSrvc.clearResults($scope);
-						$ihPieSrvc.getRSSData($scope);
-						break;
-					case 3: // Search
-						$ihPieSrvc.clearResults($scope);
-						$ihPieSrvc.showSearchInput($scope);
-						break;
-					case 4: // Categories
-						$ihPieSrvc.clearResults($scope);
-						$ihPieSrvc.getCategoriesData($scope);
-						break;
-					case 5: // Opinions
-						$ihPieSrvc.clearResults($scope);
-						$ihPieSrvc.getOpinionsData($scope);
-						break;
-					case 6: // Horoscope
-						$ihPieSrvc.clearResults($scope);
-						$ihPieSrvc.getHoroscopeData($scope);
-						break;
-					case 7: // Weather
-						$ihPieSrvc.clearResults($scope);
-						$ihPieSrvc.getWeatherData($scope);
-						break;
-					default:
-						$ihPieSrvc.clearResults($scope);
-						break;
-				}
+				$timeout(function () {
+					switch (newValue) {
+						case 1: // Favorites
+							$ihPieSrvc.clearResults($scope);
+							$ihPieSrvc.getFavoritesData($scope);
+							break;
+						case 2: // RSS
+							$ihPieSrvc.clearResults($scope);
+							$ihPieSrvc.getRSSData($scope);
+							break;
+						case 3: // Search
+							$ihPieSrvc.clearResults($scope);
+							$ihPieSrvc.showSearchInput($scope);
+							break;
+						case 4: // Categories
+							$ihPieSrvc.clearResults($scope);
+							$ihPieSrvc.getCategoriesData($scope);
+							break;
+						case 5: // Opinions
+							$ihPieSrvc.clearResults($scope);
+							$ihPieSrvc.getOpinionsData($scope);
+							break;
+						case 6: // Horoscope
+							$ihPieSrvc.clearResults($scope);
+							$ihPieSrvc.getHoroscopeData($scope);
+							break;
+						case 7: // Weather
+							$ihPieSrvc.clearResults($scope);
+							$ihPieSrvc.getWeatherData($scope);
+							break;
+						default:
+							$ihPieSrvc.clearResults($scope);
+							break;
+					}
+				}, 300);
 			});
 		}
 	};

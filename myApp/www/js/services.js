@@ -367,6 +367,12 @@ function($ihCONSTS, $ihREST, $ihUtil, $q, $ihRSSSrvc, $ihSearchSrvc, $ihCategori
 		hideSearchInput: function ($scope) {
 			$scope.showSearchInput = false;
 		},
+		showNoResultsMsg: function ($scope) {
+			$scope.noResultsFlag = true;
+		},
+		hideNoResultsMsg: function ($scope) {
+			$scope.noResultsFlag = false;
+		},
 		getFavoritesData: function ($scope) {
 			this.showLoading($scope);
 			var favoritesCache = $ihUtil.getObjectFromLocalStorage('favoritesObj');
@@ -404,6 +410,7 @@ function($ihCONSTS, $ihREST, $ihUtil, $q, $ihRSSSrvc, $ihSearchSrvc, $ihCategori
 
 				var results = $ihSearchSrvc.buildSearchObj(data.results);
 				$scope.searchResults = results;
+				if ($scope.searchResults && !$scope.searchResults.length) { $scope.noResultsFlag = true; }
 				self.hideLoading($scope);
 
 				deferred.resolve();
@@ -492,15 +499,16 @@ function($ihCONSTS, $ihREST, $ihUtil, $q, $ihRSSSrvc, $ihSearchSrvc, $ihCategori
 			return deferred.promise;
 		},
 		clearResults: function ($scope, exceptResult) {
-			if ($scope.results ) { $scope.results = []; }
-			if ($scope.rss ) { $scope.rss = []; }
+			if ($scope.results && $scope.results.length > 0) { $scope.results = []; }
+			if ($scope.rss && $scope.rss.length > 0) { $scope.rss = []; }
 			if ($scope.favorites ) { $scope.favorites = {}; }
-			if ($scope.showSearchInput ) { $scope.showSearchInput = false; }
-			if ($scope.searchResults ) { $scope.searchResults = []; }
+			if ($scope.showSearchInput && $scope.showSearchInput === true) { $scope.showSearchInput = false; }
+			if ($scope.noResultsFlag && $scope.noResultsFlag === true) { $scope.noResultsFlag = false; }
+			if ($scope.searchResults && $scope.searchResults.length > 0) { $scope.searchResults = []; }
 			if ($scope.categories ) { $scope.categories = {}; }
-			if ($scope.opinions ) { $scope.opinions = []; }
-			if ($scope.horoscope ) { $scope.horoscope = []; }
-			if ($scope.weather ) { $scope.weather = []; }
+			if ($scope.opinions && $scope.opinions.length > 0) { $scope.opinions = []; }
+			if ($scope.horoscope && $scope.horoscope.length > 0) { $scope.horoscope = []; }
+			if ($scope.weather && $scope.weather.length > 0) { $scope.weather = []; }
 		}
 	};
 });

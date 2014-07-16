@@ -99,7 +99,7 @@
 .ihPieSlice .ion-star {
 	font-size: 41px;
 	top: 23px;
-	left: 75px;
+	left: 77px;
 }
 .ihPieSlice .ion-radio-waves {
 	left: 79px;
@@ -132,8 +132,8 @@
 }
 .ihPieSlice .ion-android-share {
 	font-size: 30px;
-	top: 32px;
-	left: 81px;
+	top: 30px;
+	left: 79px;
 }
 
 .ihPieSlice-1_8-show {
@@ -273,7 +273,7 @@
 
 .ihPieResult {
 	height: 149px;
-	width: 80px;
+	width: 90px;
 	padding: 0;
 	display: inline-block;
 	border: none;
@@ -309,7 +309,7 @@
 	margin-top: -30px;
 }
 
-.ihPieSearchForm {
+.ihPieSearchForm, .ihPieNoResults {
 	position: absolute;
 	width: 100%;
 	top: 88px;
@@ -327,14 +327,19 @@
 
 .ihPieResultCategoriesItem h2 {
 	position: relative;
-	top: 74px;
+	top: 52px;
 	text-align: center;
 }
+.ihPieResultCategoriesItem .ihPieResultBadgeWrapper {
+	position: relative;
+	top: 42px;
+}
 .ihPieResultCategoriesItem .badge {
-	top: 48px;
+	display: inline-block;
+	position: static;
 }
 
-.ihPieResultHoroscopeItem .title {
+.ihPieResultHoroscopeItem .ihTitle {
 	text-align: center;
 }
 .ihPieResultHoroscopeItem h2 {

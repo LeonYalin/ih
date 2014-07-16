@@ -165,6 +165,7 @@
 /* Pie results animations */
 .ihPieResult.ng-enter, .ihPieResult.ng-move,
 .ihPieSearchForm.ng-enter, .ihPieSearchForm.ng-move,
+.ihPieNoResults.ng-enter, .ihPieNoResults.ng-move,
 .ihPieLoadingResult.ng-enter, .ihPieLoadingResult.ng-move {
  	-webkit-transition:0.5s linear all;
  	opacity:0;
@@ -180,6 +181,8 @@
 .ihPieResult.ng-move.ng-move-active,
 .ihPieSearchForm.ng-enter.ng-enter-active,
 .ihPieSearchForm.ng-move.ng-move-active,
+.ihPieNoResults.ng-enter.ng-enter-active,
+.ihPieNoResults.ng-move.ng-move-active,
 .ihPieLoadingResult.ng-enter.ng-enter-active,
 .ihPieLoadingResult.ng-move.ng-move-active {
 	opacity:1;
@@ -192,6 +195,7 @@
 */
 .ihPieResult.ng-leave,
 .ihPieSearchForm.ng-leave,
+.ihPieNoResults.ng-leave,
 .ihPieLoadingResult.ng-leave {
 	-webkit-animation:0.5s my_animation;
 	/*opacity: 0;*/
