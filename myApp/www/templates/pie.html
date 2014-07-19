@@ -1,4 +1,4 @@
-<div class="modal ihPieContainer"  ng-if="shouldShowPie == true">
+<div class="modal ihPieContainer" ng-click="hideModal($event)" ng-if="shouldShowPie == true">
 	<ion-pane>
 		<section class="ihPieResultsContainer">
 
@@ -81,7 +81,7 @@
 			</ul>
 		</section>
 		<header class="ihPieHeaderContainer">
-			<h1 class="title" ng-show="showBackLink !== true">{{title}}</h1>
+			<h1 class="ihPieTitle" ng-show="showBackLink !== true">{{title}}</h1>
 			<h1 class="ihPieBackLink" ng-show="showBackLink === true" ng-click="goBack()">
 				<i class="icon ion-chevron-right"></i>{{backLinkText}}
 			</h1>

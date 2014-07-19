@@ -1,16 +1,20 @@
 
-.ihSearchContainer .list-inset{
-	position: relative;
-	width: 100%;
+.ihSearchContainer{
+	margin: 10px; 
 }
 .ihSearchContainer .ion-search {
 	font-size: 18px;
 	position: relative;
 	right: 10px;
 }
+.ihSearchContainer .ihSearchBtnHidden {
+	visibility: hidden;
+	position: absolute;
+	top: -150px;
+}
 
 .ihSearchResultsContainer {
-	top: 244px;
+	top: 114px;
 }
 .ihSearchResultsContainer .ihNoResults {
 	padding: 10px;

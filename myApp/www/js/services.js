@@ -114,13 +114,20 @@ servModule.factory('$ihPopupUtil', function($ionicPopup, $ionicModal){
 			} else {
 				var ihModal = $ionicModal.fromTemplateUrl('templates/pie_drct.html', {
 					scope: $scope,
-					animation: 'slide-in-up'
+					animation: 'no-animation',
+					// backdropClickToClose: false,
+					hardwareBackButtonClose: true
 				});
 
 				ihModal.then(function(modal) {
 					$scope.modal = modal;
 					$scope.modal.show();
 				});
+			}
+		},
+		hideModal: function ($scope) {
+			if ($scope.modal) {
+				$scope.modal.hide();
 			}
 		}
 

@@ -17,7 +17,7 @@ directModule.directive("ihBesttvPlayer",function($http, $q, $compile, $timeout){
 	};
 });
 
-directModule.directive('ihPie', function ($compile, $timeout, $ihCache, $ihPieSrvc, $ihUtil) {
+directModule.directive('ihPie', function ($compile, $timeout, $ihCache, $ihPieSrvc, $ihUtil, $ihPopupUtil, $rootScope) {
 	return {
 		restrict: 'E',
 		templateUrl: 'templates/pie.html',
@@ -110,6 +110,15 @@ directModule.directive('ihPie', function ($compile, $timeout, $ihCache, $ihPieSr
 			$scope.goToCategory = function (key) {
 				$ihPieSrvc.goToCategory($scope, key);
 			};
+
+			$scope.hideModal = function ($event) {
+				var $el = angular.element($event.target);
+
+				/* Check if we clicked on empty space */
+				if ($el.hasClass('ihPieBodyContainer')|| $el.hasClass('ihPieResultsContainer')) {
+					$ihPopupUtil.hideModal($rootScope);
+				}
+			}
 
 			$scope.$watch('selectedSlice', function(newValue, oldValue){
 				// Check if value has changes

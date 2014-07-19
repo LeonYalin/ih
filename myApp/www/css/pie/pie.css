@@ -4,8 +4,8 @@
 .ihPieContainer {
 	text-align: center;
 	top: auto;
-	min-height: 500px;
-	width: 300px;
+	min-height: 520px;
+	width: 320px;
 }
 
 .ihPieHeaderContainer h1{
@@ -66,9 +66,9 @@
 	-webkit-transform: rotate3d(0, 0, 1, -45deg);
 }
 
-.ihPieSlice .ihPieSliceInner{
+/*.ihPieSlice .ihPieSliceInner{
 	-webkit-transition: background-color 0.3s linear;
-}
+}*/
 .ihPieSlice:nth-of-type(odd) .ihPieSliceInner{
 	background-color: #DADADA;
 }
@@ -82,11 +82,11 @@
 
 .ihPieSliceInnerSelected {
 	background-color: #D53F47 !important;
-	-webkit-transition: background-color 0.3s linear;
+	/*-webkit-transition: background-color 0.3s linear;*/
 }
 .ihPieSliceInnerSelected .icon {
 	color: white !important;
-	-webkit-transition: color 0.3s linear;
+	/*-webkit-transition: color 0.3s linear;*/
 }
 
 .ihPieSlice .icon {

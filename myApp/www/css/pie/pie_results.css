@@ -6,11 +6,12 @@
 }
 .ihPieResultsContainer > ul {
 	white-space: nowrap;
+	height: 150px;
 }
 
 .ihPieResult {
 	height: 150px;
-	width: 90px;
+	width: 100px;
 	padding: 0;
 	display: inline-block;
 	border: none;
@@ -66,6 +67,12 @@
 	padding: 10px;
 }
 
+.ihPieHeaderContainer {
+	margin-bottom: 25px;
+}
+.ihPieHeaderContainer > h1 {
+	margin-bottom: 0;
+}
 .ihPieHeaderContainer .ihPieBackLink {
 	color: #D53F47;
 	/*text-decoration: underline;*/

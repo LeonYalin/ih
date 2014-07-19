@@ -1,9 +1,16 @@
 var ctrlModule = angular.module('starter.controllers', []);
 
-ctrlModule.controller('AppCtrl', function($scope, $ihUtil) {
+ctrlModule.controller('AppCtrl', function($scope, $rootScope, $ihUtil, $ihPopupUtil) {
 	if (!$ihUtil.getObjectFromLocalStorage('favoritesObj')) {
 		$ihUtil.setObjectToLocalStorage('favoritesObj', {});
 	}
+
+	$rootScope.showModal = function() {
+		$ihPopupUtil.showModal($rootScope);
+	};
+	$rootScope.hideModal = function() {
+		$ihPopupUtil.hideModal($rootScope);
+	};
 });
 
 ctrlModule.controller('ArticlesCtrl',
@@ -215,18 +222,22 @@ ctrlModule.controller('ErrorCtrl', function($scope, $ihCache) {
 	$scope.errorText = $ihCache.get('errorText') || defaultErrorText;
 });
 
-ctrlModule.controller('SearchCtrl', function($scope, $state, $q, $ihUtil, $ihREST, $ihSearchSrvc, $ihCache, $ihPopupUtil) {
+ctrlModule.controller('SearchCtrl', function($scope, $state, $q, $ihUtil, $ihREST, $ihSearchSrvc, $ihCache) {
 	var state = $state,
 		searchCache = $ihCache.get('searchObj');
 
-	$scope.search = function (query) {
-		_searchIH(state, query);
+	$scope.search = function ($event, query) {
+		/*We want ho hide the keyboard by when user presses 'go' button */
+		if (angular.element($event.target).hasClass('ihSearchInput')) {
+			$event.preventDefault();
+
+			var $el = angular.element(document.getElementsByClassName('ihSearchContainer')[0].getElementsByClassName('ihSearchBtnHidden')[0]);
+			$el.triggerHandler('click');
+		} else {
+			_searchIH(state, query);
+		}
 	};
 	$scope.searchQuery = '';
-
-	$scope.showModal = function() {
-		$ihPopupUtil.showModal($scope);
-	};
 
 	function _searchIH(state, query) {
 		var deferred = $q.defer();
