@@ -227,15 +227,13 @@ ctrlModule.controller('SearchCtrl', function($scope, $state, $q, $ihUtil, $ihRES
 		searchCache = $ihCache.get('searchObj');
 
 	$scope.search = function ($event, query) {
-		/*We want ho hide the keyboard by when user presses 'go' button */
-		if (angular.element($event.target).hasClass('ihSearchInput')) {
-			$event.preventDefault();
-
-			var $el = angular.element(document.getElementsByClassName('ihSearchContainer')[0].getElementsByClassName('ihSearchBtnHidden')[0]);
-			$el.triggerHandler('click');
-		} else {
-			_searchIH(state, query);
+		/*We want ho hide the keyboard by when user presses 'go' button, by triggering focus on element other than input */
+		var menuBtn = document.getElementsByClassName('button')[1];
+		if (menuBtn) {
+			menuBtn.focus();
 		}
+
+		_searchIH(state, query);
 	};
 	$scope.searchQuery = '';
 
@@ -393,7 +391,7 @@ ctrlModule.controller('OpinionCtrl', function($scope, $stateParams, $state, $q, 
 		$ihUtil.showLoading();
 		$ihREST.loadOpinionData(opId).then(function (data) {
 
-			var opinion = $ihArticleSrvc.buildArticleObj(data);
+			var opinion = $ihArticleSrvc.buildArticleObj(data, 'opinion');
 			opinion.content.intro = $ihOpinionsSrvc.fixOpinionIntro(opinion.content.intro);
 			$scope.opinion = angular.copy(opinion);
 

@@ -34,8 +34,10 @@
 						<a class="item-thumbnail-right ihArticleListItemWrapper" href="#/app/articles/{{sec.nid}}">
 							<img ng-src="{{sec.images[0].path}}" class="ihArticleImg">
 							<!-- <i class="icon ion-ios7-videocam" ng-show="sec.videos && sec.videos.items.length > 0"></i> -->
-							<h2>{{sec.content.title}}</h2>
-							<p class="ihArticleListItemIntro">{{sec.content.intro}}</p>
+							<div class="ihArticleListItemTextWrapper">
+								<h2 class="ihArticleListItemTitle">{{sec.content.title}}</h2>
+								<p class="ihArticleListItemIntro">{{sec.content.intro}}</p>
+							</div>
 							<p class="ihArticleListItemDate">
 								<span class="ihDoubleSlash ihColorRed">{{sec.author.name}}</span>
 								<span>{{sec.date.timestamp | date: 'H:mm'}}</span><span>&nbsp;</span><span>{{sec.date.formatted}}</span>
@@ -54,18 +56,50 @@
 						<a class="item-thumbnail-right" href="#/app/articles/{{news.nid}}">
 							<img ng-src="{{news.images[0].path}}" class="ihArticleImg">
 							<!-- <i class="icon ion-ios7-videocam" ng-show="news.videos && news.videos.items.length > 0"></i> -->
-							<h2>{{news.content.title}}</h2>
-							<p class="ihArticleListItemIntro">{{news.content.intro}}</p>
+							<div class="ihArticleListItemTextWrapper">
+								<h2 class="ihArticleListItemTitle">{{news.content.title}}</h2>
+								<p class="ihArticleListItemIntro">{{news.content.intro}}</p>
+							</div>
 							<p class="ihArticleListItemDate">
 								<span class="ihDoubleSlash ihColorRed">{{news.author.name}}</span>
 								<span>{{news.date.timestamp | date: 'H:mm'}}</span><span>&nbsp;</span><span>{{news.date.formatted}}</span>
 							</p>
 						</a>
 						<ion-option-button ng-if="!news.inFavorites" class="button ihFavoritesBtn" ng-click="onFavorites(news, $event)">הוסף למועדפים</ion-option-button>
-						<ion-option-button ng-if="news.inFavorites" class="button button-stable">שמור במועדפים</ion-option-button>
+						<ion-option-button ng-if="news.inFavorites" class="button ihFavoritesExistBtn">שמור במועדפים</ion-option-button>
 					</ion-item>
 				</li>
 			</ul>
+
+			<ul>
+				<li ng-repeat="category in articles.other">
+					<div class="item item-divider item-assertive">
+						<a class="ihArticleListMoreArticlesLink" href="#/app/categories/{{category.name}}">עוד כתבות</a>
+						<span>{{category.name}}</span>
+					</div>
+					<ul class="ihArticleListSection">
+						<li ng-repeat="catNewsItem in category.data">
+							<ion-item class="ihListItem ihArticleListItem">
+								<a class="item-thumbnail-right" href="#/app/articles/{{catNewsItem.nid}}">
+									<img ng-src="{{catNewsItem.images[0].path}}" class="ihArticleImg">
+									<!-- <i class="icon ion-ios7-videocam" ng-show="catNewsItem.videos && catNewsItem.videos.items.length > 0"></i> -->
+									<div class="ihArticleListItemTextWrapper">
+										<h2 class="ihArticleListItemTitle">{{catNewsItem.content.title}}</h2>
+										<p class="ihArticleListItemIntro">{{catNewsItem.content.intro}}</p>
+									</div>
+									<p class="ihArticleListItemDate">
+										<span class="ihDoubleSlash ihColorRed">{{catNewsItem.author.name}}</span>
+										<span>{{catNewsItem.date.timestamp | date: 'H:mm'}}</span><span>&nbsp;</span><span>{{catNewsItem.date.formatted}}</span>
+									</p>
+								</a>
+								<ion-option-button ng-if="!catNewsItem.inFavorites" class="button ihFavoritesBtn" ng-click="onFavorites(catNewsItem, $event)">הוסף למועדפים</ion-option-button>
+								<ion-option-button ng-if="catNewsItem.inFavorites" class="button ihFavoritesExistBtn">שמור במועדפים</ion-option-button>
+							</ion-item>
+						</li>
+					</ul>
+				</li>
+			</ul>
+
 		</ion-list>
 	</ion-content>
 </ion-view>

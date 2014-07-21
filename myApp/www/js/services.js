@@ -170,6 +170,14 @@ servModule.factory('$ihHomepageSrvc', function($ihCONSTS, $ihUtil, $timeout){
 				}
 			});
 		},
+		checkFavoritesOther: function (arr) {
+			if (!arr) return;
+
+			var self = this;
+			angular.forEach(arr, function (item) {
+				self.checkFavorites(item.data);
+			});
+		},
 		/* Get only elements that contain RSS */
 		filterByRSS: function (arr) {
 			if (!arr) return;
@@ -177,6 +185,48 @@ servModule.factory('$ihHomepageSrvc', function($ihCONSTS, $ihUtil, $timeout){
 			return arr.filter(function (elem) {
 				return elem.type === 'newsflash';
 			});
+		},
+		divideIntoCategories: function (arr) {
+			if (!arr) return;
+
+			var categObj = {}, finalArr = [];
+
+			/* Retrieve all distinct categories from arr */
+			angular.forEach(arr, function (item) {
+				if (item.categories) {
+					if (item.categories.length === 1) { // one category
+						if (!categObj[item.categories[0]]) { categObj[item.categories[0]] = []; }
+					} else { // two or more categories
+						if (!categObj[item.categories[1]]) { categObj[item.categories[1]] = []; }
+					}
+				}
+			});
+
+			/* Fill categories with articles */
+			angular.forEach(Object.keys(categObj), function (catItem, catIndex) {
+				angular.forEach(arr, function (arrItem, arrIndex) {
+					if (arrItem.categories.length === 1) { // one category
+						if (catItem === arrItem.categories[0]) {
+							categObj[catItem].push(arrItem);
+						}
+					} else { // two or more categories
+						if (catItem === arrItem.categories[1]) {
+							categObj[catItem].push(arrItem);
+						}
+					}
+				});
+			});
+
+			/* Transform categorized object into array + reorder items to match source array */
+			angular.forEach(Object.keys(categObj), function (catName) {
+				finalArr.push({
+					name: catName,
+					data: categObj[catName]
+				});
+			});
+
+			return finalArr;
+
 		},
 		/* delete huge raw & tokened strings for better performance */
 		buildSingleArticle: function (arr) {
@@ -196,16 +246,20 @@ servModule.factory('$ihHomepageSrvc', function($ihCONSTS, $ihUtil, $timeout){
 			var articlesObj = {
 				primary: this.buildSingleArticle(data.primary),
 				secondary: this.buildSingleArticle(data.secondary),
-				news: this.buildSingleArticle(data.news)
+				news: this.buildSingleArticle(data.news),
+				other: this.buildSingleArticle(data.other)
 			};
 
 			this.fixImagePath(articlesObj.primary, $ihCONSTS.imageSizes.fullscreen);
 			this.fixImagePath(articlesObj.secondary);
 			this.fixImagePath(articlesObj.news);
+			this.fixImagePath(articlesObj.other);
 			articlesObj.rss = this.filterByRSS(data.excluded);
+			articlesObj.other = this.divideIntoCategories(articlesObj.other);
 
 			this.checkFavorites(articlesObj.secondary);
 			this.checkFavorites(articlesObj.news);
+			this.checkFavoritesOther(articlesObj.other);
 
 			return articlesObj;
 		},
@@ -418,6 +472,7 @@ function($ihCONSTS, $ihREST, $ihUtil, $q, $ihRSSSrvc, $ihSearchSrvc, $ihCategori
 
 				deferred.resolve();
 			}, function () {
+				self.showConnErrorMsg($scope);
 				deferred.reject();
 				self.hideLoading($scope);
 			});
@@ -444,6 +499,9 @@ function($ihCONSTS, $ihREST, $ihUtil, $q, $ihRSSSrvc, $ihSearchSrvc, $ihCategori
 				self.showBackLink($scope);
 				deferred.resolve();
 			}, function () {
+				self.showConnErrorMsg($scope);
+				$scope.backLinkText = 'חזרה לחיפוש';
+				self.showBackLink($scope);
 				deferred.reject();
 				self.hideLoading($scope);
 			});
@@ -463,6 +521,7 @@ function($ihCONSTS, $ihREST, $ihUtil, $q, $ihRSSSrvc, $ihSearchSrvc, $ihCategori
 				self.hideLoading($scope);
 				deferred.resolve();
 			}, function () {
+				self.showConnErrorMsg($scope);
 				deferred.reject();
 				self.hideLoading($scope);
 			});
@@ -481,6 +540,7 @@ function($ihCONSTS, $ihREST, $ihUtil, $q, $ihRSSSrvc, $ihSearchSrvc, $ihCategori
 				self.hideLoading($scope);
 				deferred.resolve();
 			}, function () {
+				self.showConnErrorMsg($scope);
 				deferred.reject();
 				self.hideLoading($scope);
 			});
@@ -502,6 +562,7 @@ function($ihCONSTS, $ihREST, $ihUtil, $q, $ihRSSSrvc, $ihSearchSrvc, $ihCategori
 				self.hideLoading($scope);
 				deferred.resolve();
 			}, function () {
+				self.showConnErrorMsg($scope);
 				self.hideLoading($scope);
 				deferred.reject();
 			});
@@ -521,6 +582,7 @@ function($ihCONSTS, $ihREST, $ihUtil, $q, $ihRSSSrvc, $ihSearchSrvc, $ihCategori
 				deferred.resolve();
 				self.hideLoading($scope);
 			}, function () {
+				self.showConnErrorMsg($scope);
 				deferred.reject();
 				self.hideLoading($scope);
 			});
@@ -576,6 +638,7 @@ function($ihCONSTS, $ihREST, $ihUtil, $q, $ihRSSSrvc, $ihSearchSrvc, $ihCategori
 					} else {
 						self.hideNoResultsMsg($scope);
 					}
+					self.hideConnErrorMsg($scope);
 					self.hideBackLink($scope);
 					self.showSearchInput($scope);
 					break;
@@ -755,12 +818,12 @@ servModule.factory('$ihOpinionsSrvc', function($ihCONSTS, $ihHomepageSrvc){
 
 servModule.factory('$ihArticleSrvc', function($ihCONSTS, $ihUtil){
 	return {
-		fixArticleImagePath: function (arr) {
+		fixArticleImagePath: function (arr, imgSize) {
 			if (!arr) return;
 
 			angular.forEach(arr, function(item) {
 				imagePath = item.path;
-				imagePath = imagePath.replace('[DEFAULT]', $ihCONSTS.imageSizes.fullscreen);
+				imagePath = imagePath.replace('[DEFAULT]', imgSize || $ihCONSTS.imageSizes.fullscreen);
 				imagePath = $ihCONSTS.url.webDomain + imagePath;
 
 				item.path = imagePath;
@@ -819,7 +882,7 @@ servModule.factory('$ihArticleSrvc', function($ihCONSTS, $ihUtil){
 
 			return rawHtml;
 		},
-		buildArticleObj: function (data) {
+		buildArticleObj: function (data, articleType) {
 			if (!data) return;
 
 			var articleObj = {
@@ -835,7 +898,11 @@ servModule.factory('$ihArticleSrvc', function($ihCONSTS, $ihUtil){
 			};
 
 
-			this.fixArticleImagePath(articleObj.images);
+			if (articleType && articleType === 'opinion') {
+				this.fixArticleImagePath(articleObj.images, $ihCONSTS.imageSizes.default);
+			} else {
+				this.fixArticleImagePath(articleObj.images);
+			}
 			// make first image main article image, and remove it from images array
 			if (articleObj.images && articleObj.images.length > 0) {
 				articleObj.mainImageSrc = articleObj.images[0].path;
@@ -882,7 +949,7 @@ servModule.factory('$ihREST', function($http, $q, $ihCONSTS){
 			return this.loadData($ihCONSTS.url.categories);
 		},
 		loadCategoryData: function (catName) {
-			return this.loadData($ihCONSTS.url.category + catName + $ihCONSTS.url.key + $ihCONSTS.url.callback);
+			return this.loadData($ihCONSTS.url.category + catName.toLowerCase() + $ihCONSTS.url.key + $ihCONSTS.url.callback);
 		},
 		loadSearchResults: function (query) {
 			return this.loadData($ihCONSTS.url.search + query);

@@ -22,7 +22,7 @@ directModule.directive('ihPie', function ($compile, $timeout, $ihCache, $ihPieSr
 		restrict: 'E',
 		templateUrl: 'templates/pie.html',
 		link: function($scope, element, attrs) {
-			$scope.title = 'Menu';
+			$scope.title = 'תפריט';
 			$scope.selectedSlice = 0;
 			$scope.noResultsFlag = false;
 			$scope.connErrorFlag = false;

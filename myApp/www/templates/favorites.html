@@ -11,8 +11,10 @@
 						<a class="item-thumbnail-right" href="#/app/articles/{{value.nid}}">
 							<img ng-src="{{value.images[0].path}}" class="ihArticleImg">
 							<!-- <i class="icon ion-ios7-videocam" ng-show="value.videos && value.videos.items.length > 0"></i> -->
-							<h2>{{value.content.title}}</h2>
-							<p class="ihArticleListItemIntro">{{value.content.intro}}</p>
+							<div class="ihArticleListItemTextWrapper">
+								<h2 class="ihArticleListItemTitle">{{value.content.title}}</h2>
+								<p class="ihArticleListItemIntro">{{value.content.intro}}</p>
+							</div>
 							<p class="ihArticleListItemDate">
 								<span class="ihDoubleSlash ihColorRed">{{value.author.name}}</span>
 								<span>{{value.date.timestamp | date: 'H:mm'}}</span><span>&nbsp;</span><span>{{value.date.formatted}}</span>
