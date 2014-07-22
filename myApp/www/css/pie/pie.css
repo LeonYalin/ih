@@ -3,21 +3,33 @@
 
 .ihPieContainer {
 	text-align: center;
-	top: auto;
-	min-height: 520px;
-	width: 320px;
+}
+.ihPieContainer .pane {
+	background-color: rgba(0, 0, 0, 0.5);
+	opacity: 0.9;
 }
 
+.ihPieWrapper {
+	position: absolute;
+	width: 100%;
+	bottom: 10%;
+}
+
+.ihPieHeaderContainer {
+	width: 340px;
+	margin: 0 auto;
+	margin-bottom: 25px;
+}
 .ihPieHeaderContainer h1{
-	color: #535353;
+	display: inline-block;
+	color: #C4C4C4;
 }
 
 .ihPieBodyContainer {
-	position: absolute;
+	position: relative;
+	margin: 0 auto;
 	width: 267px;
 	height: 267px;
-	left: 50%;
-	margin-left: -134px;
 }
 
 .ihPieSlicesContainer {

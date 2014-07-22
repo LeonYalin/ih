@@ -32,7 +32,7 @@
 			<li ng-repeat="comment in comments" class="item ihListItem">
 				<span class="ihDoubleSlash ihColorRed">{{comment.author.name}}</span><span>&nbsp;</span>
 				<span>{{comment.date.timestamp | date: 'H:mm'}}</span>
-				<h2>{{comment.subject}}</h2>
+				<h2 class="ihArticleCommentTitle">{{comment.subject}}</h2>
 				<p class="ihArticleCommentBody">{{comment.body}}</p>
 			</li>
 		</ul>

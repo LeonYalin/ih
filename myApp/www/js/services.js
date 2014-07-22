@@ -115,7 +115,7 @@ servModule.factory('$ihPopupUtil', function($ionicPopup, $ionicModal){
 				var ihModal = $ionicModal.fromTemplateUrl('templates/pie_drct.html', {
 					scope: $scope,
 					animation: 'no-animation',
-					// backdropClickToClose: false,
+					backdropClickToClose: false,
 					hardwareBackButtonClose: true
 				});
 

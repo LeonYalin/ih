@@ -17,11 +17,13 @@ directModule.directive("ihBesttvPlayer",function($http, $q, $compile, $timeout){
 	};
 });
 
-directModule.directive('ihPie', function ($compile, $timeout, $ihCache, $ihPieSrvc, $ihUtil, $ihPopupUtil, $rootScope) {
+directModule.directive('ihPie', function ($compile, $timeout, $ihCache, $ihPieSrvc, $ihUtil, $ihPopupUtil, $rootScope, $state, $location) {
 	return {
 		restrict: 'E',
 		templateUrl: 'templates/pie.html',
 		link: function($scope, element, attrs) {
+			var state = $state;
+			$scope.$on('$stateChangeStart', onStateChangeStart);
 			$scope.title = 'תפריט';
 			$scope.selectedSlice = 0;
 			$scope.noResultsFlag = false;
@@ -73,6 +75,34 @@ directModule.directive('ihPie', function ($compile, $timeout, $ihCache, $ihPieSr
 				}
 			};
 
+			function onStateChangeStart(e, toState, toParams, fromState, fromParams) {
+				e.preventDefault();
+
+				var artId = toParams.articleId || '',
+					opId = toParams.opinionId || '';
+
+				$scope.sliceAnimState = 'hide';
+				$scope.selectedSlice = $ihPieSrvc.SLICE_INDEXES.none;
+				$ihPieSrvc.clearResults($scope);
+
+				$timeout(function() {
+					$scope.shouldShowPie = false;
+					$ihPopupUtil.hideModal($rootScope);
+
+					switch (toState.name) {
+						case 'app.article':
+							$location.path('/app/articles/' + artId);
+							break;
+						case 'app.opinion':
+							$location.path('/app/opinions/' + opId);
+							break;
+					}
+
+					// remove state change listener
+					$scope.$$listeners.$stateChangeStart = [];
+				}, 500, true);
+			}
+
 			$scope.$on('$destroy', function() {
 				$scope.modal.remove();
 			});
@@ -80,9 +110,10 @@ directModule.directive('ihPie', function ($compile, $timeout, $ihCache, $ihPieSr
 				$scope.sliceAnimState = 'hide';
 				$scope.selectedSlice = $ihPieSrvc.SLICE_INDEXES.none;
 				$ihPieSrvc.clearResults($scope);
-				$timeout(function() {
-					$scope.shouldShowPie = false;
-				}, 300, false);
+				$scope.shouldShowPie = false;
+				$scope.$$listeners.$stateChangeStart = [];
+				// $timeout(function() {
+				// }, 300, false);
 			});
 			$scope.$on('modal.removed', function() {
 				console.log('in modal.removed');
@@ -90,7 +121,8 @@ directModule.directive('ihPie', function ($compile, $timeout, $ihCache, $ihPieSr
 			$scope.$on('modal.shown', function() {
 				$scope.shouldShowPie = true;
 				$scope.sliceAnimState = 'show';
-				$scope.title = 'Menu';
+				$scope.title = 'תפריט';
+				$scope.$on('$stateChangeStart', onStateChangeStart);
 			});
 
 			$scope.search = function (query) {
@@ -115,10 +147,19 @@ directModule.directive('ihPie', function ($compile, $timeout, $ihCache, $ihPieSr
 				var $el = angular.element($event.target);
 
 				/* Check if we clicked on empty space */
-				if ($el.hasClass('ihPieBodyContainer')|| $el.hasClass('ihPieResultsContainer')) {
-					$ihPopupUtil.hideModal($rootScope);
+				if ($el.hasClass('ihPieBodyContainer') || $el.hasClass('pane') || $el.hasClass('ihPieWrapper') ||
+						$el.hasClass('ihPieHeaderContainer') || $el.hasClass('ihPieResultsContainerUl')) {
+					$scope.sliceAnimState = 'hide';
+					$scope.selectedSlice = $ihPieSrvc.SLICE_INDEXES.none;
+					$ihPieSrvc.clearResults($scope);
+
+					$timeout(function() {
+						$scope.shouldShowPie = false;
+						$ihPopupUtil.hideModal($rootScope);
+					}, 500, true);
+
 				}
-			}
+			};
 
 			$scope.$watch('selectedSlice', function(newValue, oldValue){
 				// Check if value has changes

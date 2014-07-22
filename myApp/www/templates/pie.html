@@ -1,7 +1,9 @@
 <div class="modal ihPieContainer" ng-click="hideModal($event)" ng-if="shouldShowPie == true">
 	<ion-pane>
+	<div class="ihPieWrapper">
 		<section class="ihPieResultsContainer">
 
+			<!-- Messages and inputs -->
 			<i class="icon ion-loading-c ihPieLoadingResult" ng-if="showLoading == true"></i>
 			<form action="" ng-if="showSearchInput == true" class="ihPieSearchForm">
 				<label class="item item-input">
@@ -14,7 +16,8 @@
 			<p ng-if="connErrorFlag == true" class="item item-text-wrap ihPieNoResults">אירעה שגיאה בעת טעינת נתונים</p>
 			<p class="ihPieFullResult ihPieNoResults ihOverflowScrollY" ng-if="showFullResult === true">{{fullResultText}}</p>
 
-			<ul class="ihClearFix ihOverflowScrollX ihNoScrollY">
+			<!-- Results -->
+			<ul class="ihClearFix ihOverflowScrollX ihNoScrollY ihPieResultsContainerUl">
 				<li ng-repeat="(key, value) in favorites" class="item ihListItem ihPieResult">
 					<a class="item item-body" href="#/app/articles/{{value.nid}}">
 						<img class="full-image" ng-src="{{value.images[0].path}}">
@@ -110,5 +113,6 @@
 				</li>
 			</ul>
 		</div>
+	</div>
 	</ion-pane>
 </div>

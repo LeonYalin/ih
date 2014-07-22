@@ -1,8 +1,10 @@
 
 .ihPieResultsContainer {
+	position: relative;
+	width: 340px;
+	margin: 0 auto;
 	min-height: 150px;
-	background-color: #DDD;
-	/*text-align: right;*/
+	/*background-color: rgba(0, 0, 0, 0.5);*/
 }
 .ihPieResultsContainer > ul {
 	white-space: nowrap;
@@ -40,6 +42,7 @@
 
 .ihPieLoadingResult {
 	font-size: 60px;
+	color: white;
 	position: absolute;
 	left: 0;
 	right: 0;
@@ -67,15 +70,11 @@
 	padding: 10px;
 }
 
-.ihPieHeaderContainer {
-	margin-bottom: 25px;
-}
 .ihPieHeaderContainer > h1 {
 	margin-bottom: 0;
 }
 .ihPieHeaderContainer .ihPieBackLink {
 	color: #D53F47;
-	/*text-decoration: underline;*/
 	cursor: pointer;
 	margin-top: 0;
 }
