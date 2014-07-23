@@ -99,9 +99,10 @@ ctrlModule.controller('ArticlesCtrl',
 
 });
 
-ctrlModule.controller('ArticleCtrl', function($scope, $stateParams, $state, $q, $ihUtil, $ihArticleSrvc, $ihREST, $compile) {
-	var artId = $stateParams.articleId;
-	var state = $state;
+ctrlModule.controller('ArticleCtrl', function($scope, $stateParams, $state, $q, $ihUtil, $ihArticleSrvc, $ihREST, $compile, toaster) {
+	var artId = $stateParams.articleId,
+		state = $state,
+		favoritesCache = $ihUtil.getObjectFromLocalStorage('favoritesObj');
 
 	function _init(state) {
 		var deferred = $q.defer();
@@ -132,6 +133,25 @@ ctrlModule.controller('ArticleCtrl', function($scope, $stateParams, $state, $q, 
 
 		return deferred.promise;
 	}
+
+	$scope.onFavoriteAdd = function () {
+		$scope.article.inFavorites = true;
+		$ihArticleSrvc.addImageForFavorites($scope.article);
+		favoritesCache[$scope.article.nid] = $scope.article;
+
+		toaster.pop('success', "כתבה נשמרה במועדפים");
+	};
+
+	$scope.onFavoriteDelete = function () {
+		$scope.article.inFavorites = false;
+		delete favoritesCache[$scope.article.nid];
+
+		toaster.pop('success', "כתבה הוסרה ממועדפים");
+	};
+
+	$scope.$on('$destroy', function() {
+		$ihUtil.setObjectToLocalStorage('favoritesObj', favoritesCache);
+	});
 
 	_init(state).finally(function () {
 		$ihREST.loadArticleComment(artId).then(function (data) {
@@ -381,9 +401,10 @@ ctrlModule.controller('OpinionsCtrl', function($scope, $state, $q, $ihREST, $ihC
 
 });
 
-ctrlModule.controller('OpinionCtrl', function($scope, $stateParams, $state, $q, $ihUtil, $ihArticleSrvc, $ihOpinionsSrvc, $ihREST) {
-	var opId = $stateParams.opinionId;
-	var state = $state;
+ctrlModule.controller('OpinionCtrl', function($scope, $stateParams, $state, $q, $ihUtil, $ihArticleSrvc, $ihOpinionsSrvc, $ihREST, toaster) {
+	var opId = $stateParams.opinionId,
+		state = $state,
+		favoritesCache = $ihUtil.getObjectFromLocalStorage('favoritesObj');
 
 	function _init(state) {
 		var deferred = $q.defer();
@@ -391,7 +412,7 @@ ctrlModule.controller('OpinionCtrl', function($scope, $stateParams, $state, $q, 
 		$ihUtil.showLoading();
 		$ihREST.loadOpinionData(opId).then(function (data) {
 
-			var opinion = $ihArticleSrvc.buildArticleObj(data, 'opinion');
+			var opinion = $ihArticleSrvc.buildArticleObj(data);
 			opinion.content.intro = $ihOpinionsSrvc.fixOpinionIntro(opinion.content.intro);
 			$scope.opinion = angular.copy(opinion);
 
@@ -407,12 +428,31 @@ ctrlModule.controller('OpinionCtrl', function($scope, $stateParams, $state, $q, 
 		return deferred.promise;
 	}
 
+	$scope.onFavoriteAdd = function () {
+		$scope.opinion.inFavorites = true;
+		$ihArticleSrvc.addImageForFavorites($scope.opinion);
+		favoritesCache[$scope.opinion.nid] = $scope.opinion;
+
+		toaster.pop('success', "כתבה נשמרה במועדפים");
+	};
+
+	$scope.onFavoriteDelete = function () {
+		$scope.opinion.inFavorites = false;
+		delete favoritesCache[$scope.opinion.nid];
+
+		toaster.pop('success', "כתבה הוסרה ממועדפים");
+	};
+
 	_init(state).finally(function () {
 		$ihREST.loadArticleComment(opId).then(function (data) {
 			$scope.comments = data.comments;
 		}, function () {
 			// TODO: display a comment error message
 		});
+	});
+
+	$scope.$on('$destroy', function() {
+		$ihUtil.setObjectToLocalStorage('favoritesObj', favoritesCache);
 	});
 });
 

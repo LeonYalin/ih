@@ -315,10 +315,12 @@ servModule.factory('$ihFavoritesSrvc', function(){
 			for (var prop in artCacheObj) {
 				if (prop === 'rss') continue; // we don't want to check RSS
 
-				for (var i = 0; i < artCacheObj[prop].length; i++) {
-					item = artCacheObj[prop][i];
-					if (item.nid == favId) {
-						delete item.inFavorites;
+				if (artCacheObj[prop]) {
+					for (var i = 0; i < artCacheObj[prop].length; i++) {
+						item = artCacheObj[prop][i];
+						if (item.nid == favId) {
+							delete item.inFavorites;
+						}
 					}
 				}
 			}
@@ -849,6 +851,24 @@ servModule.factory('$ihOpinionsSrvc', function($ihCONSTS, $ihHomepageSrvc){
 
 servModule.factory('$ihArticleSrvc', function($ihCONSTS, $ihUtil){
 	return {
+		checkFavorite: function (article) {
+			if (!article) return;
+
+			var favoritesObj = $ihUtil.getObjectFromLocalStorage('favoritesObj');
+			angular.forEach(favoritesObj, function (item) {
+				if (item.nid === article.nid) {
+					article.inFavorites = true;
+				}
+			});
+		},
+		addImageForFavorites: function (article) {
+			if (!(article && article.images)) return;
+
+			var newImage = {};
+			newImage.path = article.mainImageSrc.replace($ihCONSTS.imageSizes.fullscreen, $ihCONSTS.imageSizes.default);
+
+			article.images.push(newImage);
+		},
 		fixArticleImagePath: function (arr, imgSize) {
 			if (!arr) return;
 
@@ -913,7 +933,7 @@ servModule.factory('$ihArticleSrvc', function($ihCONSTS, $ihUtil){
 
 			return rawHtml;
 		},
-		buildArticleObj: function (data, articleType) {
+		buildArticleObj: function (data) {
 			if (!data) return;
 
 			var articleObj = {
@@ -925,11 +945,13 @@ servModule.factory('$ihArticleSrvc', function($ihCONSTS, $ihUtil){
 				content: {
 					intro: data.content.intro,
 					title: data.content.title
-				}
+				},
+				type: data.type,
+				nid: data.nid
 			};
 
 
-			if (articleType && articleType === 'opinion') {
+			if (articleObj && articleObj.type === 'opinion') {
 				this.fixArticleImagePath(articleObj.images, $ihCONSTS.imageSizes.default);
 			} else {
 				this.fixArticleImagePath(articleObj.images);
@@ -941,6 +963,7 @@ servModule.factory('$ihArticleSrvc', function($ihCONSTS, $ihUtil){
 			}
 
 			articleObj.content.html = this.buildArticleHtml(articleObj, data.content.raw);
+			this.checkFavorite(articleObj);
 
 			return articleObj;
 		}

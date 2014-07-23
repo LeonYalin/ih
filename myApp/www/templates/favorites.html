@@ -8,7 +8,7 @@
 			<ul class="ihArticleListSection ihFavoritesList">
 				<li ng-repeat="(key, value) in favorites">
 					<ion-item class="ihListItem ihArticleListItem">
-						<a class="item-thumbnail-right" href="#/app/articles/{{value.nid}}">
+						<a class="item-thumbnail-right" href="#/app/{{value.type + 's'}}/{{value.nid}}">
 							<img ng-src="{{value.images[0].path}}" class="ihArticleImg">
 							<!-- <i class="icon ion-ios7-videocam" ng-show="value.videos && value.videos.items.length > 0"></i> -->
 							<div class="ihArticleListItemTextWrapper">

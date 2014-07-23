@@ -1,4 +1,10 @@
 <ion-view title="{{opinion.content.title}}">
+	<ion-nav-buttons side="left">
+		<button class="button button-icon icon ion-ios7-star ihArticleIconFavorites"
+			ng-click="onFavoriteDelete()" ng-if="opinion.inFavorites"></button>
+		<button class="button button-icon icon ion-ios7-star-outline ihArticleIconFavorites"
+			ng-click="onFavoriteAdd()" ng-if="!opinion.inFavorites"></button>
+	</ion-nav-buttons>
 	<ion-content class="has-header ihOverflowScrollY" overflow-scroll="true">
 
 	<div class="card ihArticleContainer" ng-show="opinion">
