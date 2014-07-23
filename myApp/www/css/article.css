@@ -48,12 +48,3 @@
 }.ihArticleCommentsContainer ul > li:last-child {
 	border-bottom: none;
 }
-
-/*.ihArticleHeaderBtnsWrapper {
-	position: absolute;
-	left: 0;
-}*/
-.ihArticleIconFavorites {
-	position: absolute;
-	left: 0px;
-}

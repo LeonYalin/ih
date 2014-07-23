@@ -184,3 +184,8 @@ body {
 .ihIconWhatsApp:before {
 	content: url('../img/whatsapp.svg');
 }
+
+.ihHeaderIconLeft {
+	position: absolute;
+	left: 0px;
+}

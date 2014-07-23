@@ -19,6 +19,7 @@ ctrlModule.controller('ArticlesCtrl',
 		articlesCache = $ihCache.get('articlesObj'),
 		splashShown = $ihCache.get('splashShown'),
 		favoritesCache = $ihUtil.getObjectFromLocalStorage('favoritesObj');
+	$scope.isRefreshing = false;
 
 	if (splashShown === true) {
 		$ihUtil.delayCacheLoad(function () {
@@ -70,7 +71,9 @@ ctrlModule.controller('ArticlesCtrl',
 	});
 
 	$scope.doRefresh = function() {
+		$scope.isRefreshing = true;
 		_init(state, true).finally(function () {
+			$scope.isRefreshing = false;
 			$scope.$broadcast('scroll.refreshComplete');
 		});
 	};

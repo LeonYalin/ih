@@ -2,8 +2,13 @@
 	<ion-nav-buttons side="right">
 		<button menu-toggle="right" class="button button-icon icon ion-navicon"></button>
 	</ion-nav-buttons>
-	<ion-content class="has-header" ng-show="articles">
-		<ion-refresher pulling-text="משוך לרענון..." on-refresh="doRefresh()"></ion-refresher>
+	<ion-nav-buttons side="left">
+		<button class="button button-icon icon ihHeaderIconLeft" ng-click="doRefresh()"
+			ng-class="{ 'ion-loop': isRefreshing === false,
+					 	'ion-looping': isRefreshing === true }"></button>
+	</ion-nav-buttons>
+	<ion-content class="has-header" overflow-scroll="true" ng-show="articles" pull-to-refresh="doRefresh()">
+		<!-- <ion-refresher pulling-text="משוך לרענון..." on-refresh="doRefresh()"></ion-refresher> -->
 
 		<div class="ihRSSContainerWrapper" ng-click="goToRSS()">
 			<ion-item class="item ihRSSContainer">
