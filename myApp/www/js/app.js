@@ -1,7 +1,7 @@
 // Ionic Starter App
 
 var appModule = angular.module('starter',
-	['ionic', 'starter.controllers', 'starter.services', 'starter.directives', 'starter.filters', 'toaster', 'mgcrea.pullToRefresh']);
+	['ionic', 'starter.controllers', 'starter.services', 'starter.directives', 'starter.filters', 'toaster']);
 
 appModule.run(function($ionicPlatform) {
 	$ionicPlatform.ready(function() {
