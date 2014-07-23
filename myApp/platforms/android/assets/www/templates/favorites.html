@@ -1,0 +1,39 @@
+<ion-view title="מועדפים" hide-back-button="true">
+	<ion-nav-buttons side="right">
+		<button menu-toggle="right" class="button button-icon icon ion-navicon"></button>
+	</ion-nav-buttons>
+
+	<ion-content>
+		<ion-list ng-show="favorites" class="ihList">
+			<ul class="ihArticleListSection ihFavoritesList">
+				<li ng-repeat="(key, value) in favorites">
+					<ion-item class="ihListItem ihArticleListItem">
+						<a class="item-thumbnail-right" href="#/app/{{value.type + 's'}}/{{value.nid}}">
+							<img ng-src="{{value.images[0].path}}" class="ihArticleImg">
+							<!-- <i class="icon ion-ios7-videocam" ng-show="value.videos && value.videos.items.length > 0"></i> -->
+							<div class="ihArticleListItemTextWrapper">
+								<h2 class="ihArticleListItemTitle">{{value.content.title}}</h2>
+								<p class="ihArticleListItemIntro">{{value.content.intro}}</p>
+							</div>
+							<p class="ihArticleListItemDate">
+								<span class="ihDoubleSlash ihColorRed">{{value.author.name}}</span>
+								<span>{{value.date.timestamp | date: 'H:mm'}}</span><span>&nbsp;</span><span>{{value.date.formatted}}</span>
+							</p>
+						</a>
+						<ion-option-button class="button ihFavoritesBtn" ng-click="onDeleteFavorite(key)">הסר</ion-option-button>
+					</ion-item>
+				</li>
+			</ul>
+		</ion-list>
+	</ion-content>
+
+	<div class="ihErrorMsg" ng-show="noResultsFlag == true">
+		<div class="card">
+			<div class="item item-text-wrap">
+				<i class="icon ion-star"></i>
+				<h1>{{noFavoritesTitle}}</h1>
+				<p>{{noFavoritesMsg}}</p>
+			</div>
+		</div>
+	</div>
+</ion-view>

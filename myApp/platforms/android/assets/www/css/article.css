@@ -1,0 +1,50 @@
+
+.ihArticleContainer {
+	box-shadow: none;
+	margin-bottom: 0;
+}
+.ihArticleContainer .ihListItem {
+	border: none;
+	padding: 0;
+}
+.ihArticleContainer .ihListItem h2, .ihArticleContainer .ihListItem p, .ihArticleCommentsContainer .ihListItem h2, .ihArticleCommentsContainer .ihListItem p{
+	text-overflow: clip;
+	white-space: normal;
+}
+.ihArticleContainer .ihListItem h2 {
+	margin-top: 0px;
+}
+.ihArticleContainer .ihListItem p {
+	margin-top: 0px;
+}
+.ihArticleContainer .ihArticleIntro {
+	padding-bottom: 10px;
+}
+.ihArticleContainer .item-body div {
+	margin-bottom: 10px;
+	overflow-x: hidden;
+}
+
+/* facebook links */
+.ihArticleContainer .item-body a[href*="on.fb"] {
+	color: #3b5998;
+}
+
+.ihArticleCommentsContainer li {
+	padding: 10px;
+	border: none;
+}
+.ihArticleCommentsContainer .ihArticleCommentTitle, .ihArticleCommentsContainer .ihArticleCommentBody {
+	padding: 0;
+}
+.ihArticleCommentsContainer .ihArticleCommentTitle {
+	padding-top: 5px;
+}
+.ihArticleCommentsContainer .ihArticleCommentBody {
+	line-height: 18px;
+}
+.ihArticleCommentsContainer ul > li {
+	border-bottom: 1px solid #707070;
+}.ihArticleCommentsContainer ul > li:last-child {
+	border-bottom: none;
+}

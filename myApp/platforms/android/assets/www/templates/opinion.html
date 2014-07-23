@@ -1,0 +1,51 @@
+<ion-view title="{{opinion.content.title}}">
+	<ion-nav-buttons side="left">
+		<button class="button button-icon icon ion-ios7-star ihHeaderIconLeft"
+			ng-click="onFavoriteDelete()" ng-if="opinion.inFavorites"></button>
+		<button class="button button-icon icon ion-ios7-star-outline ihHeaderIconLeft"
+			ng-click="onFavoriteAdd()" ng-if="!opinion.inFavorites"></button>
+	</ion-nav-buttons>
+	<ion-content class="has-header ihOverflowScrollY" overflow-scroll="true">
+
+	<div class="card ihArticleContainer" ng-show="opinion">
+		<div class="item ihListItem ihOpinionHeaderContainer">
+			<p>
+				<span class="ihDoubleSlash ihColorRed">{{opinion.author.name}}</span>
+				<span>{{opinion.date.timestamp | date: 'H:mm'}}</span><span>&nbsp;</span><span>{{opinion.date.formatted}}</span>
+				<span>&nbsp;/</span>
+				<span>{{comments.length || 0}}</span>
+				<i class="icon ion-ios7-chatboxes-outline"></i>
+			</p>
+			<h2>{{opinion.content.title}}</h2>
+			<p>{{opinion.content.intro}}</p>
+		</div>
+
+		<div class="item item-body ihListItem">
+			<ion-item class="ihListItem ihArticleListItem ihOpinionAuthorContainer" ng-show="opinion.author.description">
+				<span class="item-thumbnail-right ihOpinionAuthorBody">
+					<img ng-src="{{opinion.mainImageSrc}}" class="ihArticleImg">
+					<p>{{opinion.author.description}}</p>
+				</span>
+			</ion-item>
+
+			<div ng-bind-html="opinion.content.html"></div>
+		</div>
+	</div>
+
+	<div class="item item-divider item-assertive" ng-show="opinion">תגובות</div>
+	<div class="ihArticleCommentsContainer ihOpinionCommentsContainer" ng-show="opinion">
+		<ul>
+			<li ng-repeat="comment in comments" class="item ihListItem">
+				<span class="ihDoubleSlash ihColorRed">{{comment.author.name}}</span><span>&nbsp;</span>
+				<span>{{comment.date.timestamp | date: 'H:mm'}}</span>
+				<h2 class="ihArticleCommentTitle">{{comment.subject}}</h2>
+				<p class="ihArticleCommentBody">{{comment.body}}</p>
+			</li>
+		</ul>
+		<div ng-hide="comments" class="item item-text-wrap ihListItem">לא נמצאו תגובות</div>
+	</div>
+
+	<div class="ihBottomMargin"></div>
+
+	</ion-content>
+</ion-view>

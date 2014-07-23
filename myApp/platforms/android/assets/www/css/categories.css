@@ -1,0 +1,24 @@
+
+.ihCategoriesList li:last-child .ihCategoriesListItem {
+	border-bottom: none;
+}
+.ihCategoriesListItem {
+	border: none;
+	padding: 0;
+	border-bottom: 1px solid #707070;
+}
+.ihCategoriesListItem a {
+	border: none;
+}
+.ihCategoriesListItem a:hover, .ihCategoriesListItem:active {
+	background-color: transparent;
+}
+.ihCategoriesListItem a h2 {
+	padding: 10px 5px 10px 0px;
+	color: #444;
+}
+.ihCategoriesListItem .badge {
+	right: auto;
+	left: 20px;
+	top: 18px;
+}

@@ -1,0 +1,22 @@
+
+.ihRSSList .ihListItem {
+	padding: 15px 10px;
+	border: none;
+	border-bottom: 1px solid #707070;
+}
+.ihRSSList ul li:last-child .ihListItem.item {
+	border-bottom: none; 
+}
+.ihRSSList h2, .ihRSSList p {
+	padding: 0;
+}
+.ihRSSList p {
+	margin-bottom: 0;
+}
+.ihRSSList h2 {
+	text-overflow: clip;
+	white-space: normal;
+	margin-top: 0;
+	font-size: 16px;
+	line-height: 20px;
+}

@@ -1,0 +1,27 @@
+<ion-view title="הורוסקופ שבועי" hide-back-button="true">
+	<ion-nav-buttons side="right">
+		<button menu-toggle="right"class="button button-icon icon ion-navicon"></button>
+	</ion-nav-buttons>
+
+	<ion-content class="has-header ihOverflowScrollY" overflow-scroll="true">
+		<ion-list ng-show="week">
+			<ul>
+				<li ng-repeat="item in week">
+					<div class="item item-divider item-assertive">{{item.date}}</div>
+					<ul class="ihArticleListSection ihHoroscopeList">
+						<li ng-repeat="subItem in item.forecasts">
+							<ion-item class="ihListItem ihArticleListItem">
+								<div class="item-thumbnail-right" href="#">
+									<img ng-src="{{subItem.icon}}" class="ihHoroscopeImg">
+									<h2>{{subItem.name}}</h2>
+									<p class="ihArticleListItemIntro">{{subItem.forecast}}</p>
+								</div>
+							</ion-item>
+						</li>
+					</ul>
+				</li>
+			</ul>
+		</ion-list>
+	</ion-content>
+
+</ion-view>

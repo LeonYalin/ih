@@ -1,0 +1,239 @@
+/* Rotations */
+@-webkit-keyframes rotatePieElements-90-0deg {
+	from {
+		/*-webkit-transform: rotate3d(0, 0, 1, -90deg);*/
+		-webkit-transform: rotate(-90deg);
+		opacity: 0;
+	}
+	to {
+		/*-webkit-transform: rotate3d(0, 0, 1, 0deg);*/
+		-webkit-transform: rotate(0deg);
+		opacity: 1;
+	}
+}
+@-webkit-keyframes rotatePieElements-45-45deg {
+	from {
+		/*-webkit-transform: rotate3d(0, 0, 1, -45deg);*/
+		-webkit-transform: rotate(-45deg);
+		opacity: 0;
+	}
+	to {
+		/*-webkit-transform: rotate3d(0, 0, 1, 45deg);*/
+		-webkit-transform: rotate(45deg);
+		opacity: 1;
+	}
+}
+@-webkit-keyframes rotatePieElements0-90deg {
+	from {
+		/*-webkit-transform: rotate3d(0, 0, 1, 0deg);*/
+		-webkit-transform: rotate(0deg);
+		opacity: 0;
+	}
+	to {
+		/*-webkit-transform: rotate3d(0, 0, 1, 90deg);*/
+		-webkit-transform: rotate(90deg);
+		opacity: 1;
+	}
+}
+@-webkit-keyframes rotatePieElements45-135deg {
+	from {
+		/*-webkit-transform: rotate3d(0, 0, 1, 45deg);*/
+		-webkit-transform: rotate(45deg);
+		opacity: 0;
+	}
+	to {
+		/*-webkit-transform: rotate3d(0, 0, 1, 135deg);*/
+		-webkit-transform: rotate(135deg);
+		opacity: 1;
+	}
+}
+@-webkit-keyframes rotatePieElements90-180deg {
+	from {
+		/*-webkit-transform: rotate3d(0, 0, 1, 90deg);*/
+		-webkit-transform: rotate(90deg);
+		opacity: 0;
+	}
+	to {
+		/*-webkit-transform: rotate3d(0, 0, 1, 180deg);*/
+		-webkit-transform: rotate(180deg);
+		opacity: 1;
+	}
+}
+@-webkit-keyframes rotatePieElements135-225deg {
+	from {
+		/*-webkit-transform: rotate3d(0, 0, 1, 135deg);*/
+		-webkit-transform: rotate(135deg);
+		opacity: 0;
+	}
+	to {
+		/*-webkit-transform: rotate3d(0, 0, 1, 225deg);*/
+		-webkit-transform: rotate(225deg);
+		opacity: 1;
+	}
+}
+@-webkit-keyframes rotatePieElements180-270deg {
+	from {
+		/*-webkit-transform: rotate3d(0, 0, 1, 180deg);*/
+		-webkit-transform: rotate(180deg);
+		opacity: 0;
+	}
+	to {
+		/*-webkit-transform: rotate3d(0, 0, 1, 270deg);*/
+		-webkit-transform: rotate(270deg);
+		opacity: 1;
+	}
+}
+@-webkit-keyframes rotatePieElements225-315deg {
+	from {
+		/*-webkit-transform: rotate3d(0, 0, 1, 225deg);*/
+		-webkit-transform: rotate(225deg);
+		opacity: 0;
+	}
+	to {
+		/*-webkit-transform: rotate3d(0, 0, 1, 315deg);*/
+		-webkit-transform: rotate(315deg);
+		opacity: 1;
+	}
+}
+
+/* Reverse rotations */
+@-webkit-keyframes revRotatePieElements-90-0deg {
+	from {
+		/*-webkit-transform: rotate3d(0, 0, 1, 0deg);*/
+		-webkit-transform: rotate(0deg);
+		opacity: 1;
+	}
+	to {
+		/*-webkit-transform: rotate3d(0, 0, 1, -90deg);*/
+		-webkit-transform: rotate(-90deg);
+		opacity: 0;
+	}
+}
+@-webkit-keyframes revRotatePieElements-45-45deg {
+	from {
+		/*-webkit-transform: rotate3d(0, 0, 1, 45deg);*/
+		-webkit-transform: rotate(45deg);
+		opacity: 1;
+	}
+	to {
+		/*-webkit-transform: rotate3d(0, 0, 1, -45deg);*/
+		-webkit-transform: rotate(-45deg);
+		opacity: 0;
+	}
+}
+@-webkit-keyframes revRotatePieElements0-90deg {
+	from {
+		/*-webkit-transform: rotate3d(0, 0, 1, 90deg);*/
+		-webkit-transform: rotate(90deg);
+		opacity: 1;
+	}
+	to {
+		/*-webkit-transform: rotate3d(0, 0, 1, 0deg);*/
+		-webkit-transform: rotate(0deg);
+		opacity: 0;
+	}
+}
+@-webkit-keyframes revRotatePieElements45-135deg {
+	from {
+		/*-webkit-transform: rotate3d(0, 0, 1, 135deg);*/
+		-webkit-transform: rotate(135deg);
+		opacity: 1;
+	}
+	to {
+		/*-webkit-transform: rotate3d(0, 0, 1, 45deg);*/
+		-webkit-transform: rotate(45deg);
+		opacity: 0;
+	}
+}
+@-webkit-keyframes revRotatePieElements90-180deg {
+	from {
+		/*-webkit-transform: rotate3d(0, 0, 1, 180deg);*/
+		-webkit-transform: rotate(180deg);
+		opacity: 1;
+	}
+	to {
+		/*-webkit-transform: rotate3d(0, 0, 1, 90deg);*/
+		-webkit-transform: rotate(90deg);
+		opacity: 0;
+	}
+}
+@-webkit-keyframes revRotatePieElements135-225deg {
+	from {
+		/*-webkit-transform: rotate3d(0, 0, 1, 225deg);*/
+		-webkit-transform: rotate(225deg);
+		opacity: 1;
+	}
+	to {
+		/*-webkit-transform: rotate3d(0, 0, 1, 135deg);*/
+		-webkit-transform: rotate(135deg);
+		opacity: 0;
+	}
+}
+@-webkit-keyframes revRotatePieElements180-270deg {
+	from {
+		/*-webkit-transform: rotate3d(0, 0, 1, 270deg);*/
+		-webkit-transform: rotate(270deg);
+		opacity: 1;
+	}
+	to {
+		/*-webkit-transform: rotate3d(0, 0, 1, 180deg);*/
+		-webkit-transform: rotate(180deg);
+		opacity: 0;
+	}
+}
+@-webkit-keyframes revRotatePieElements225-315deg {
+	from {
+		/*-webkit-transform: rotate3d(0, 0, 1, 315deg);*/
+		-webkit-transform: rotate(315deg);
+		opacity: 1;
+	}
+	to {
+		/*-webkit-transform: rotate3d(0, 0, 1, 225deg);*/
+		-webkit-transform: rotate(225deg);
+		opacity: 0;
+	}
+}
+
+/* Pie results animations */
+.ihPieResult.ng-enter, .ihPieResult.ng-move,
+.ihPieSearchForm.ng-enter, .ihPieSearchForm.ng-move,
+.ihPieNoResults.ng-enter, .ihPieNoResults.ng-move,
+.ihPieLoadingResult.ng-enter, .ihPieLoadingResult.ng-move {
+ 	-webkit-transition:0.5s linear all;
+ 	opacity:0;
+}
+
+/*
+ The ng-enter-active and ng-move-active
+ are where the transition destination properties
+ are set so that the animation knows what to
+ animate.
+*/
+.ihPieResult.ng-enter.ng-enter-active,
+.ihPieResult.ng-move.ng-move-active,
+.ihPieSearchForm.ng-enter.ng-enter-active,
+.ihPieSearchForm.ng-move.ng-move-active,
+.ihPieNoResults.ng-enter.ng-enter-active,
+.ihPieNoResults.ng-move.ng-move-active,
+.ihPieLoadingResult.ng-enter.ng-enter-active,
+.ihPieLoadingResult.ng-move.ng-move-active {
+	opacity:1;
+}
+
+/*
+  We're using CSS keyframe animations for when
+  the leave event is triggered for the element
+  that has the .ihPieResult class
+*/
+.ihPieResult.ng-leave,
+.ihPieSearchForm.ng-leave,
+.ihPieNoResults.ng-leave,
+.ihPieLoadingResult.ng-leave {
+	-webkit-animation:0.5s my_animation;
+	/*opacity: 0;*/
+}
+
+@-webkit-keyframes my_animation {
+	from { opacity:1; }
+	to { opacity:0; }
+}

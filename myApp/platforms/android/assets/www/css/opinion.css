@@ -1,0 +1,27 @@
+
+
+.ihOpinionHeaderContainer {
+	margin-bottom: 10px;
+}
+.ihOpinionAuthorBody {
+	display: block;
+	padding-right: 110px;
+}
+.ihOpinionAuthorContainer {
+	border-top: 1px solid #A70109 !important;
+	border-bottom: 1px solid #A70109 !important;
+}
+.ihOpinionAuthorContainer.ihListItem {
+	padding: 10px 0px;
+	margin-bottom: 20px;
+}
+.ihOpinionAuthorContainer .ihArticleImg {
+	top: 10px !important;
+	right: 0px !important;
+	max-width: 100px !important;
+	max-height: 100px !important;
+	width: 100px !important;
+	height: 100px !important;
+	border: 1px solid #707070;
+	border-radius: 50%;
+}

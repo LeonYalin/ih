@@ -1,0 +1,46 @@
+<ion-view title="{{article.content.title}}">
+	<ion-nav-buttons side="left">
+		<button class="button button-icon icon ion-ios7-star ihHeaderIconLeft"
+			ng-click="onFavoriteDelete()" ng-if="article.inFavorites"></button>
+		<button class="button button-icon icon ion-ios7-star-outline ihHeaderIconLeft"
+			ng-click="onFavoriteAdd()" ng-if="!article.inFavorites"></button>
+	</ion-nav-buttons>
+
+	<ion-content class="has-header ihOverflowScrollY" overflow-scroll="true">
+
+	<div class="card ihArticleContainer" ng-show="article">
+		<div class="item ihListItem">
+			<p>
+				<span class="ihDoubleSlash ihColorRed">{{article.author.name}}</span>
+				<span>{{article.date.timestamp | date: 'H:mm'}}</span><span>&nbsp;</span><span>{{article.date.formatted}}</span>
+				<span>&nbsp;/</span>
+				<span>{{comments.length || 0}}</span>
+				<i class="icon ion-ios7-chatboxes-outline"></i>
+			</p>
+			<h2>{{article.content.title}}</h2>
+			<p class="ihArticleIntro">{{article.content.intro}}</p>
+		</div>
+
+		<div class="item item-body ihListItem">
+			<img class="full-image" ng-src="{{article.mainImageSrc}}">
+			<div ng-bind-html="article.content.html"></div>
+		</div>
+	</div>
+
+	<div class="item item-divider item-assertive" ng-show="article">תגובות</div>
+	<div class="ihArticleCommentsContainer" ng-show="article">
+		<ul>
+			<li ng-repeat="comment in comments" class="item ihListItem">
+				<span class="ihDoubleSlash ihColorRed">{{comment.author.name}}</span><span>&nbsp;</span>
+				<span>{{comment.date.timestamp | date: 'H:mm'}}</span>
+				<h2  class="ihArticleCommentTitle">{{comment.subject}}</h2>
+				<p class="ihArticleCommentBody">{{comment.body}}</p>
+			</li>
+		</ul>
+		<div ng-hide="comments" class="item item-text-wrap ihListItem">לא נמצאו תגובות</div>
+	</div>
+
+	<div class="ihBottomMargin"></div>
+
+	</ion-content>
+</ion-view>

@@ -1,0 +1,20 @@
+<ion-view title="מבזקים" hide-back-button="true">
+	<ion-nav-buttons side="right">
+		<button menu-toggle="right" class="button button-icon icon ion-navicon"></button>
+	</ion-nav-buttons>
+	<ion-content class="has-header ihOverflowScrollY" overflow-scroll="true">
+		<div class="ihList ihRSSList">
+			<ul>
+				<li ng-repeat="item in rss">
+					<ion-item class="ihListItem">
+						<p>
+							<span>{{item.date.formatted}}</span>
+							<span class="ihDoubleSlash ihColorRed">{{item.date.timestamp | date: 'H:mm'}}</span>
+						</p>
+						<h2>{{item.text}}</h2>
+					</ion-item>
+				</li>
+			</ul>
+		</div>
+	</ion-content>
+</ion-view>

@@ -1,0 +1,27 @@
+<ion-view title="דעות" hide-back-button="true">
+	<ion-nav-buttons side="right">
+		<button menu-toggle="right" class="button button-icon icon ion-navicon"></button>
+	</ion-nav-buttons>
+
+	<ion-content class="ihSearchResultsContainer ihOpinionsContainer ihOverflowScrollY" overflow-scroll="true">
+		<ion-list ng-show="opinions" class="ihList">
+			<ul class="ihArticleListSection">
+				<li ng-repeat="item in opinions">
+					<ion-item class="ihListItem ihArticleListItem">
+						<a class="item-thumbnail-right" href="#/app/opinions/{{item.nid}}">
+							<img ng-src="{{item.images[0].path}}" class="ihArticleImg">
+							<div class="ihArticleListItemTextWrapper">
+								<h2 class="ihArticleListItemTitle">{{item.content.title}}</h2>
+								<p class="ihArticleListItemIntro">{{item.content.intro}}</p>
+							</div>
+							<p class="ihArticleListItemDate">
+								<span class="ihDoubleSlash ihColorRed">{{item.author.name}}</span>
+								<span>{{item.date.timestamp | date: 'H:mm'}}</span><span>&nbsp;</span><span>{{item.date.formatted}}</span>
+							</p>
+						</a>
+					</ion-item>
+				</li>
+			</ul>
+		</ion-list>
+	</ion-content>
+</ion-view>

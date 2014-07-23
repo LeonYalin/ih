@@ -1,0 +1,122 @@
+.ihRSSContainerWrapper {
+	background-color: #646464;
+	cursor: pointer;
+}
+.ihRSSContainer {
+	visibility: hidden; /* For animation */
+	display: inline-block;
+	text-overflow: clip;
+	overflow: visible;
+	border: none;
+	padding: 7px;
+	background-color: transparent;
+}
+.ihRSSContainer:hover {
+	-webkit-animation-play-state: paused;
+}
+.ihRSSContainer .ihRSSItemTime {
+	color: #DDD;
+}
+.ihRSSContainer .ihRSSItemText {
+	color: white;
+}
+
+.ihFavoritesBtn, .ihFavoritesBtn:hover, .ihFavoritesBtn:active {
+	background-color: #C9000A;
+	color: #DDD;
+	font-size: 18px;
+	line-height: 120px;
+}
+
+.ihFavoritesExistBtn,  .ihFavoritesExistBtn:hover, .ihFavoritesExistBtn:active {
+	background-color: #F8F8F8;
+	color: #444;
+	font-size: 18px;
+	line-height: 120px;
+}
+.ihArticleListItem {
+	border: none;
+	border-bottom: 1px solid #707070;
+}
+.ihArticleListItem .icon, .ihArticleMainItem .icon {
+	position: absolute;
+	top: 15px;
+	left: 4px;
+	font-size: 19px;
+	color: #707070;
+}
+.ihArticleMainItem .icon {
+	top: 4px;
+}
+.ihArticleListItem a {
+	position: relative;
+	text-decoration: none;
+	display: block;
+	border: none;
+	padding: 0px 110px 0px 0px;
+	height: 100px;
+}
+.ihArticleListItem a:hover, .ihArticleListItem a:active {
+	background-color: transparent;
+}
+.ihArticleListItem a .ihArticleImg {
+	top: 0px;
+	right: 0px;
+	max-width: 100px;
+	max-height: 100px;
+	border: 1px solid #707070;
+	border-radius: 50%;
+}
+.ihArticleMainItem {
+	border: none;
+	padding: 0;
+}
+.ihArticleMainItem a:hover, .ihArticleMainItem a:active {
+	background-color: transparent;
+}
+.ihArticleMainItem.ihListItem .item {
+	padding: 0;
+	padding-bottom: 10px;
+	border: none;
+}
+.ihArticleMainItem.ihListItem .ihArticleListItemIntro {
+	position: relative;
+	padding-bottom: 0px;
+	overflow: hidden;
+	height: auto;
+	min-height: 36px;
+	max-height: 54px;
+}
+.ihArticleMainItem.ihListItem .ihArticleListItemIntro:after {
+	content: '';
+	position: absolute;
+	bottom: 0;
+	left: 0;
+	width: 75%;
+	height: 18px;
+	background: linear-gradient(to right, rgba(255, 255, 255, 1), rgba(255, 255, 255, 0) 50%);
+}
+.ihArticleMainItem h2, .ihArticleMainItem p, .ihArticleMainItem .ihArticleListItemDate {
+	padding-left: 10px;
+	padding-right: 10px;
+}
+.ihArticleMainItem .ihArticleListItemTitle {
+	padding-top: 3px;
+	padding-bottom: 7px;
+
+}
+.ihArticleMainItem .ihArticleListItemDate {
+	padding-top: 0;
+}
+.ihArticleListSection li:last-child .ihArticleListItem {
+	border-bottom: none;
+}
+
+.ihArticleListMoreArticlesLink {
+	float: left;
+	color: white;
+	text-decoration: none;
+}
+.ihArticleListMoreArticlesLink:after {
+	content: ' >'
+}

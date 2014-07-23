@@ -1,0 +1,19 @@
+<ion-view title="קטגוריות" hide-back-button="true">
+	<ion-nav-buttons side="right">
+		<button menu-toggle="right"class="button button-icon icon ion-navicon"></button>
+	</ion-nav-buttons>
+	<ion-content class="has-header ihOverflowScrollY" overflow-scroll="true">
+		<div class="ihList">
+			<ul class="ihCategoriesList">
+				<li ng-repeat="(key,val) in categories">
+					<ion-item class="ihListItem ihCategoriesListItem">
+						<a class="item" href="#/app/categories/{{key}}">
+							<h2>{{key}}</h2>
+							<span class="badge badge-left badge-assertive">{{val.count}}</span>
+						</a>
+					</ion-item>
+				</li>
+			</ul>
+		</div>
+	</ion-content>
+</ion-view>

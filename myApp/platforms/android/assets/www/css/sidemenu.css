@@ -1,0 +1,54 @@
+
+.ihSideMenuList .item-content {
+	padding-right: 40px;
+}
+.ihSideMenuList .item-complex{
+	border-top: none;
+	border-left: none;
+	border-right: none;
+}
+
+.ihSideMenuList .icon {
+	position: absolute;
+	right: 15px;
+	font-size: 20px;
+	margin-top: 1px;
+}
+
+.ihSideMenuList .ion-ios7-search-strong {
+	font-size: 21px;
+	right: 15px;
+	margin-top: 1px;
+}
+.ihSideMenuList .ion-ios7-partlysunny {
+	font-size: 27px;
+	right: 14px;
+	margin-top: -4px;
+}
+.ihSideMenuList .ion-aperture {
+	font-size: 19px;
+	right: 14px;
+}
+.ihSideMenuList .ion-star {
+	font-size: 24px;
+	margin-top: -2px;
+	right: 14px;
+}
+.ihSideMenuList .ion-person-stalker {
+	font-size: 19px;
+	right: 14px;
+}
+.ihSideMenuList .ion-radio-waves {
+	font-size: 23px;
+	margin-top: 0px;
+}
+
+.ihSideMenuList .ion-android-sort {
+	font-size: 16px;
+	right: 14px;
+}
+.ihSideMenuList .ion-home {
+	font-size: 21px;
+	right: 15px;
+	margin-top: -1px;
+}

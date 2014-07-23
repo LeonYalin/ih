@@ -1,0 +1,123 @@
+
+.ihWeatherList .ihListItem.ihWeatherListItem {
+	padding: 10px;
+	border: none;
+	/*border-bottom: 1px solid #A70109;*/
+}
+.ihWeatherList li:last-child .ihWeatherListItem {
+	border-bottom: none;
+}
+
+.ihWeatherListItem .ihWeatherCity {
+	font-size: 24px;
+	padding-bottom: 18px;
+}
+.ihWeatherListItem .ihWeatherDegreeSign {
+	font-size: 50px;
+	line-height: 54px;
+	padding: 6px 0px 0px 0px;
+}
+.ihWeatherListItem .ihWeatherDescr {
+	font-size: 30px;
+	line-height: 34px;
+}
+.ihWeatherListItem p {
+	padding-top: 0px;
+}
+.ihWeatherListItem .item-thumbnail-right {
+	text-decoration: none;
+	display: block;
+	border: none;
+	height: 100px;
+	padding: 0px 130px 0px 0px;
+}
+.ihWeatherListItem .item-thumbnail-right:hover, .ihWeatherListItem .item-thumbnail-right:active {
+	background-color: transparent;
+}
+.ihWeatherListItem .item-thumbnail-right .ihArticleImg {
+	position: absolute;
+	top: 10px;
+	right: 10px;
+	max-width: 100px;
+	max-height: 100px;
+	border: 1px solid;
+	background-color: #A70109;
+	border-color: #707070;
+	border-radius: 50%;
+}
+.ihWeatherBGSunny {
+	background-color: #BDBD00 !important;
+	border-color: #818102 !important;
+}
+.ihWeatherBGWarm {
+	background-color: #CF8600 !important;
+	border-color: #818102 !important;
+}
+.ihWeatherBGWarmDry {
+	background-color: #A60 !important;
+	border-color: #754601 !important;
+}
+.ihWeatherBGPartCloud {
+	background-color: #C7C7C7 !important;
+	border-color: #8F8F8F !important;
+}
+.ihWeatherBGCloud {
+	background-color: #838383 !important;
+	border-color: #464646 !important;
+}
+.ihWeatherBGCloudRain {
+	background-color: #8CB9C7 !important;
+	border-color: #6E8F99 !important;
+}
+.ihWeatherBGRain {
+	background-color: #4491B6 !important;
+	border-color: #255166 !important;
+}
+
+.ihWeeklyWeatherListItemContainer > ul > li {
+	float: left;
+	width: 33.3333333333333%;
+	padding: 10px 5px;
+	border-right: 1px solid #A70109;
+	border-bottom: 1px solid #A70109;
+}
+.ihWeeklyWeatherListItemContainer > ul > li:nth-child(3n) {
+	width: 33.3333333333334%;
+	border-right: none; 
+}
+.ihWeeklyWeatherListItemContainer > ul > li:nth-child(4), .ihWeeklyWeatherListItemContainer > ul > li:nth-child(5), .ihWeeklyWeatherListItemContainer > ul > li:nth-child(6) {
+	border-bottom: none;
+}
+
+.ihWeeklyWeatherListItem {
+	text-align: center;
+}
+.ihWeeklyWeatherListItem .ihWeeklyImg {
+	max-width: 100px;
+	max-height: 100px;
+	margin-top: 5px;
+	border: 1px solid;
+	background-color: #A70109;
+	border-color: #707070;
+	border-radius: 50%;
+}
+.ihWeeklyWeatherListItem .ihWeatherDegreeSign {
+	font-size: 28px;
+	line-height: 32px;
+	padding: 0;
+}
+.ihWeeklyWeatherListItem .ihWeatherDescr {
+	font-size: 20px;
+	line-height: 24px;
+	padding: 0;
+}
+.ihWeeklyWeatherListItem .ihWeatherCity {
+	padding-bottom: 15px;
+	margin-top: 7px;
+}
+
+.ihWeatherList .ihListItem.ihWeatherListItem.ihWeeklyWeatherListItemContainer {
+	padding: 0px;
+	border: none;
+	border-bottom: 1px solid #A70109;
+}

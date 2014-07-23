@@ -1,0 +1,20 @@
+.ihHoroscopeList .ihListItem {
+	padding: 10px;
+}
+.ihHoroscopeList .item-thumbnail-right {
+	padding: 0px 110px 0px 10px;
+}
+.ihHoroscopeList .ihHoroscopeImg {
+	width: 100px;
+	height: 100px;
+	max-width: 100px !important;
+	max-height: 100px !important;
+	border: 1px solid #707070;
+	border-radius: 50%;
+}
+.ihHoroscopeList .ihListItem .ihArticleListItemIntro {
+	height: auto;
+}
+.ihHoroscopeList .ihListItem .ihArticleListItemIntro:after {
+	display: none;
+}
