@@ -24,13 +24,14 @@ directModule.directive('ihPie', function ($compile, $timeout, $ihCache, $ihPieSr
 		link: function($scope, element, attrs) {
 			var state = $state;
 			$scope.$on('$stateChangeStart', onStateChangeStart);
-			$scope.title = 'תפריט';
 			$scope.selectedSlice = 0;
+			$scope.title = 'תפריט';
 			$scope.noResultsFlag = false;
 			$scope.connErrorFlag = false;
 			$scope.shouldShowPie = true;
 			$scope.showLoading = false;
 			$scope.showSearchInput = false;
+			$scope.showShareOptions = false;
 			$scope.showFullResult = false;
 			$scope.fullResultText = '';
 			$scope.sliceAnimState = 'show';
@@ -45,6 +46,11 @@ directModule.directive('ihPie', function ($compile, $timeout, $ihCache, $ihPieSr
 				{ index: $ihPieSrvc.SLICE_INDEXES.horoscope, title: 'הורוסקופ', icon: 'aperture' },
 				{ index: $ihPieSrvc.SLICE_INDEXES.weather, title: 'מזג האוויר', icon: 'ios7-partlysunny' },
 				{ index: $ihPieSrvc.SLICE_INDEXES.share, title: 'שיטוף', icon: 'android-share' }
+			];
+			$scope.shareOptions = [
+				{ index: $ihPieSrvc.SHARE_OPTIONS.facebook, title: 'Facebook', icon: 'ion-social-facebook' },
+				{ index: $ihPieSrvc.SHARE_OPTIONS.twitter, title: 'Twitter', icon: 'ion-social-twitter' },
+				{ index: $ihPieSrvc.SHARE_OPTIONS.whatsApp, title: 'WhatsApp', icon: 'ihIconWhatsApp' }
 			];
 			$scope.onSliceClick = function ($event, $index) {
 				var el = angular.element($event.target);
@@ -121,7 +127,7 @@ directModule.directive('ihPie', function ($compile, $timeout, $ihCache, $ihPieSr
 			$scope.$on('modal.shown', function() {
 				$scope.shouldShowPie = true;
 				$scope.sliceAnimState = 'show';
-				$scope.title = 'תפריט';
+				// $scope.title = 'תפריט';
 				$scope.$on('$stateChangeStart', onStateChangeStart);
 			});
 
@@ -141,6 +147,10 @@ directModule.directive('ihPie', function ($compile, $timeout, $ihCache, $ihPieSr
 
 			$scope.goToCategory = function (key) {
 				$ihPieSrvc.goToCategory($scope, key);
+			};
+
+			$scope.onShareOptionClick = function (index) {
+				$ihPieSrvc.onShareOptionClick($scope, index);
 			};
 
 			$scope.hideModal = function ($event) {
@@ -163,7 +173,12 @@ directModule.directive('ihPie', function ($compile, $timeout, $ihCache, $ihPieSr
 
 			$scope.$watch('selectedSlice', function(newValue, oldValue){
 				// Check if value has changes
-				if(newValue === oldValue || newValue === $ihPieSrvc.SLICE_INDEXES.none){
+				if(newValue === oldValue){
+					return;
+				}
+
+				if (newValue === $ihPieSrvc.SLICE_INDEXES.none) {
+					$scope.title = 'תפריט';
 					return;
 				}
 
@@ -199,6 +214,10 @@ directModule.directive('ihPie', function ($compile, $timeout, $ihCache, $ihPieSr
 						case $ihPieSrvc.SLICE_INDEXES.weather:
 							$ihPieSrvc.clearResults($scope);
 							$ihPieSrvc.getWeatherData($scope);
+							break;
+						case $ihPieSrvc.SLICE_INDEXES.share:
+							$ihPieSrvc.clearResults($scope);
+							$ihPieSrvc.showShareOptions($scope);
 							break;
 						default:
 							$ihPieSrvc.clearResults($scope);

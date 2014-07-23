@@ -429,6 +429,12 @@ function($ihCONSTS, $ihREST, $ihUtil, $q, $ihRSSSrvc, $ihSearchSrvc, $ihCategori
 		hideSearchInput: function ($scope) {
 			if ($scope.showSearchInput === true) { $scope.showSearchInput = false; }
 		},
+		showShareOptions: function ($scope) {
+			if ($scope.showShareOptions === false) { $scope.showShareOptions = true; }
+		},
+		hideShareOptions: function ($scope) {
+			if ($scope.showShareOptions === true) { $scope.showShareOptions = false; }
+		},
 		showNoResultsMsg: function ($scope) {
 			if ($scope.noResultsFlag === false) { $scope.noResultsFlag = true; }
 		},
@@ -598,6 +604,24 @@ function($ihCONSTS, $ihREST, $ihUtil, $q, $ihRSSSrvc, $ihSearchSrvc, $ihCategori
 			self.showBackLink($scope);
 			self.showFullResult($scope);
 		},
+		onShareOptionClick: function ($scope, index) {
+			var self = this;
+
+			self.clearResults($scope);
+			$scope.selectedSlice = self.SLICE_INDEXES.none;
+
+			// TODO: handle share process
+			switch (index) {
+				case self.SHARE_OPTIONS.facebook:
+					break;
+				case self.SHARE_OPTIONS.twitter:
+					break;
+				case self.SHARE_OPTIONS.whatsApp:
+					break;
+				default:
+					break;
+			}
+		},
 		goToCategory: function ($scope, catName) {
 			var self = this;
 
@@ -657,6 +681,8 @@ function($ihCONSTS, $ihREST, $ihUtil, $q, $ihRSSSrvc, $ihSearchSrvc, $ihCategori
 			if ($scope.rss && $scope.rss.length > 0) { $scope.rss = []; }
 			if ($scope.favorites && Object.keys($scope.favorites).length > 0) { $scope.favorites = {}; }
 			if ($scope.showSearchInput && $scope.showSearchInput === true) { $scope.showSearchInput = false; }
+			if ($scope.showShareOptions && $scope.showShareOptions === true) { $scope.showShareOptions = false; }
+			if ($scope.showLoading && $scope.showLoading === true) { $scope.showLoading = false; }
 			if ($scope.noResultsFlag && $scope.noResultsFlag === true) { $scope.noResultsFlag = false; }
 			if ($scope.connErrorFlag && $scope.connErrorFlag === true) { $scope.connErrorFlag = false; }
 			if ($scope.showFullResult && $scope.showFullResult === true) { $scope.showFullResult = false; }
@@ -679,6 +705,11 @@ function($ihCONSTS, $ihREST, $ihUtil, $q, $ihRSSSrvc, $ihSearchSrvc, $ihCategori
 			horoscope: 6,
 			weather: 7,
 			share: 8
+		},
+		SHARE_OPTIONS: {
+			facebook: 0,
+			twitter: 1,
+			whatsApp: 2
 		}
 	};
 });

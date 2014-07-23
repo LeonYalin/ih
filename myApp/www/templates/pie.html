@@ -67,18 +67,25 @@
 				<li ng-repeat="item in weather" class="item ihListItem ihPieResult">
 					<div class="item item-body">
 						<div>{{item.city}}</div>
-							<div ng-repeat="subItem in item.weather">
-								<img ng-src="{{subItem.icon_url}}" class="ihPieResultWeatherImg"
-								ng-class="{ 'ihWeatherBGSunny': subItem.description === 'בהיר',
-				 							'ihWeatherBGWarm': subItem.description === 'חם',
-				 							'ihWeatherBGWarmDry': subItem.description === 'חם ויבש',
-				 							'ihWeatherBGCloud': subItem.description === 'מעונן',
-				 							'ihWeatherBGCloudRain': subItem.description === 'מעונן חלקית וגשום',
-				 							'ihWeatherBGRain': subItem.description === 'גשום',
-				 							'ihWeatherBGPartCloud': subItem.description === 'מעונן חלקית' }">
-								<p class="ihWeatherDegreeSign">{{subItem.low}}-{{subItem.high}}</p>
-								<p class="ihWeatherDescr ihEllipsis">{{subItem.description}}</p>
-							</div>
+						<div ng-repeat="subItem in item.weather">
+							<img ng-src="{{subItem.icon_url}}" class="ihPieResultWeatherImg"
+							ng-class="{ 'ihWeatherBGSunny': subItem.description === 'בהיר',
+			 							'ihWeatherBGWarm': subItem.description === 'חם',
+			 							'ihWeatherBGWarmDry': subItem.description === 'חם ויבש',
+			 							'ihWeatherBGCloud': subItem.description === 'מעונן',
+			 							'ihWeatherBGCloudRain': subItem.description === 'מעונן חלקית וגשום',
+			 							'ihWeatherBGRain': subItem.description === 'גשום',
+			 							'ihWeatherBGPartCloud': subItem.description === 'מעונן חלקית' }">
+							<p class="ihWeatherDegreeSign">{{subItem.low}}-{{subItem.high}}</p>
+							<p class="ihWeatherDescr ihEllipsis">{{subItem.description}}</p>
+						</div>
+					</div>
+				</li>
+				<li ng-repeat="item in shareOptions" class="item ihListItem ihPieResult" ng-if="showShareOptions == true"
+					ng-click="onShareOptionClick(item.index)">
+					<div class="item item-body">
+						<div class="icon {{item.icon}} ihShareImage"></div>
+						<h2 class="ihShareTitle">{{item.title}}</h2>
 					</div>
 				</li>
 			</ul>

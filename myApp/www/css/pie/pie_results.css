@@ -3,12 +3,12 @@
 	position: relative;
 	width: 340px;
 	margin: 0 auto;
-	min-height: 150px;
+	min-height: 155px;
 	/*background-color: rgba(0, 0, 0, 0.5);*/
 }
 .ihPieResultsContainer > ul {
 	white-space: nowrap;
-	height: 150px;
+	height: 155px;
 }
 
 .ihPieResult {
@@ -26,7 +26,7 @@
 	padding: 5px;
 	height: 100%;
 }
-.ihPieResult img {
+.ihPieResult img, .ihPieResult .ihShareImage {
 	width: 70px;
 	height: 70px;
 	border: 1px solid #707070;
@@ -63,9 +63,11 @@
 
 .ihPieFullResult {
 	top: 0;
-	max-height: 150px;
+	height: 100%;
+	max-height: 155px;
 	text-align: right;
 	font-size: 16px;
+	background-color: white;
 	margin: 0px;
 	padding: 10px;
 }
@@ -74,7 +76,7 @@
 	margin-bottom: 0;
 }
 .ihPieHeaderContainer .ihPieBackLink {
-	color: #D53F47;
+	/*color: #D53F47;*/
 	cursor: pointer;
 	margin-top: 0;
 }
@@ -110,4 +112,18 @@
 	font-size: 14px;
 	line-height: 14px;
 	max-height: 44px;
+}
+
+.ihPieResult .ihShareImage {
+	margin: 0 auto;
+}
+.ihPieResult .ihShareImage:before {
+	font-size: 60px;
+	padding-top: 5px;
+}
+.ihPieResult .ihShareTitle {
+	text-align: center;
+	font-size: 16px;
+	line-height: 20px;
+	padding-top: 40px;
 }
