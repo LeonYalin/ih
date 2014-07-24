@@ -5,6 +5,15 @@ ctrlModule.controller('AppCtrl', function($scope, $rootScope, $ihUtil, $ihPopupU
 		$ihUtil.setObjectToLocalStorage('favoritesObj', {});
 	}
 
+	$rootScope.onHoldShowModal = function ($event) {
+		var $el = angular.element($event.target);
+
+		if ($el.hasClass('scroll-content') || $el.hasClass('button')) {
+			return;
+		} else {
+			$rootScope.showModal();
+		}
+	};
 	$rootScope.showModal = function() {
 		$ihPopupUtil.showModal($rootScope);
 	};
@@ -106,15 +115,15 @@ ctrlModule.controller('ArticlesCtrl',
 });
 
 ctrlModule.controller('ArticleCtrl', function($scope, $stateParams, $state, $q, $ihUtil, $ihArticleSrvc, $ihREST, $compile, toaster) {
-	var artId = $stateParams.articleId,
-		state = $state,
+	$scope.artId = $stateParams.articleId;
+	var	state = $state,
 		favoritesCache = $ihUtil.getObjectFromLocalStorage('favoritesObj');
 
 	function _init(state) {
 		var deferred = $q.defer();
 
 		$ihUtil.showLoading();
-		$ihREST.loadArticleData(artId).then(function (data) {
+		$ihREST.loadArticleData($scope.artId).then(function (data) {
 
 			var article = $ihArticleSrvc.buildArticleObj(data);
 
@@ -159,13 +168,8 @@ ctrlModule.controller('ArticleCtrl', function($scope, $stateParams, $state, $q, 
 		$ihUtil.setObjectToLocalStorage('favoritesObj', favoritesCache);
 	});
 
-	_init(state).finally(function () {
-		$ihREST.loadArticleComment(artId).then(function (data) {
-			$scope.comments = data.comments;
-		}, function () {
-			// TODO: display a comment error message
-		});
-	});
+	_init(state);
+
 });
 
 ctrlModule.controller('CategoriesCtrl', function($scope, $state, $q, $ihUtil, $ihREST, $ihCategoriesSrvc, $ihCache, $ionicActionSheet) {
@@ -416,15 +420,15 @@ ctrlModule.controller('OpinionsCtrl', function($scope, $state, $q, $ihREST, $ihC
 });
 
 ctrlModule.controller('OpinionCtrl', function($scope, $stateParams, $state, $q, $ihUtil, $ihArticleSrvc, $ihOpinionsSrvc, $ihREST, toaster) {
-	var opId = $stateParams.opinionId,
-		state = $state,
+	$scope.opId = $stateParams.opinionId;
+	var	state = $state,
 		favoritesCache = $ihUtil.getObjectFromLocalStorage('favoritesObj');
 
 	function _init(state) {
 		var deferred = $q.defer();
 
 		$ihUtil.showLoading();
-		$ihREST.loadOpinionData(opId).then(function (data) {
+		$ihREST.loadOpinionData($scope.opId).then(function (data) {
 
 			var opinion = $ihArticleSrvc.buildArticleObj(data);
 			opinion.content.intro = $ihOpinionsSrvc.fixOpinionIntro(opinion.content.intro);
@@ -457,13 +461,7 @@ ctrlModule.controller('OpinionCtrl', function($scope, $stateParams, $state, $q, 
 		}
 	};
 
-	_init(state).finally(function () {
-		$ihREST.loadArticleComment(opId).then(function (data) {
-			$scope.comments = data.comments;
-		}, function () {
-			// TODO: display a comment error message
-		});
-	});
+	_init(state);
 
 	$scope.$on('$destroy', function() {
 		$ihUtil.setObjectToLocalStorage('favoritesObj', favoritesCache);

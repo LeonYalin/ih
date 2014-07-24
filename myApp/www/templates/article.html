@@ -27,20 +27,8 @@
 		</div>
 	</div>
 
-	<div class="item item-divider item-assertive" ng-show="article">תגובות</div>
-	<div class="ihArticleCommentsContainer" ng-show="article">
-		<ul>
-			<li ng-repeat="comment in comments" class="item ihListItem">
-				<span class="ihDoubleSlash ihColorRed">{{comment.author.name}}</span><span>&nbsp;</span>
-				<span>{{comment.date.timestamp | date: 'H:mm'}}</span>
-				<h2  class="ihArticleCommentTitle">{{comment.subject}}</h2>
-				<p class="ihArticleCommentBody">{{comment.body}}</p>
-			</li>
-		</ul>
-		<div ng-hide="comments" class="item item-text-wrap ihListItem">לא נמצאו תגובות</div>
-	</div>
-
-	<div class="ihBottomMargin"></div>
+	<ih-comments artid="{{artId}}" ng-show="article"></ih-comments>
+	<!-- <div class="ihBottomMargin"></div> -->
 
 	</ion-content>
 </ion-view>

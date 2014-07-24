@@ -1,6 +1,6 @@
 var directModule = angular.module('starter.directives', []);
 
-directModule.directive("ihBesttvPlayer",function($http, $q, $compile, $timeout){
+directModule.directive("ihBesttvPlayer",function($timeout){
 	return {
 		restrict: 'E',
 		templateUrl: 'templates/besttv-player.html',
@@ -265,6 +265,26 @@ directModule.directive('ihSplashScreen', function ($ihREST, $timeout, $state, $i
 					state.go('app.error');
 				});
 			}, 1000);
+		}
+	};
+});
+
+directModule.directive("ihComments",function($ihREST){
+	return {
+		restrict: 'E',
+		transclude: true,
+		templateUrl: 'templates/comments.html',
+		link: function(scope, element, attrs) {
+			$ihREST.loadArticleComment(attrs.artid).then(function (data) {
+				scope.comments = data.comments;
+			}, function () {
+				// TODO: display a comment error message
+			});
+
+			scope.isCommentsShown = false;
+			scope.showComments = function () {
+				scope.isCommentsShown = true;
+			};
 		}
 	};
 });

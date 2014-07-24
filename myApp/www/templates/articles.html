@@ -3,7 +3,7 @@
 		<button menu-toggle="right" class="button button-icon icon ion-navicon"></button>
 	</ion-nav-buttons>
 	<ion-nav-buttons side="left">
-		<button class="button button-icon icon ihHeaderIconLeft" ng-click="onRefresh(true)"
+		<button class="button button-icon icon ihHeaderIconLeft ihHeaderIconRefresh" ng-click="onRefresh(true)"
 			ng-class="{ 'ion-loop': isRefreshing === false,
 					 	'ion-looping': isRefreshing === true }"></button>
 	</ion-nav-buttons>
@@ -45,7 +45,6 @@
 							</div>
 							<p class="ihArticleListItemDate">
 								<span class="ihDoubleSlash ihColorRed">{{sec.author.name}}</span>
-								<span>{{sec.date.timestamp | date: 'H:mm'}}</span><span>&nbsp;</span><span>{{sec.date.formatted}}</span>
 							</p>
 						</a>
 						<ion-option-button ng-if="!sec.inFavorites" class="button ihFavoritesBtn" ng-click="onFavorites(sec, $event)">הוסף למועדפים</ion-option-button>
@@ -67,7 +66,7 @@
 							</div>
 							<p class="ihArticleListItemDate">
 								<span class="ihDoubleSlash ihColorRed">{{news.author.name}}</span>
-								<span>{{news.date.timestamp | date: 'H:mm'}}</span><span>&nbsp;</span><span>{{news.date.formatted}}</span>
+								<span>{{news.date.formatted}}</span>
 							</p>
 						</a>
 						<ion-option-button ng-if="!news.inFavorites" class="button ihFavoritesBtn" ng-click="onFavorites(news, $event)">הוסף למועדפים</ion-option-button>
@@ -94,7 +93,7 @@
 									</div>
 									<p class="ihArticleListItemDate">
 										<span class="ihDoubleSlash ihColorRed">{{catNewsItem.author.name}}</span>
-										<span>{{catNewsItem.date.timestamp | date: 'H:mm'}}</span><span>&nbsp;</span><span>{{catNewsItem.date.formatted}}</span>
+										<span>{{catNewsItem.date.formatted}}</span>
 									</p>
 								</a>
 								<ion-option-button ng-if="!catNewsItem.inFavorites" class="button ihFavoritesBtn" ng-click="onFavorites(catNewsItem, $event)">הוסף למועדפים</ion-option-button>

@@ -187,5 +187,11 @@ body {
 
 .ihHeaderIconLeft {
 	position: absolute;
-	left: 0px;
+	left: -4px;
+}
+/*.ihHeaderIconRefresh {
+	left: -4px;
+}*/
+.ihHeaderIconRefresh:before {
+	font-size: 28px !important;
 }
