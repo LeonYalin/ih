@@ -65,7 +65,7 @@ servModule.factory('$ihUtil', function($ionicLoading, $ionicPopup, $ihCONSTS, $w
 		},
 		delayCacheLoad: function (callback, customDelay) {
 			var self = this,
-				delay = (customDelay && typeof customDelay === "number") ? customDelay : 300;
+				delay = (customDelay && typeof customDelay === "number") ? customDelay : 100;
 
 			/* Show loading for customDelay or 300ms by default */
 			self.showLoading();

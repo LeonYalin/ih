@@ -70,11 +70,14 @@ ctrlModule.controller('ArticlesCtrl',
 		$ihHomepageSrvc.animateRSS();
 	});
 
-	$scope.doRefresh = function() {
-		$scope.isRefreshing = true;
+	$scope.onRefresh = function(isBtnPressed) {
+		if (isBtnPressed) { $scope.isRefreshing = true; }
 		_init(state, true).finally(function () {
-			$scope.isRefreshing = false;
-			$scope.$broadcast('scroll.refreshComplete');
+			if (isBtnPressed) {
+				$scope.isRefreshing = false;
+			} else {
+				$scope.$broadcast('scroll.refreshComplete');
+			}
 		});
 	};
 
@@ -137,19 +140,19 @@ ctrlModule.controller('ArticleCtrl', function($scope, $stateParams, $state, $q, 
 		return deferred.promise;
 	}
 
-	$scope.onFavoriteAdd = function () {
-		$scope.article.inFavorites = true;
-		$ihArticleSrvc.addImageForFavorites($scope.article);
-		favoritesCache[$scope.article.nid] = $scope.article;
+	$scope.onFavoriteClick = function (isInFavorites) {
+		if (!isInFavorites) {
+			$scope.article.inFavorites = true;
+			$ihArticleSrvc.addImageForFavorites($scope.article);
+			favoritesCache[$scope.article.nid] = $scope.article;
 
-		toaster.pop('success', "כתבה נשמרה במועדפים");
-	};
+			toaster.pop('success', "כתבה נשמרה במועדפים");
+		} else {
+			$scope.article.inFavorites = false;
+			delete favoritesCache[$scope.article.nid];
 
-	$scope.onFavoriteDelete = function () {
-		$scope.article.inFavorites = false;
-		delete favoritesCache[$scope.article.nid];
-
-		toaster.pop('success', "כתבה הוסרה ממועדפים");
+			toaster.pop('success', "כתבה הוסרה ממועדפים");
+		}
 	};
 
 	$scope.$on('$destroy', function() {
@@ -341,6 +344,7 @@ ctrlModule.controller('FavoritesCtrl', function($scope, $ihCache, $ihUtil, $ihFa
 
 ctrlModule.controller('RSSCtrl', function($scope, $ihUtil, $ihREST, $q, $state, $ihCache, $ihRSSSrvc) {
 	var state = $state;
+	$scope.isRefreshing = false;
 
 	function _init(state) {
 		var deferred = $q.defer();
@@ -363,6 +367,13 @@ ctrlModule.controller('RSSCtrl', function($scope, $ihUtil, $ihREST, $q, $state, 
 	}
 
 	_init(state);
+
+	$scope.onRefresh = function(isBtnPressed) {
+		if (isBtnPressed) { $scope.isRefreshing = true; }
+		_init(state).finally(function () {
+			if (isBtnPressed) { $scope.isRefreshing = false; }
+		});
+	};
 });
 
 ctrlModule.controller('OpinionsCtrl', function($scope, $state, $q, $ihREST, $ihCache, $ihUtil, $ihOpinionsSrvc) {
@@ -431,19 +442,19 @@ ctrlModule.controller('OpinionCtrl', function($scope, $stateParams, $state, $q, 
 		return deferred.promise;
 	}
 
-	$scope.onFavoriteAdd = function () {
-		$scope.opinion.inFavorites = true;
-		$ihArticleSrvc.addImageForFavorites($scope.opinion);
-		favoritesCache[$scope.opinion.nid] = $scope.opinion;
+	$scope.onFavoriteClick = function (isInFavorites) {
+		if (!isInFavorites) {
+			$scope.opinion.inFavorites = true;
+			$ihArticleSrvc.addImageForFavorites($scope.opinion);
+			favoritesCache[$scope.opinion.nid] = $scope.opinion;
 
-		toaster.pop('success', "כתבה נשמרה במועדפים");
-	};
+			toaster.pop('success', "כתבה נשמרה במועדפים");
+		} else {
+			$scope.opinion.inFavorites = false;
+			delete favoritesCache[$scope.opinion.nid];
 
-	$scope.onFavoriteDelete = function () {
-		$scope.opinion.inFavorites = false;
-		delete favoritesCache[$scope.opinion.nid];
-
-		toaster.pop('success', "כתבה הוסרה ממועדפים");
+			toaster.pop('success', "כתבה הוסרה ממועדפים");
+		}
 	};
 
 	_init(state).finally(function () {

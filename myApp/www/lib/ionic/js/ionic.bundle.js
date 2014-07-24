@@ -37977,7 +37977,8 @@ IonicModule
 .constant('$ionicPlatformDefaults', {
   'ios': {
     '$ionicNavBarConfig': {
-      transition: 'nav-title-slide-ios7',
+      // transition: 'nav-title-slide-ios7',
+      transition: 'no-animation',
       alignTitle: 'center',
       backButtonIcon: 'ion-ios7-arrow-back'
     },
@@ -37991,7 +37992,8 @@ IonicModule
   },
   'android': {
     '$ionicNavBarConfig': {
-      transition: 'nav-title-slide-ios7',
+      // transition: 'nav-title-slide-ios7',
+      transition: 'no-animation',
       alignTitle: 'center',
       backButtonIcon: 'ion-ios7-arrow-back'
     },
@@ -42250,7 +42252,8 @@ function($animate, $rootScope, $sanitize, $ionicNavBarConfig, $ionicNgClick) {
 
 
 IonicModule.constant('$ionicNavBarConfig', {
-  transition: 'nav-title-slide-ios7',
+  // transition: 'nav-title-slide-ios7',
+  transition: 'no-animation',
   alignTitle: 'center',
   backButtonIcon: 'ion-ios7-arrow-back'
 });

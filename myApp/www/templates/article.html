@@ -1,9 +1,9 @@
 <ion-view title="{{article.content.title}}">
 	<ion-nav-buttons side="left">
-		<button class="button button-icon icon ion-ios7-star ihHeaderIconLeft"
-			ng-click="onFavoriteDelete()" ng-if="article.inFavorites"></button>
-		<button class="button button-icon icon ion-ios7-star-outline ihHeaderIconLeft"
-			ng-click="onFavoriteAdd()" ng-if="!article.inFavorites"></button>
+		<button class="button button-icon icon ihHeaderIconLeft"
+			ng-click="onFavoriteClick(article.inFavorites)"
+			ng-class="{ 'ion-ios7-star': article.inFavorites === true,
+				 	'ion-ios7-star-outline': !article.inFavorites || article.inFavorites === false }"></button>
 	</ion-nav-buttons>
 
 	<ion-content class="has-header ihOverflowScrollY" overflow-scroll="true">
