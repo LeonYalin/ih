@@ -21,6 +21,7 @@ directModule.directive('ihPie', function ($compile, $timeout, $ihCache, $ihPieSr
 	return {
 		restrict: 'E',
 		templateUrl: 'templates/pie.html',
+		scope: true,
 		link: function($scope, element, attrs) {
 			var state = $state;
 			$scope.$on('$stateChangeStart', onStateChangeStart);
@@ -50,8 +51,19 @@ directModule.directive('ihPie', function ($compile, $timeout, $ihCache, $ihPieSr
 			$scope.shareOptions = [
 				{ index: $ihPieSrvc.SHARE_OPTIONS.facebook, title: 'Facebook', icon: 'ion-social-facebook' },
 				{ index: $ihPieSrvc.SHARE_OPTIONS.twitter, title: 'Twitter', icon: 'ion-social-twitter' },
-				{ index: $ihPieSrvc.SHARE_OPTIONS.whatsApp, title: 'WhatsApp', icon: 'ihIconWhatsApp' }
+				{ index: $ihPieSrvc.SHARE_OPTIONS.whatsApp, title: 'WhatsApp', icon: 'ihIconWhatsApp' },
+				{ index: $ihPieSrvc.SHARE_OPTIONS.sms, title: 'Sms', icon: 'ion-chatboxes' },
+				{ index: $ihPieSrvc.SHARE_OPTIONS.email, title: 'Email', icon: 'ion-email' }
 			];
+
+			/* This fires when user presses 'Share' button */
+			if ($rootScope.selectedSliceonPieShow) {
+				$scope.selectedSlice = $rootScope.selectedSliceonPieShow;
+				delete $rootScope.selectedSliceonPieShow;
+				$scope.title = 'שיטוף';
+				$ihPieSrvc.showShareData($scope, state);
+			}
+
 			$scope.onSliceClick = function ($event, $index) {
 				var el = angular.element($event.target);
 				if (el) {
@@ -125,6 +137,12 @@ directModule.directive('ihPie', function ($compile, $timeout, $ihCache, $ihPieSr
 				console.log('in modal.removed');
 			});
 			$scope.$on('modal.shown', function() {
+				if ($rootScope.selectedSliceonPieShow) {
+					$scope.selectedSlice = $rootScope.selectedSliceonPieShow;
+					delete $rootScope.selectedSliceonPieShow;
+					$scope.title = 'שיטוף';
+					$ihPieSrvc.showShareData($scope, state);
+				}
 				$scope.shouldShowPie = true;
 				$scope.sliceAnimState = 'show';
 				// $scope.title = 'תפריט';
@@ -149,8 +167,8 @@ directModule.directive('ihPie', function ($compile, $timeout, $ihCache, $ihPieSr
 				$ihPieSrvc.goToCategory($scope, key);
 			};
 
-			$scope.onShareOptionClick = function (index) {
-				$ihPieSrvc.onShareOptionClick($scope, index);
+			$scope.onShareOptionClick = function (index, obj) {
+				$ihPieSrvc.onShareOptionClick($scope, index, state, obj);
 			};
 
 			$scope.hideModal = function ($event) {
@@ -217,7 +235,7 @@ directModule.directive('ihPie', function ($compile, $timeout, $ihCache, $ihPieSr
 							break;
 						case $ihPieSrvc.SLICE_INDEXES.share:
 							$ihPieSrvc.clearResults($scope);
-							$ihPieSrvc.showShareOptions($scope);
+							$ihPieSrvc.showShareData($scope, state);
 							break;
 						default:
 							$ihPieSrvc.clearResults($scope);

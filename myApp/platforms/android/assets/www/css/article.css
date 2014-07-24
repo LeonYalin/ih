@@ -48,3 +48,7 @@
 }.ihArticleCommentsContainer ul > li:last-child {
 	border-bottom: none;
 }
+
+.ihArticleCommentsShowBtnWrapper {
+	padding: 0 10px;
+}

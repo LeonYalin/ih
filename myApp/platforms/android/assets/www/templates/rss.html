@@ -2,6 +2,11 @@
 	<ion-nav-buttons side="right">
 		<button menu-toggle="right" class="button button-icon icon ion-navicon"></button>
 	</ion-nav-buttons>
+	<ion-nav-buttons side="left">
+		<button class="button button-icon icon ihHeaderIconLeft ihHeaderIconRefresh" ng-click="onRefresh(true)"
+			ng-class="{ 'ion-loop': isRefreshing === false,
+					 	'ion-looping': isRefreshing === true }"></button>
+	</ion-nav-buttons>
 	<ion-content class="has-header ihOverflowScrollY" overflow-scroll="true">
 		<div class="ihList ihRSSList">
 			<ul>

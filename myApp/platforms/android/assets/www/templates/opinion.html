@@ -1,9 +1,10 @@
 <ion-view title="{{opinion.content.title}}">
 	<ion-nav-buttons side="left">
-		<button class="button button-icon icon ion-ios7-star ihHeaderIconLeft"
-			ng-click="onFavoriteDelete()" ng-if="opinion.inFavorites"></button>
-		<button class="button button-icon icon ion-ios7-star-outline ihHeaderIconLeft"
-			ng-click="onFavoriteAdd()" ng-if="!opinion.inFavorites"></button>
+		<button class="button button-icon icon ihHeaderIconLeft"
+			ng-click="onFavoriteClick(opinion.inFavorites)"
+			ng-class="{ 'ion-ios7-star': opinion.inFavorites === true,
+				 	'ion-ios7-star-outline': !opinion.inFavorites || opinion.inFavorites === false }"></button>
+		<button class="button button-icon icon ion-android-share ihHeaderIconLeft ihHeaderIconShare" ng-click="onShareClick()"></button>
 	</ion-nav-buttons>
 	<ion-content class="has-header ihOverflowScrollY" overflow-scroll="true">
 
@@ -32,20 +33,8 @@
 		</div>
 	</div>
 
-	<div class="item item-divider item-assertive" ng-show="opinion">תגובות</div>
-	<div class="ihArticleCommentsContainer ihOpinionCommentsContainer" ng-show="opinion">
-		<ul>
-			<li ng-repeat="comment in comments" class="item ihListItem">
-				<span class="ihDoubleSlash ihColorRed">{{comment.author.name}}</span><span>&nbsp;</span>
-				<span>{{comment.date.timestamp | date: 'H:mm'}}</span>
-				<h2 class="ihArticleCommentTitle">{{comment.subject}}</h2>
-				<p class="ihArticleCommentBody">{{comment.body}}</p>
-			</li>
-		</ul>
-		<div ng-hide="comments" class="item item-text-wrap ihListItem">לא נמצאו תגובות</div>
-	</div>
-
-	<div class="ihBottomMargin"></div>
+	<ih-comments artid="{{opId}}" ng-show="opinion"></ih-comments>
+	<!-- <div class="ihBottomMargin"></div> -->
 
 	</ion-content>
 </ion-view>

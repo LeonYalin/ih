@@ -187,11 +187,22 @@ body {
 
 .ihHeaderIconLeft {
 	position: absolute;
-	left: -4px;
+	left: 2px;
+	padding: 0 !important;
 }
-/*.ihHeaderIconRefresh {
-	left: -4px;
-}*/
+.ihHeaderIconLeft:after {
+	right: -3px;
+	bottom: -5px;
+	left: -3px;
+}
+.ihHeaderIconLeft:nth-of-type(2) {
+	left: 40px;
+}
+
 .ihHeaderIconRefresh:before {
 	font-size: 28px !important;
+}
+
+.ihHeaderIconShare:before {
+	font-size: 26px !important;
 }

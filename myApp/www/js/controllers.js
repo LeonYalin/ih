@@ -1,8 +1,13 @@
 var ctrlModule = angular.module('starter.controllers', []);
 
-ctrlModule.controller('AppCtrl', function($scope, $rootScope, $ihUtil, $ihPopupUtil) {
+ctrlModule.controller('AppCtrl', function($scope, $rootScope, $ihUtil, $ihPopupUtil, $ihCordovaUtil) {
 	if (!$ihUtil.getObjectFromLocalStorage('favoritesObj')) {
 		$ihUtil.setObjectToLocalStorage('favoritesObj', {});
+	}
+
+	function _showModalWithVibration() {
+		$ihCordovaUtil.vibrate();
+		$rootScope.showModal();
 	}
 
 	$rootScope.onHoldShowModal = function ($event) {
@@ -11,9 +16,21 @@ ctrlModule.controller('AppCtrl', function($scope, $rootScope, $ihUtil, $ihPopupU
 		if ($el.hasClass('scroll-content') || $el.hasClass('button')) {
 			return;
 		} else {
-			$rootScope.showModal();
+			_showModalWithVibration();
 		}
 	};
+	$rootScope.onShowModalWithSelectedSlice = function (selSliceNum) {
+		if (selSliceNum) {
+			$rootScope.selectedSliceonPieShow = selSliceNum;
+		}
+		_showModalWithVibration();
+	};
+
+	// $rootScope.$on('onShareBtnPressed', function (event, args) {
+	// 	_showModalWithVibration(8); //TODO: change to PIE_SLICE index (Share)
+	// });
+
+
 	$rootScope.showModal = function() {
 		$ihPopupUtil.showModal($rootScope);
 	};
@@ -114,7 +131,7 @@ ctrlModule.controller('ArticlesCtrl',
 
 });
 
-ctrlModule.controller('ArticleCtrl', function($scope, $stateParams, $state, $q, $ihUtil, $ihArticleSrvc, $ihREST, $compile, toaster) {
+ctrlModule.controller('ArticleCtrl', function($scope, $rootScope,$stateParams, $state, $q, $ihUtil, $ihArticleSrvc, $ihREST, $compile, toaster) {
 	$scope.artId = $stateParams.articleId;
 	var	state = $state,
 		favoritesCache = $ihUtil.getObjectFromLocalStorage('favoritesObj');
@@ -162,6 +179,11 @@ ctrlModule.controller('ArticleCtrl', function($scope, $stateParams, $state, $q, 
 
 			toaster.pop('success', "כתבה הוסרה ממועדפים");
 		}
+	};
+
+	$scope.onShareClick = function () {
+		// $scope.$broadcast('onShareBtnPressed');
+		$rootScope.onShowModalWithSelectedSlice(8);
 	};
 
 	$scope.$on('$destroy', function() {
@@ -419,7 +441,8 @@ ctrlModule.controller('OpinionsCtrl', function($scope, $state, $q, $ihREST, $ihC
 
 });
 
-ctrlModule.controller('OpinionCtrl', function($scope, $stateParams, $state, $q, $ihUtil, $ihArticleSrvc, $ihOpinionsSrvc, $ihREST, toaster) {
+ctrlModule.controller('OpinionCtrl',
+	function($scope, $rootScope,$stateParams, $state, $q, $ihUtil, $ihArticleSrvc, $ihOpinionsSrvc, $ihREST, toaster) {
 	$scope.opId = $stateParams.opinionId;
 	var	state = $state,
 		favoritesCache = $ihUtil.getObjectFromLocalStorage('favoritesObj');
@@ -459,6 +482,11 @@ ctrlModule.controller('OpinionCtrl', function($scope, $stateParams, $state, $q, 
 
 			toaster.pop('success', "כתבה הוסרה ממועדפים");
 		}
+	};
+
+	$scope.onShareClick = function () {
+		// $scope.$broadcast('onShareBtnPressed');
+		$rootScope.onShowModalWithSelectedSlice(8);
 	};
 
 	_init(state);

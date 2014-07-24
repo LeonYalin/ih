@@ -4,6 +4,7 @@
 			ng-click="onFavoriteClick(opinion.inFavorites)"
 			ng-class="{ 'ion-ios7-star': opinion.inFavorites === true,
 				 	'ion-ios7-star-outline': !opinion.inFavorites || opinion.inFavorites === false }"></button>
+		<button class="button button-icon icon ion-android-share ihHeaderIconLeft ihHeaderIconShare" ng-click="onShareClick()"></button>
 	</ion-nav-buttons>
 	<ion-content class="has-header ihOverflowScrollY" overflow-scroll="true">
 

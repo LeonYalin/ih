@@ -16,11 +16,13 @@ servModule.factory('$ihCONSTS', function(){
 	url.homepage = url.apiDomain + 'homepage/android' + url.key + url.callback;
 	url.rss = url.apiDomain + 'content/newsflash' + url.key + url.callback;
 	url.article = url.apiDomain + 'content/article/';
+	url.webArticle = url.webDomain + 'article/';
 	url.comments = url.apiDomain + 'comment/';
 	url.categories = url.apiDomain + 'category' + url.key + url.callback;
 	url.category = url.apiDomain + 'category/';
 	url.opinions = url.apiDomain + 'content/opinion' + url.key + url.callback;
 	url.opinion = url.apiDomain + 'content/opinion/';
+	url.webOpinion = url.webDomain + 'opinion/';
 	url.search = url.apiDomain + 'search' + url.key + url.callback + url.lang.he + url.q;
 	url.weatherWeekly = url.apiDomain + 'content/weather/week' + url.key + url.callback + url.lang.he;
 	url.weatherDaily = url.apiDomain + 'content/weather/day' + url.key + url.callback + url.lang.he;
@@ -65,7 +67,7 @@ servModule.factory('$ihUtil', function($ionicLoading, $ionicPopup, $ihCONSTS, $w
 		},
 		delayCacheLoad: function (callback, customDelay) {
 			var self = this,
-				delay = (customDelay && typeof customDelay === "number") ? customDelay : 100;
+				delay = (customDelay && typeof customDelay === "number") ? customDelay : 300;
 
 			/* Show loading for customDelay or 300ms by default */
 			self.showLoading();
@@ -81,7 +83,51 @@ servModule.factory('$ihUtil', function($ionicLoading, $ionicPopup, $ihCONSTS, $w
 		getObjectFromLocalStorage: function (key) { return angular.fromJson($window.localStorage.getItem(key)); },
 		setObjectToLocalStorage: function (key, value) { return $window.localStorage.setItem(key, angular.toJson(value)); },
 		getFromSessionStorage: function (key) { return $window.sessionStorage.getItem(key); },
-		setToSessionStorage: function (key, value) { return $window.sessionStorage.setItem(key, value); }
+		setToSessionStorage: function (key, value) { return $window.sessionStorage.setItem(key, value); },
+		isMobileDevice: function () {
+			return typeof cordova === 'object';
+		}
+	};
+});
+
+servModule.factory('$ihCordovaUtil', function($cordovaVibration, $cordovaSocialSharing){
+	return {
+		isMobileDevice: function () {
+			return typeof cordova === 'object';
+		},
+		vibrate: function (timeToVibrate) {
+			if (!this.isMobileDevice()) { return; }
+
+			var vibrTime = timeToVibrate || 50;
+			$cordovaVibration.vibrate(vibrTime);
+		},
+		shareViaTwitter: function (message, image, link) {
+			if (!this.isMobileDevice()) { return; }
+			return $cordovaSocialSharing.shareViaTwitter(message, image, link);
+		},
+		shareViaWhatsApp: function (message, image, link) {
+			if (!this.isMobileDevice()) { return; }
+			return $cordovaSocialSharing.shareViaWhatsApp(message, image, link);
+		},
+		shareViaFacebook: function (message, image, link) {
+			if (!this.isMobileDevice()) { return; }
+			return $cordovaSocialSharing.shareViaFacebook(message, image, link);
+		},
+		// access multiple numbers in a string like: '0612345678,0687654321'
+		shareViaSMS: function (message, number) {
+			if (!this.isMobileDevice()) { return; }
+			return $cordovaSocialSharing.shareViaSMS(message, number);
+		},
+		// TO, CC, BCC must be an array, Files can be either null, string or array
+		shareViaEmail: function (message, subject, toArr, bccArr, file) {
+			if (!this.isMobileDevice()) { return; }
+			return $cordovaSocialSharing.shareViaEmail(message, subject, toArr, bccArr, file);
+		},
+		canShareVia: function (socialType, message, image, link) {
+			if (!this.isMobileDevice()) { return; }
+			return $cordovaSocialSharing.canShareVia(socialType, message, image, link);
+		}
+
 	};
 });
 
@@ -416,8 +462,8 @@ servModule.factory('$ihSearchSrvc', function($ihCONSTS, $ihHomepageSrvc, $ihOpin
 });
 
 servModule.factory('$ihPieSrvc',
-function($ihCONSTS, $ihREST, $ihUtil, $q, $ihRSSSrvc, $ihSearchSrvc, $ihCategoriesSrvc,
-			$ihCategorySrvc, $ihOpinionsSrvc, $ihHoroscopeSrvc, $ihWeatherSrvc){
+function($ihCONSTS, $ihREST, $ihUtil, $q, $ihRSSSrvc, $ihSearchSrvc, $ihCategoriesSrvc, $ihArticleSrvc,
+			$ihCategorySrvc, $ihOpinionsSrvc, $ihHoroscopeSrvc, $ihWeatherSrvc, $ihCache, $ihCordovaUtil){
 	return {
 		showLoading: function ($scope) {
 			if ($scope.showLoading === false) { $scope.showLoading = true; }
@@ -606,23 +652,59 @@ function($ihCONSTS, $ihREST, $ihUtil, $q, $ihRSSSrvc, $ihSearchSrvc, $ihCategori
 			self.showBackLink($scope);
 			self.showFullResult($scope);
 		},
-		onShareOptionClick: function ($scope, index) {
+		showShareData: function ($scope, state) {
 			var self = this;
+			
+			if (state.current.name === 'app.articles' ||
+				state.current.name === 'app.article' ||
+				state.current.name === 'app.opinion') {
+				self.showShareOptions($scope);
+			} else {
+				$scope.fullResultText = 'לא ניתן לשתף מתוך העמוד הזה. ניתן לשתף עמוד ראשי ,עמודי כתבות ודעות';
+				self.showFullResult($scope);
+			}
+		},
+		shareObject: function (state, obj, index) {
+			var self = this, shareObj = {};
 
-			self.clearResults($scope);
-			$scope.selectedSlice = self.SLICE_INDEXES.none;
+			if (state.current.name === 'app.articles') {
+				var articlesCache = $ihCache.get('articlesObj'),
+					mainArtcl = (articlesCache && articlesCache.primary && articlesCache.primary[0]) ? articlesCache.primary[0] : null;
+				shareObj.link = $ihCONSTS.url.webArticle + mainArtcl.nid;
+			} else if (state.current.name === 'app.article') {
+				shareObj.link = $ihCONSTS.url.webArticle + state.params.articleId;
+			} else if (state.current.name === 'app.opinion') {
+				shareObj.link = $ihCONSTS.url.webOpinion + state.params.opinionId;
+			} else {
+				return;
+			}
 
-			// TODO: handle share process
 			switch (index) {
 				case self.SHARE_OPTIONS.facebook:
+					$ihCordovaUtil.shareViaFacebook(null, null, shareObj.link);
 					break;
 				case self.SHARE_OPTIONS.twitter:
+					$ihCordovaUtil.shareViaTwitter(null, null, shareObj.link);
 					break;
 				case self.SHARE_OPTIONS.whatsApp:
+					$ihCordovaUtil.shareViaWhatsApp(null, null, shareObj.link);
+					break;
+				case self.SHARE_OPTIONS.sms:
+					$ihCordovaUtil.shareViaSMS(shareObj.link, null);
+					break;
+				case self.SHARE_OPTIONS.email:
+					$ihCordovaUtil.shareViaEmail(shareObj.link, null, [], [], null);
 					break;
 				default:
 					break;
 			}
+		},
+		onShareOptionClick: function ($scope, index, state, obj) {
+			var self = this;
+
+			self.clearResults($scope);
+			$scope.selectedSlice = self.SLICE_INDEXES.none;
+			self.shareObject(state, obj, index);
 		},
 		goToCategory: function ($scope, catName) {
 			var self = this;
@@ -711,7 +793,9 @@ function($ihCONSTS, $ihREST, $ihUtil, $q, $ihRSSSrvc, $ihSearchSrvc, $ihCategori
 		SHARE_OPTIONS: {
 			facebook: 0,
 			twitter: 1,
-			whatsApp: 2
+			whatsApp: 2,
+			sms: 3,
+			email: 4
 		}
 	};
 });
@@ -851,6 +935,9 @@ servModule.factory('$ihOpinionsSrvc', function($ihCONSTS, $ihHomepageSrvc){
 
 servModule.factory('$ihArticleSrvc', function($ihCONSTS, $ihUtil){
 	return {
+		setDefaultImageSize: function (imageUrl) {
+			return imageUrl.replace($ihCONSTS.imageSizes.fullscreen, $ihCONSTS.imageSizes.default);
+		},
 		checkFavorite: function (article) {
 			if (!article) return;
 
@@ -865,7 +952,7 @@ servModule.factory('$ihArticleSrvc', function($ihCONSTS, $ihUtil){
 			if (!(article && article.images)) return;
 
 			var newImage = {};
-			newImage.path = article.mainImageSrc.replace($ihCONSTS.imageSizes.fullscreen, $ihCONSTS.imageSizes.default);
+			newImage.path = this.setDefaultImageSize(article.mainImageSrc);
 
 			article.images.push(newImage);
 		},

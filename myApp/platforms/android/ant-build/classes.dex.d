@@ -8,5 +8,10 @@ C:\Users\Leon\gitNew\ih\myApp\platforms\android\ant-build\classes\com\ionicframe
 C:\Users\Leon\gitNew\ih\myApp\platforms\android\ant-build\classes\com\ionicframework\starter\R$string.class \
 C:\Users\Leon\gitNew\ih\myApp\platforms\android\ant-build\classes\com\ionicframework\starter\R$xml.class \
 C:\Users\Leon\gitNew\ih\myApp\platforms\android\ant-build\classes\com\ionicframework\starter\R.class \
+C:\Users\Leon\gitNew\ih\myApp\platforms\android\ant-build\classes\nl\xservices\plugins\SocialSharing$1.class \
+C:\Users\Leon\gitNew\ih\myApp\platforms\android\ant-build\classes\nl\xservices\plugins\SocialSharing$2.class \
+C:\Users\Leon\gitNew\ih\myApp\platforms\android\ant-build\classes\nl\xservices\plugins\SocialSharing$SocialSharingRunnable.class \
+C:\Users\Leon\gitNew\ih\myApp\platforms\android\ant-build\classes\nl\xservices\plugins\SocialSharing.class \
 C:\Users\Leon\gitNew\ih\myApp\platforms\android\ant-build\classes\org\apache\cordova\device\Device.class \
+C:\Users\Leon\gitNew\ih\myApp\platforms\android\ant-build\classes\org\apache\cordova\vibration\Vibration.class \
 C:\Users\Leon\gitNew\ih\myApp\platforms\android\ant-build\dexedLibs\classes-67f040b08cd5fbf327a82d54b3ae2b6a.jar \
