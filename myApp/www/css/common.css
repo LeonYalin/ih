@@ -188,7 +188,9 @@ body {
 .ihHeaderIconLeft {
 	position: absolute;
 	left: 2px;
-	padding: 0 !important;
+}
+.bar .button.ihHeaderIconLeft {
+	padding: 0;
 }
 .ihHeaderIconLeft:after {
 	right: -3px;
@@ -199,6 +201,9 @@ body {
 	left: 40px;
 }
 
+.bar .button.ihHeaderIconRefresh:before {
+	padding: 0; 
+}
 .ihHeaderIconRefresh:before {
 	font-size: 28px !important;
 }
