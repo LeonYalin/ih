@@ -52,3 +52,11 @@
 .ihArticleCommentsShowBtnWrapper {
 	padding: 0 10px;
 }
+
+.ihHomepageTitleIcon {
+	height: 100%;
+	background-size: 170px 36px;
+	background-image: url('../img/ih_logo_transp.png');
+	background-position: center;
+	background-repeat: no-repeat;
+}

@@ -73,7 +73,7 @@ body {
 	z-index: 2;
 	text-align: center;
 	background-color: white;
-	background-image: url('../img/ih_logo.png');
+	background-image: url('../img/ih_logo2.png');
 	background-position: center 45%;
 	background-repeat: no-repeat;
 	-webkit-transition: opacity 0.3s linear;
@@ -201,11 +201,19 @@ body {
 	left: 40px;
 }
 
+.ihHeaderIconRefresh {
+	left: 5px;
+}
 .bar .button.ihHeaderIconRefresh:before {
 	padding: 0; 
 }
 .ihHeaderIconRefresh:before {
 	font-size: 28px !important;
+}
+.ihHeaderIconRefresh:after {
+	right: -6px;
+	bottom: -6px;
+	left: -6px;
 }
 
 .ihHeaderIconShare:before {
