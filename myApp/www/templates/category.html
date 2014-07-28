@@ -20,6 +20,6 @@
 				</li>
 			</ul>
 		</ion-list>
-		<!-- <div ng-hide="category" class="item item-text-wrap ihListItem">Category is empty</div> -->
+		<ih-load-more page="category" ng-show="category && isNeedToShowMore === true" pageid="{{categoryName}}"></ih-load-more>
 	</ion-content>
 </ion-view>

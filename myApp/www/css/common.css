@@ -219,3 +219,17 @@ body {
 .ihHeaderIconShare:before {
 	font-size: 26px !important;
 }
+
+.ihLoadMoreBtnWrapper {
+	padding: 0px 10px;
+	text-align: center;
+	margin-top: 10px;
+	margin-bottom: 10px;
+}
+.ihLoadMoreBtnWrapper .button {
+	margin: 0;
+}
+.ihLoadMoreBtnWrapper .icon {
+	font-size: 41px;
+	padding: 3px 0px;
+}

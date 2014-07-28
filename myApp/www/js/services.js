@@ -5,7 +5,8 @@ servModule.factory('$ihCONSTS', function(){
 		webDomain: 'http://www.israelhayom.co.il/',
 		apiDomain: 'http://api.app.israelhayom.co.il/',
 		key: '?key=nas987nh34',
-		limit: '&limit=15',
+		limit: '&limit=30',
+		offset: '&offset=',
 		q: '&q=',
 		lang: {
 			en: '&lang=en',
@@ -14,16 +15,17 @@ servModule.factory('$ihCONSTS', function(){
 		callback: '&callback=JSON_CALLBACK'
 	};
 	url.homepage = url.apiDomain + 'homepage/android' + url.key + url.callback;
-	url.rss = url.apiDomain + 'content/newsflash' + url.key + url.callback;
+	url.rss = url.apiDomain + 'content/newsflash' + url.key + url.callback + url.limit + url.offset;
+	url.rssSingle = url.apiDomain + 'content/newsflash/';
 	url.article = url.apiDomain + 'content/article/';
 	url.webArticle = url.webDomain + 'article/';
 	url.comments = url.apiDomain + 'comment/';
 	url.categories = url.apiDomain + 'category' + url.key + url.callback;
 	url.category = url.apiDomain + 'category/';
-	url.opinions = url.apiDomain + 'content/opinion' + url.key + url.callback;
+	url.opinions = url.apiDomain + 'content/opinion' + url.key + url.callback + url.limit + url.offset;
 	url.opinion = url.apiDomain + 'content/opinion/';
 	url.webOpinion = url.webDomain + 'opinion/';
-	url.search = url.apiDomain + 'search' + url.key + url.callback + url.lang.he + url.q;
+	url.search = url.apiDomain + 'search' + url.key + url.callback + url.lang.he + url.q + url.limit + url.offset;
 	url.weatherWeekly = url.apiDomain + 'content/weather/week' + url.key + url.callback + url.lang.he;
 	url.weatherDaily = url.apiDomain + 'content/weather/day' + url.key + url.callback + url.lang.he;
 	url.horoscope = url.apiDomain + 'content/horoscope/week' + url.key + url.callback + url.lang.he;
@@ -177,6 +179,65 @@ servModule.factory('$ihPopupUtil', function($ionicPopup, $ionicModal){
 			}
 		}
 
+	};
+});
+
+servModule.factory('$ihLoadMoreSrvc',
+	function ($ihREST, $ihRSSSrvc, $ihCategorySrvc, $ihOpinionsSrvc, $ihSearchSrvc, $ihLoadMoreCursor, $ihCache) {
+	return {
+		loadMoreResults: function (page, scope, pageid) {
+			var results;
+
+			scope.isLoadingInProgress = true;
+
+			// get cashed search query in case we are in search page
+			if (page === 'search') {
+				pageid = $ihCache.get('searchObj').searchQuery;
+			}
+			$ihREST.loadMoreData(page, $ihLoadMoreCursor, pageid).then(function (data) {
+				switch (page) {
+					case 'rss':
+						data = $ihRSSSrvc.buildRSSObj(data);
+						break;
+					case 'category':
+						results = $ihCategorySrvc.buildCategoryObj(data);
+						break;
+					case 'opinions':
+						results = $ihOpinionsSrvc.buildOpinionsObj(data);
+						break;
+					case 'search':
+						results = $ihSearchSrvc.buildSearchObj(data.results);
+						break;
+					default:
+						break;
+				}
+
+				if (page === 'search') { // search has different data structure
+					var resArrName = 'results';
+					results = angular.copy(scope[resArrName]);
+					scope[resArrName] = results.concat(data.results);
+				} else {
+					results = angular.copy(scope[page]);
+					scope[page] = results.concat(data); // merge results array with new results
+				}
+				scope.isLoadingInProgress = false;
+
+				/* Check if continue to show the button */
+				if (page === 'search') {
+					if (data.results.length !== 30) {
+						scope.isLoadMoreVisible = false;
+					}
+				} else {
+					if (data.length !== 30) {
+						scope.isLoadMoreVisible = false;
+					}
+				}
+			}, function () {
+				scope.isLoadingInProgress = false;
+				scope.isLoadMoreVisible = false;
+				// TODO: display a load more error message
+			});
+		}
 	};
 });
 
@@ -1057,7 +1118,7 @@ servModule.factory('$ihArticleSrvc', function($ihCONSTS, $ihUtil){
 	};
 });
 
-servModule.factory('$ihREST', function($http, $q, $ihCONSTS){
+servModule.factory('$ihREST', function($http, $q, $ihCONSTS, $ihLoadMoreCursor){
 	return {
 		loadData: function (url) {
 			var deferred = $q.defer();
@@ -1077,8 +1138,11 @@ servModule.factory('$ihREST', function($http, $q, $ihCONSTS){
 		loadHomepageData: function(){
 			return this.loadData($ihCONSTS.url.homepage);
 		},
-		loadRSSData: function(){
-			return this.loadData($ihCONSTS.url.rss);
+		loadRSSData: function(cursor){
+			return this.loadData($ihCONSTS.url.rss + (cursor || 0).toString() );
+		},
+		loadRSSSingleData: function(rssId){
+			return this.loadData($ihCONSTS.url.rssSingle + rssId + $ihCONSTS.url.key + $ihCONSTS.url.callback);
 		},
 		loadArticleData: function (artId) {
 			return this.loadData($ihCONSTS.url.article + artId + $ihCONSTS.url.key + $ihCONSTS.url.callback);
@@ -1089,14 +1153,15 @@ servModule.factory('$ihREST', function($http, $q, $ihCONSTS){
 		loadCategoriesData: function () {
 			return this.loadData($ihCONSTS.url.categories);
 		},
-		loadCategoryData: function (catName) {
-			return this.loadData($ihCONSTS.url.category + catName.toLowerCase() + $ihCONSTS.url.key + $ihCONSTS.url.callback);
+		loadCategoryData: function (catName, cursor) {
+			return this.loadData($ihCONSTS.url.category + catName.toLowerCase() + $ihCONSTS.url.key +
+					$ihCONSTS.url.callback + $ihCONSTS.url.limit + $ihCONSTS.url.offset + (cursor || 0).toString() );
 		},
-		loadSearchResults: function (query) {
-			return this.loadData($ihCONSTS.url.search + query);
+		loadSearchResults: function (query, cursor) {
+			return this.loadData($ihCONSTS.url.search  + (cursor || 0).toString() + query);
 		},
-		loadOpinionsData: function () {
-			return this.loadData($ihCONSTS.url.opinions);
+		loadOpinionsData: function (cursor) {
+			return this.loadData($ihCONSTS.url.opinions + (cursor || 0).toString() );
 		},
 		loadOpinionData: function (opId) {
 			return this.loadData($ihCONSTS.url.opinion + opId + $ihCONSTS.url.key + $ihCONSTS.url.callback);
@@ -1111,6 +1176,19 @@ servModule.factory('$ihREST', function($http, $q, $ihCONSTS){
 		},
 		loadHoroscopeData: function () {
 			return this.loadData($ihCONSTS.url.horoscope);
+		},
+		loadMoreData: function (page, cursor, pageid) {
+			$ihLoadMoreCursor += 30;
+			switch (page) {
+				case 'rss':
+					return this.loadRSSData(cursor);
+				case 'category':
+					return this.loadCategoryData(pageid, cursor);
+				case 'opinions':
+					return this.loadOpinionsData(cursor);
+				case 'search':
+					return this.loadSearchResults(pageid, cursor);
+			}
 		}
 	};
 });

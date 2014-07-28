@@ -31,6 +31,7 @@
 				</li>
 			</ul>
 		</ion-list>
+		<ih-load-more page="search" ng-show="results && isNeedToShowMore === true"></ih-load-more>
 		<div ng-show="results && !results.length" class="item item-text-wrap ihNoResults ihListItem">לא נמצאו תוצאות</div>
 	</ion-content>
 </ion-view>

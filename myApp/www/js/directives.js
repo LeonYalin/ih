@@ -306,3 +306,23 @@ directModule.directive("ihComments",function($ihREST){
 		}
 	};
 });
+
+directModule.directive("ihLoadMore",function($ihLoadMoreSrvc){
+	return {
+		restrict: 'E',
+		transclude: true,
+		templateUrl: 'templates/loadmore.html',
+		link: function(scope, element, attrs) {
+			var page = attrs.page,
+				pageid = attrs.pageid,
+				isNeedToLoadMore = true;
+
+			scope.isLoadingInProgress = false;
+			scope.isLoadMoreVisible = true;
+			scope.loadMore = function () {
+				$ihLoadMoreSrvc.loadMoreResults(page, scope, pageid);
+			};
+
+		}
+	};
+});
