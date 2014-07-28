@@ -5,7 +5,8 @@ servModule.factory('$ihCONSTS', function(){
 		webDomain: 'http://www.israelhayom.co.il/',
 		apiDomain: 'http://api.app.israelhayom.co.il/',
 		key: '?key=nas987nh34',
-		limit: '&limit=30',
+		defaultCursorOffset: 30,
+		limit: '&limit=',
 		offset: '&offset=',
 		q: '&q=',
 		lang: {
@@ -14,21 +15,26 @@ servModule.factory('$ihCONSTS', function(){
 		},
 		callback: '&callback=JSON_CALLBACK'
 	};
+	url.defaultLimit = '&limit=' + url.defaultCursorOffset;
 	url.homepage = url.apiDomain + 'homepage/android' + url.key + url.callback;
-	url.rss = url.apiDomain + 'content/newsflash' + url.key + url.callback + url.limit + url.offset;
+	url.rss = url.apiDomain + 'content/newsflash' + url.key + url.callback+ url.defaultLimit;
 	url.rssSingle = url.apiDomain + 'content/newsflash/';
 	url.article = url.apiDomain + 'content/article/';
 	url.webArticle = url.webDomain + 'article/';
 	url.comments = url.apiDomain + 'comment/';
 	url.categories = url.apiDomain + 'category' + url.key + url.callback;
 	url.category = url.apiDomain + 'category/';
-	url.opinions = url.apiDomain + 'content/opinion' + url.key + url.callback + url.limit + url.offset;
+	url.opinions = url.apiDomain + 'content/opinion' + url.key + url.callback + url.defaultLimit;
 	url.opinion = url.apiDomain + 'content/opinion/';
 	url.webOpinion = url.webDomain + 'opinion/';
-	url.search = url.apiDomain + 'search' + url.key + url.callback + url.lang.he + url.q + url.limit + url.offset;
+	url.search = url.apiDomain + 'search' + url.key + url.callback + url.lang.he + url.defaultLimit;
 	url.weatherWeekly = url.apiDomain + 'content/weather/week' + url.key + url.callback + url.lang.he;
 	url.weatherDaily = url.apiDomain + 'content/weather/day' + url.key + url.callback + url.lang.he;
 	url.horoscope = url.apiDomain + 'content/horoscope/week' + url.key + url.callback + url.lang.he;
+
+	function _getOffsetString (cursor) {
+		return this.url.offset + (cursor || 0).toString();
+	}
 
 	return {
 		url: url,
@@ -49,6 +55,27 @@ servModule.factory('$ihCONSTS', function(){
 			s_433x295: '433x295',
 			s_490x301: '490x301',
 			s_700x430: '770x319'
+		},
+		getOffsetString: _getOffsetString
+	};
+});
+
+servModule.factory('$ihValuesSrvc', function($ihLoadMoreValues, $ihCONSTS) {
+	return {
+		getLoadMoreCursor: function () {
+			return $ihLoadMoreValues.cursor;
+		},
+		incrementLoadMoreCursor: function () {
+			$ihLoadMoreValues.cursor += $ihCONSTS.url.defaultCursorOffset;
+		},
+		resetLoadMoreCursor: function () {
+			$ihLoadMoreValues.cursor = 0;
+		},
+		incrementLoadMoreValues: function () {
+			this.incrementLoadMoreCursor();
+		},
+		resetLoadMoreValues: function () {
+			this.resetLoadMoreCursor();
 		}
 	};
 });
@@ -183,30 +210,31 @@ servModule.factory('$ihPopupUtil', function($ionicPopup, $ionicModal){
 });
 
 servModule.factory('$ihLoadMoreSrvc',
-	function ($ihREST, $ihRSSSrvc, $ihCategorySrvc, $ihOpinionsSrvc, $ihSearchSrvc, $ihLoadMoreCursor, $ihCache) {
+	function ($ihREST, $ihRSSSrvc, $ihCategorySrvc, $ihOpinionsSrvc, $ihSearchSrvc, $ihValuesSrvc, $ihCache) {
 	return {
 		loadMoreResults: function (page, scope, pageid) {
 			var results;
-
 			scope.isLoadingInProgress = true;
 
 			// get cashed search query in case we are in search page
 			if (page === 'search') {
 				pageid = $ihCache.get('searchObj').searchQuery;
 			}
-			$ihREST.loadMoreData(page, $ihLoadMoreCursor, pageid).then(function (data) {
+			$ihValuesSrvc.incrementLoadMoreValues();
+			$ihREST.loadMoreData(page, pageid, $ihValuesSrvc.getLoadMoreCursor()).then(function (data) {
+
 				switch (page) {
 					case 'rss':
 						data = $ihRSSSrvc.buildRSSObj(data);
 						break;
 					case 'category':
-						results = $ihCategorySrvc.buildCategoryObj(data);
+						data = $ihCategorySrvc.buildCategoryObj(data);
 						break;
 					case 'opinions':
-						results = $ihOpinionsSrvc.buildOpinionsObj(data);
+						data = $ihOpinionsSrvc.buildOpinionsObj(data);
 						break;
 					case 'search':
-						results = $ihSearchSrvc.buildSearchObj(data.results);
+						data = $ihSearchSrvc.buildSearchObj(data.results);
 						break;
 					default:
 						break;
@@ -215,7 +243,7 @@ servModule.factory('$ihLoadMoreSrvc',
 				if (page === 'search') { // search has different data structure
 					var resArrName = 'results';
 					results = angular.copy(scope[resArrName]);
-					scope[resArrName] = results.concat(data.results);
+					scope[resArrName] = results.concat(data);
 				} else {
 					results = angular.copy(scope[page]);
 					scope[page] = results.concat(data); // merge results array with new results
@@ -223,15 +251,10 @@ servModule.factory('$ihLoadMoreSrvc',
 				scope.isLoadingInProgress = false;
 
 				/* Check if continue to show the button */
-				if (page === 'search') {
-					if (data.results.length !== 30) {
-						scope.isLoadMoreVisible = false;
-					}
-				} else {
-					if (data.length !== 30) {
-						scope.isLoadMoreVisible = false;
-					}
+				if (data.length !== 30) {
+					scope.isLoadMoreVisible = false;
 				}
+
 			}, function () {
 				scope.isLoadingInProgress = false;
 				scope.isLoadMoreVisible = false;
@@ -1118,7 +1141,7 @@ servModule.factory('$ihArticleSrvc', function($ihCONSTS, $ihUtil){
 	};
 });
 
-servModule.factory('$ihREST', function($http, $q, $ihCONSTS, $ihLoadMoreCursor){
+servModule.factory('$ihREST', function($http, $q, $ihCONSTS){
 	return {
 		loadData: function (url) {
 			var deferred = $q.defer();
@@ -1139,7 +1162,7 @@ servModule.factory('$ihREST', function($http, $q, $ihCONSTS, $ihLoadMoreCursor){
 			return this.loadData($ihCONSTS.url.homepage);
 		},
 		loadRSSData: function(cursor){
-			return this.loadData($ihCONSTS.url.rss + (cursor || 0).toString() );
+			return this.loadData($ihCONSTS.url.rss + $ihCONSTS.getOffsetString(cursor));
 		},
 		loadRSSSingleData: function(rssId){
 			return this.loadData($ihCONSTS.url.rssSingle + rssId + $ihCONSTS.url.key + $ihCONSTS.url.callback);
@@ -1155,13 +1178,13 @@ servModule.factory('$ihREST', function($http, $q, $ihCONSTS, $ihLoadMoreCursor){
 		},
 		loadCategoryData: function (catName, cursor) {
 			return this.loadData($ihCONSTS.url.category + catName.toLowerCase() + $ihCONSTS.url.key +
-					$ihCONSTS.url.callback + $ihCONSTS.url.limit + $ihCONSTS.url.offset + (cursor || 0).toString() );
+					$ihCONSTS.url.callback + $ihCONSTS.url.defaultLimit + $ihCONSTS.getOffsetString(cursor));
 		},
 		loadSearchResults: function (query, cursor) {
-			return this.loadData($ihCONSTS.url.search  + (cursor || 0).toString() + query);
+			return this.loadData($ihCONSTS.url.search + $ihCONSTS.getOffsetString(cursor) + $ihCONSTS.url.q + query);
 		},
 		loadOpinionsData: function (cursor) {
-			return this.loadData($ihCONSTS.url.opinions + (cursor || 0).toString() );
+			return this.loadData($ihCONSTS.url.opinions + $ihCONSTS.getOffsetString(cursor) );
 		},
 		loadOpinionData: function (opId) {
 			return this.loadData($ihCONSTS.url.opinion + opId + $ihCONSTS.url.key + $ihCONSTS.url.callback);
@@ -1177,8 +1200,7 @@ servModule.factory('$ihREST', function($http, $q, $ihCONSTS, $ihLoadMoreCursor){
 		loadHoroscopeData: function () {
 			return this.loadData($ihCONSTS.url.horoscope);
 		},
-		loadMoreData: function (page, cursor, pageid) {
-			$ihLoadMoreCursor += 30;
+		loadMoreData: function (page, pageid, cursor) {
 			switch (page) {
 				case 'rss':
 					return this.loadRSSData(cursor);

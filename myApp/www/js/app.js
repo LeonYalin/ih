@@ -141,5 +141,7 @@ appModule.config(function($stateProvider, $urlRouterProvider, $httpProvider) {
 	$urlRouterProvider.otherwise('/app/articles');
 });
 
-appModule.constant('$ihLoadMoreCursor', 0);
+appModule.value('$ihLoadMoreValues', {
+	cursor: 0
+});
 

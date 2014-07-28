@@ -307,7 +307,7 @@ directModule.directive("ihComments",function($ihREST){
 	};
 });
 
-directModule.directive("ihLoadMore",function($ihLoadMoreSrvc){
+directModule.directive("ihLoadMore",function($ihLoadMoreSrvc, $ihValuesSrvc){
 	return {
 		restrict: 'E',
 		transclude: true,
@@ -319,9 +319,14 @@ directModule.directive("ihLoadMore",function($ihLoadMoreSrvc){
 
 			scope.isLoadingInProgress = false;
 			scope.isLoadMoreVisible = true;
+
 			scope.loadMore = function () {
 				$ihLoadMoreSrvc.loadMoreResults(page, scope, pageid);
 			};
+
+			scope.$on('$destroy', function () {
+				$ihValuesSrvc.resetLoadMoreValues();
+			});
 
 		}
 	};
