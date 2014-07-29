@@ -5,11 +5,11 @@
 	<ion-content class="has-header ihOverflowScrollY" overflow-scroll="true">
 		<div class="ihList">
 			<ul class="ihCategoriesList">
-				<li bindonce ng-repeat="(key,val) in categories">
+				<li ng-repeat="(key,val) in categories">
 					<ion-item class="ihListItem ihCategoriesListItem">
-						<a class="item" bo-href="'#/app/categories/' + key">
-							<h2 bo-bind="key"></h2>
-							<span class="badge badge-left badge-assertive" bo-bind="val.count"></span>
+						<a class="item" href="#/app/categories/{{key}}">
+							<h2>{{key}}</h2>
+							<span class="badge badge-left badge-assertive">{{val.count}}</span>
 						</a>
 					</ion-item>
 				</li>

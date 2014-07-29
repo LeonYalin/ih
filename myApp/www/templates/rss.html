@@ -10,13 +10,13 @@
 	<ion-content class="has-header ihOverflowScrollY" overflow-scroll="true">
 		<div class="ihList ihRSSList">
 			<ul>
-				<li bindonce ng-repeat="item in rss">
+				<li ng-repeat="item in rss">
 					<ion-item class="ihListItem">
 						<p>
-							<span bo-bind="item.date.formatted"></span>
-							<span class="ihDoubleSlash ihColorRed" bo-bind="item.date.timestamp | date: 'H:mm'"></span>
+							<span>{{item.date.formatted}}</span>
+							<span class="ihDoubleSlash ihColorRed">{{item.date.timestamp | date: 'H:mm'}}</span>
 						</p>
-						<h2 bo-bind="item.text"></h2>
+						<h2>{{item.text}}</h2>
 					</ion-item>
 				</li>
 			</ul>

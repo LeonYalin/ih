@@ -1,11 +1,11 @@
 <div class="item item-divider item-assertive">תגובות ({{comments.length || 0}})</div>
 <div class="ihArticleCommentsContainer" ng-show="isCommentsShown">
 	<ul>
-		<li bindonce ng-repeat="comment in comments" class="item ihListItem">
-			<span class="ihDoubleSlash ihColorRed" bo-bind="comment.author.name"></span><span>&nbsp;</span>
-			<span bo-bind="comment.date.timestamp | date: 'H:mm'"></span>
-			<h2 class="ihArticleCommentTitle" bo-bind="comment.subject"></h2>
-			<p class="ihArticleCommentBody" bo-bind="comment.body"></p>
+		<li ng-repeat="comment in comments" class="item ihListItem">
+			<span class="ihDoubleSlash ihColorRed">{{comment.author.name}}</span><span>&nbsp;</span>
+			<span>{{comment.date.timestamp | date: 'H:mm'}}</span>
+			<h2  class="ihArticleCommentTitle">{{comment.subject}}</h2>
+			<p class="ihArticleCommentBody">{{comment.body}}</p>
 		</li>
 	</ul>
 </div>

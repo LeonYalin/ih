@@ -6,17 +6,17 @@
 	<ion-content class="ihSearchResultsContainer ihOpinionsContainer ihOverflowScrollY" overflow-scroll="true">
 		<ion-list ng-show="opinions" class="ihList">
 			<ul class="ihArticleListSection">
-				<li bindonce ng-repeat="item in opinions">
+				<li ng-repeat="item in opinions">
 					<ion-item class="ihListItem ihArticleListItem">
-						<a class="item-thumbnail-right" bo-href="'#/app/opinions/' + item.nid">
-							<img bo-src="item.images[0].path" class="ihArticleImg">
+						<a class="item-thumbnail-right" href="#/app/opinions/{{item.nid}}">
+							<img ng-src="{{item.images[0].path}}" class="ihArticleImg">
 							<div class="ihArticleListItemTextWrapper">
-								<h2 class="ihArticleListItemTitle" bo-bind="item.content.title"></h2>
-								<p class="ihArticleListItemIntro" bo-bind="item.content.intro"></p>
+								<h2 class="ihArticleListItemTitle">{{item.content.title}}</h2>
+								<p class="ihArticleListItemIntro">{{item.content.intro}}</p>
 							</div>
 							<p class="ihArticleListItemDate">
-								<span class="ihDoubleSlash ihColorRed" bo-bind="item.author.name"></span>
-								<span bo-bind="item.date.formatted"></span>
+								<span class="ihDoubleSlash ihColorRed">{{item.author.name}}</span>
+								<span>{{item.date.formatted}}</span>
 							</p>
 						</a>
 					</ion-item>

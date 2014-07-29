@@ -9,21 +9,21 @@
 
 	<ion-content class="has-header ihOverflowScrollY" overflow-scroll="true">
 
-	<div class="card ihArticleContainer" ng-show="article" bindonce="article">
+	<div class="card ihArticleContainer" ng-show="article">
 		<div class="item ihListItem">
 			<p>
-				<span class="ihDoubleSlash ihColorRed" bo-bind="article.author.name"></span>
-				<span bo-bind="article.date.timestamp | date: 'H:mm'"></span><span>&nbsp;</span>
-				<span bo-bind="article.date.formatted"></span><span>&nbsp;/</span>
-				<span ng-bind="comments.length || 0"></span>
+				<span class="ihDoubleSlash ihColorRed">{{article.author.name}}</span>
+				<span>{{article.date.timestamp | date: 'H:mm'}}</span><span>&nbsp;</span><span>{{article.date.formatted}}</span>
+				<span>&nbsp;/</span>
+				<span>{{comments.length || 0}}</span>
 				<i class="icon ion-ios7-chatboxes-outline"></i>
 			</p>
-			<h2 bo-bind="article.content.title"></h2>
-			<p class="ihArticleIntro" bo-bind="article.content.intro"></p>
+			<h2>{{article.content.title}}</h2>
+			<p class="ihArticleIntro">{{article.content.intro}}</p>
 		</div>
 
 		<div class="item item-body ihListItem">
-			<img class="full-image" bo-src="article.mainImageSrc">
+			<img class="full-image" ng-src="{{article.mainImageSrc}}">
 			<div ng-bind-html="article.content.html"></div>
 		</div>
 	</div>

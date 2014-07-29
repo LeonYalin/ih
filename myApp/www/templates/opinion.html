@@ -8,24 +8,24 @@
 	</ion-nav-buttons>
 	<ion-content class="has-header ihOverflowScrollY" overflow-scroll="true">
 
-	<div class="card ihArticleContainer" ng-show="opinion" bindonce="opinion">
+	<div class="card ihArticleContainer" ng-show="opinion">
 		<div class="item ihListItem ihOpinionHeaderContainer">
 			<p>
-				<span class="ihDoubleSlash ihColorRed" bo-bind="opinion.author.name"></span>
-				<span bo-bind="opinion.date.timestamp | date: 'H:mm'"></span><span>&nbsp;</span>
-				<span bo-bind="opinion.date.formatted"></span><span>&nbsp;/</span>
-				<span ng-bind="comments.length || 0"></span>
+				<span class="ihDoubleSlash ihColorRed">{{opinion.author.name}}</span>
+				<span>{{opinion.date.timestamp | date: 'H:mm'}}</span><span>&nbsp;</span><span>{{opinion.date.formatted}}</span>
+				<span>&nbsp;/</span>
+				<span>{{comments.length || 0}}</span>
 				<i class="icon ion-ios7-chatboxes-outline"></i>
 			</p>
-			<h2 bo-bind="opinion.content.title"></h2>
-			<p bo-bind="opinion.content.intro"></p>
+			<h2>{{opinion.content.title}}</h2>
+			<p>{{opinion.content.intro}}</p>
 		</div>
 
 		<div class="item item-body ihListItem">
 			<ion-item class="ihListItem ihArticleListItem ihOpinionAuthorContainer" ng-show="opinion.author.description">
 				<span class="item-thumbnail-right ihOpinionAuthorBody">
-					<img bo-src="opinion.mainImageSrc" class="ihArticleImg">
-					<p bo-bind="opinion.author.description"></p>
+					<img ng-src="{{opinion.mainImageSrc}}" class="ihArticleImg">
+					<p>{{opinion.author.description}}</p>
 				</span>
 			</ion-item>
 

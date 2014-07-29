@@ -18,57 +18,57 @@
 
 			<!-- Results -->
 			<ul class="ihClearFix ihOverflowScrollX ihNoScrollY ihPieResultsContainerUl">
-				<li bindonce ng-repeat="(key, value) in favorites" class="item ihListItem ihPieResult">
-					<a class="item item-body" bo-href="'#/app/articles/' + value.nid">
-						<img class="full-image" bo-src="value.images[0].path">
-						<h2 bo-bind="value.content.title"></h2>
+				<li ng-repeat="(key, value) in favorites" class="item ihListItem ihPieResult">
+					<a class="item item-body" href="#/app/articles/{{value.nid}}">
+						<img class="full-image" ng-src="{{value.images[0].path}}">
+						<h2>{{value.content.title}}</h2>
 					</a>
 				</li>
-				<li bindonce ng-repeat="item in rss" class="item ihListItem ihPieResult ihPieResultRSSItem">
+				<li ng-repeat="item in rss" class="item ihListItem ihPieResult ihPieResultRSSItem">
 					<div class="item item-body">
-						<span class="ihDoubleSlash ihColorRed" bo-bind="item.date.timestamp | date: 'H:mm'"></span>
-						<h2 bo-bind="item.text"></h2>
+						<span class="ihDoubleSlash ihColorRed">{{item.date.timestamp | date: 'H:mm'}}</span>
+						<h2>{{item.text}}</h2>
 					</div>
 				</li>
-				<li bindonce ng-repeat="item in searchResults" class="item ihListItem ihPieResult">
-					<a class="item item-body" bo-href="'#/app/' + item.type + 's/' + item.nid">
-						<img class="full-image" bo-src="item.images[0].path">
-						<h2 bo-bind="item.content.title"></h2>
+				<li ng-repeat="item in searchResults" class="item ihListItem ihPieResult">
+					<a class="item item-body" href="#/app/{{item.type + 's'}}/{{item.nid}}">
+						<img class="full-image" ng-src="{{item.images[0].path}}">
+						<h2>{{item.content.title}}</h2>
 					</a>
 				</li>
-				<li bindonce ng-repeat="(key, value) in categories" class="item ihListItem ihPieResult ihPieResultCategoriesItem">
+				<li ng-repeat="(key, value) in categories" class="item ihListItem ihPieResult ihPieResultCategoriesItem">
 					<div class="item item-body" ng-click="goToCategory(key)">
 						<div class="ihPieResultBadgeWrapper">
-							<span class="badge badge-left badge-assertive" bo-bind="value.count"></span>							
+							<span class="badge badge-left badge-assertive">{{value.count}}</span>							
 						</div>
-						<h2 bo-bind="key"></h2>
+						<h2>{{key}}</h2>
 					</div>
 				</li>
-				<li bindonce ng-repeat="item in category" class="item ihListItem ihPieResult">
-					<a class="item item-body" bo-href="'#/app/articles/' + item.nid">
-						<img class="full-image" bo-src="item.images[0].path">
-						<h2 bo-bind="item.content.title"></h2>
+				<li ng-repeat="item in category" class="item ihListItem ihPieResult">
+					<a class="item item-body" href="#/app/articles/{{item.nid}}">
+						<img class="full-image" ng-src="{{item.images[0].path}}">
+						<h2>{{item.content.title}}</h2>
 					</a>
 				</li>
-				<li bindonce ng-repeat="item in opinions" class="item ihListItem ihPieResult">
-					<a class="item item-body" bo-href="'#/app/opinions/' + item.nid">
-						<img class="full-image" bo-src="item.images[0].path">
-						<h2 bo-bind="item.content.title"></h2>
+				<li ng-repeat="item in opinions" class="item ihListItem ihPieResult">
+					<a class="item item-body" href="#/app/opinions/{{item.nid}}">
+						<img class="full-image" ng-src="{{item.images[0].path}}">
+						<h2>{{item.content.title}}</h2>
 					</a>
 				</li>
-				<li bindonce ng-repeat="subItem in horoscope" class="item ihListItem ihPieResult ihPieResultHoroscopeItem"
+				<li ng-repeat="subItem in horoscope" class="item ihListItem ihPieResult ihPieResultHoroscopeItem"
 					ng-click="showSingleResult(subItem)">
 					<div class="item item-body">
-						<div class="ihTitle" bo-bind="subItem.name"></div>
-						<img bo-src="subItem.icon" class="ihHoroscopeImg">
-						<h2 bo-bind="subItem.forecast"></h2>
+						<div class="ihTitle">{{subItem.name}}</div>
+						<img ng-src="{{subItem.icon}}" class="ihHoroscopeImg">
+						<h2>{{subItem.forecast}}</h2>
 					</div>
 				</li>
-				<li bindonce ng-repeat="item in weather" class="item ihListItem ihPieResult">
+				<li ng-repeat="item in weather" class="item ihListItem ihPieResult">
 					<div class="item item-body">
-						<div bo-bind="item.city"></div>
+						<div>{{item.city}}</div>
 						<div ng-repeat="subItem in item.weather">
-							<img bo-src="subItem.icon_url" class="ihPieResultWeatherImg"
+							<img ng-src="{{subItem.icon_url}}" class="ihPieResultWeatherImg"
 							ng-class="{ 'ihWeatherBGSunny': subItem.description === 'בהיר',
 			 							'ihWeatherBGWarm': subItem.description === 'חם',
 			 							'ihWeatherBGWarmDry': subItem.description === 'חם ויבש',
@@ -76,8 +76,8 @@
 			 							'ihWeatherBGCloudRain': subItem.description === 'מעונן חלקית וגשום',
 			 							'ihWeatherBGRain': subItem.description === 'גשום',
 			 							'ihWeatherBGPartCloud': subItem.description === 'מעונן חלקית' }">
-							<p class="ihWeatherDegreeSign" ng-bind-template="{{subItem.low}}-{{subItem.high}}"></p>
-							<p class="ihWeatherDescr ihEllipsis" bo-bind="subItem.description"></p>
+							<p class="ihWeatherDegreeSign">{{subItem.low}}-{{subItem.high}}</p>
+							<p class="ihWeatherDescr ihEllipsis">{{subItem.description}}</p>
 						</div>
 					</div>
 				</li>

@@ -8,20 +8,20 @@
 			<ion-content class="has-header ihOverflowScrollY" overflow-scroll="true" ng-show="selectedTab == 0">
 				<ion-list ng-show="day" class="ihList">
 					<ul class="ihArticleListSection ihWeatherList">
-						<li bindonce ng-repeat="item in day">
-							<div class="item item-divider item-stable" bo-bind="item.city"></div>
+						<li ng-repeat="item in day">
+							<div class="item item-divider item-stable">{{item.city}}</div>
 							<ion-item class="ihListItem ihWeatherListItem">
-								<div bindonce ng-repeat="subItem in item.weather" class="item-thumbnail-right">
-									<img bo-src="subItem.icon_url" class="ihArticleImg"
-									bo-class="{ 'ihWeatherBGSunny': subItem.description === 'בהיר',
+								<div ng-repeat="subItem in item.weather" class="item-thumbnail-right">
+									<img ng-src="{{subItem.icon_url}}" class="ihArticleImg"
+									ng-class="{ 'ihWeatherBGSunny': subItem.description === 'בהיר',
 					 							'ihWeatherBGWarm': subItem.description === 'חם',
 					 							'ihWeatherBGWarmDry': subItem.description === 'חם ויבש',
 					 							'ihWeatherBGCloud': subItem.description === 'מעונן',
 					 							'ihWeatherBGCloudRain': subItem.description === 'מעונן חלקית וגשום',
 					 							'ihWeatherBGRain': subItem.description === 'גשום',
 					 							'ihWeatherBGPartCloud': subItem.description === 'מעונן חלקית' }">
-									<p class="ihWeatherDegreeSign" ng-bind-template="{{subItem.low}}-{{subItem.high}}"></p>
-									<p class="ihWeatherDescr" bo-bind="subItem.description"></p>
+									<p class="ihWeatherDegreeSign">{{subItem.low}}-{{subItem.high}}</p>
+									<p class="ihWeatherDescr">{{subItem.description}}</p>
 								</div>
 							</ion-item>
 						</li>
@@ -34,22 +34,22 @@
 				<ion-content class="has-header ihOverflowScrollY" overflow-scroll="true" ng-show="selectedTab == 1">
 					<ion-list ng-show="week" class="ihList">
 						<ul class="ihWeatherList">
-							<li bindonce ng-repeat="item in week">
-								<div class="item item-divider item-assertive" bo-bind="item.city"></div>
+							<li ng-repeat="item in week">
+								<div class="item item-divider item-assertive">{{item.city}}</div>
 								<ion-item class="ihListItem ihWeatherListItem ihWeeklyWeatherListItemContainer">
 									<ul class="ihClearFix">
-										<li bindonce ng-repeat="subItem in item.weather" class="ihWeeklyWeatherListItem">
-											<img bo-src="subItem.icon_url" class="ihWeeklyImg"
-											bo-class="{ 'ihWeatherBGSunny': subItem.description === 'בהיר',
+										<li ng-repeat="subItem in item.weather" class="ihWeeklyWeatherListItem">
+											<img ng-src="{{subItem.icon_url}}" class="ihWeeklyImg"
+											ng-class="{ 'ihWeatherBGSunny': subItem.description === 'בהיר',
 						 							'ihWeatherBGWarm': subItem.description === 'חם',
 						 							'ihWeatherBGWarmDry': subItem.description === 'חם ויבש',
 						 							'ihWeatherBGCloud': subItem.description === 'מעונן',
 						 							'ihWeatherBGCloudRain': subItem.description === 'מעונן חלקית וגשום',
 						 							'ihWeatherBGRain': subItem.description === 'גשום',
 						 							'ihWeatherBGPartCloud': subItem.description === 'מעונן חלקית' }">
-											<h2 class="ihWeatherCity" bo-bind="subItem.date | ihParseDate | date: 'dd/MM'"></h2>
-											<p class="ihWeatherDegreeSign" ng-bind-template="{{subItem.low}}-{{subItem.high}}"></p>
-											<p class="ihWeatherDescr" bo-bind="subItem.description"></p>
+											<h2 class="ihWeatherCity">{{subItem.date | ihParseDate | date: 'dd/MM'}}</h2>
+											<p class="ihWeatherDegreeSign">{{subItem.low}}-{{subItem.high}}</p>
+											<p class="ihWeatherDescr">{{subItem.description}}</p>
 										</li>
 									</ul>
 								</ion-item>
