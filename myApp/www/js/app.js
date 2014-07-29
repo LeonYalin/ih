@@ -1,7 +1,7 @@
 // Ionic Starter App
 
 var appModule = angular.module('starter',
-	['ionic', 'starter.controllers', 'starter.services', 'starter.directives', 'starter.filters', 'toaster', 'ngCordova']);
+	['ionic', 'starter.controllers', 'starter.services', 'starter.directives', 'starter.filters', 'toaster', 'ngCordova', 'pasvaz.bindonce']);
 
 appModule.run(function($ionicPlatform) {
 	$ionicPlatform.ready(function() {
