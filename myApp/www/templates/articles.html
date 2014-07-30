@@ -7,6 +7,7 @@
 			ng-class="{ 'ion-loop': isRefreshing === false,
 					 	'ion-looping': isRefreshing === true }"></button>
 	</ion-nav-buttons>
+
 	<ion-content class="has-header" ng-show="articles">
 		<ion-refresher pulling-text="משוך לרענון..." on-refresh="onRefresh()"></ion-refresher>
 
@@ -19,17 +20,22 @@
 				</span>
 			</ion-item>
 		</div>
-		<ion-list class="ihList">
-			<ion-item bindonce ng-repeat="pri in articles.primary" class="ihListItem ihArticleMainItem">
-				<a class="item item-body" bo-href="'#/app/articles/' + pri.nid">
-					<img class="full-image" bo-src="pri.images[0].path">
-					
-					<h2 class="ihArticleListItemTitle" bo-bind="pri.content.title">
-						<!-- <i class="icon ion-ios7-videocam" ng-show="pri.videos && pri.videos.items.length > 0"></i> -->
-					</h2>
-					<p class="ihArticleListItemIntro" bo-bind="pri.content.intro"></p>
-				</a>
-			</ion-item>
+		<!-- <ion-list class="ihList"> -->
+		<div class="ihList">
+			<ul class="ihArticleListSection">
+				<li bindonce ng-repeat="pri in articles.primary">
+					<ion-item class="ihListItem ihArticleMainItem">
+						<a class="item item-body" bo-href="'#/app/articles/' + pri.nid">
+							<img class="full-image" bo-src="pri.images[0].path">
+							
+							<h2 class="ihArticleListItemTitle" bo-bind="pri.content.title">
+								<!-- <i class="icon ion-ios7-videocam" ng-show="pri.videos && pri.videos.items.length > 0"></i> -->
+							</h2>
+							<p class="ihArticleListItemIntro" bo-bind="pri.content.intro"></p>
+						</a>
+					</ion-item>
+				</li>
+			</ul>
 
 			<div class="item item-divider item-assertive" ng-show="articles.secondary && articles.secondary.length > 0">חדשות חמות</div>
 			<ul class="ihArticleListSection">
@@ -103,6 +109,7 @@
 				</li>
 			</ul>
 
-		</ion-list>
+		<!-- </ion-list> -->
+		</div>
 	</ion-content>
 </ion-view>

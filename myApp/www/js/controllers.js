@@ -340,6 +340,7 @@ ctrlModule.controller('FavoritesCtrl', function($scope, $ihCache, $ihUtil, $ihFa
 	var favoritesCache = $ihUtil.getObjectFromLocalStorage('favoritesObj'),
 		articlesCache = $ihCache.get('articlesObj');
 
+	$ihFavoritesSrvc.setDefaultImageSize(favoritesCache);
 	$ihUtil.delayCacheLoad(function () {
 		$scope.noFavoritesTitle = 'לא נמצאו מועדפים';
 		$scope.noFavoritesMsg = 'ניתן להיסיף למועדפים על ידי ביצוע סוואיפ על הכתבה';
