@@ -2,18 +2,18 @@
 	<ion-content class="has-header ihSearchResultsContainer ihCategoryContainer ihOverflowScrollY" overflow-scroll="true">
 		<ion-list can-swipe="false" ng-show="category" class="ihList">
 			<ul class="ihArticleListSection">
-				<li ng-repeat="cat in category">
+				<li bindonce ng-repeat="cat in category">
 					<ion-item class="ihListItem ihArticleListItem">
-						<a class="item item-thumbnail-right" href="#/app/articles/{{cat.nid}}">
-							<img ng-src="{{cat.images[0].path}}" class="ihArticleImg">
+						<a class="item item-thumbnail-right" bo-href="'#/app/articles/' + cat.nid">
+							<img bo-src="cat.images[0].path" class="ihArticleImg">
 							<!-- <i class="icon ion-ios7-videocam" ng-show="cat.videos && cat.videos.items.length > 0"></i> -->
 							<div class="ihArticleListItemTextWrapper">
-								<h2 class="ihArticleListItemTitle">{{cat.content.title}}</h2>
-								<p class="ihArticleListItemIntro">{{cat.content.intro}}</p>
+								<h2 class="ihArticleListItemTitle" bo-bind="cat.content.title"></h2>
+								<p class="ihArticleListItemIntro" bo-bind="cat.content.intro"></p>
 							</div>
 							<p class="ihArticleListItemDate">
-								<span class="ihDoubleSlash ihColorRed">{{cat.author.name}}</span>
-								<span>{{cat.date.formatted}}</span>
+								<span class="ihDoubleSlash ihColorRed" bo-bind="cat.author.name"></span>
+								<span bo-bind="cat.date.formatted"></span>
 							</p>
 						</a>
 					</ion-item>

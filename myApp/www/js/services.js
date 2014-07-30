@@ -794,8 +794,8 @@ function($ihCONSTS, $ihREST, $ihUtil, $q, $ihRSSSrvc, $ihSearchSrvc, $ihCategori
 			var self = this;
 
 			var deferred = $q.defer();
-			self.showLoading($scope);
 			self.clearResults($scope);
+			self.showLoading($scope);
 			$ihREST.loadCategoryData(catName).then(function (data) {
 
 			// $scope.categoryName = catName;

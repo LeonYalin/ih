@@ -6,18 +6,18 @@
 	<ion-content>
 		<ion-list ng-show="favorites" class="ihList">
 			<ul class="ihArticleListSection ihFavoritesList">
-				<li ng-repeat="(key, value) in favorites">
+				<li bindonce ng-repeat="(key, value) in favorites">
 					<ion-item class="ihListItem ihArticleListItem">
-						<a class="item-thumbnail-right" href="#/app/{{value.type + 's'}}/{{value.nid}}">
-							<img ng-src="{{value.images[0].path}}" class="ihArticleImg">
+						<a class="item-thumbnail-right" bo-href="'#/app/' + value.type + 's/' + value.nid">
+							<img bo-src="value.images[0].path" class="ihArticleImg">
 							<!-- <i class="icon ion-ios7-videocam" ng-show="value.videos && value.videos.items.length > 0"></i> -->
 							<div class="ihArticleListItemTextWrapper">
-								<h2 class="ihArticleListItemTitle">{{value.content.title}}</h2>
-								<p class="ihArticleListItemIntro">{{value.content.intro}}</p>
+								<h2 class="ihArticleListItemTitle" bo-bind="value.content.title"></h2>
+								<p class="ihArticleListItemIntro" bo-bind="value.content.intro"></p>
 							</div>
 							<p class="ihArticleListItemDate">
-								<span class="ihDoubleSlash ihColorRed">{{value.author.name}}</span>
-								<span>{{value.date.formatted}}</span>
+								<span class="ihDoubleSlash ihColorRed" bo-bind="value.author.name"></span>
+								<span bo-bind="value.date.formatted"></span>
 							</p>
 						</a>
 						<ion-option-button class="button ihFavoritesBtn" ng-click="onDeleteFavorite(key)">הסר</ion-option-button>
@@ -31,8 +31,8 @@
 		<div class="card">
 			<div class="item item-text-wrap">
 				<i class="icon ion-star"></i>
-				<h1>{{noFavoritesTitle}}</h1>
-				<p>{{noFavoritesMsg}}</p>
+				<h1 ng-bind="noFavoritesTitle"></h1>
+				<p ng-bind="noFavoritesMsg"></p>
 			</div>
 		</div>
 	</div>
