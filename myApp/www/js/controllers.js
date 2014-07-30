@@ -26,11 +26,6 @@ ctrlModule.controller('AppCtrl', function($scope, $rootScope, $ihUtil, $ihPopupU
 		_showModalWithVibration();
 	};
 
-	// $rootScope.$on('onShareBtnPressed', function (event, args) {
-	// 	_showModalWithVibration(8); //TODO: change to PIE_SLICE index (Share)
-	// });
-
-
 	$rootScope.showModal = function() {
 		$ihPopupUtil.showModal($rootScope);
 	};
@@ -340,6 +335,7 @@ ctrlModule.controller('FavoritesCtrl', function($scope, $ihCache, $ihUtil, $ihFa
 	var favoritesCache = $ihUtil.getObjectFromLocalStorage('favoritesObj'),
 		articlesCache = $ihCache.get('articlesObj');
 
+	$ihFavoritesSrvc.setDefaultImageSize(favoritesCache);
 	$ihUtil.delayCacheLoad(function () {
 		$scope.noFavoritesTitle = 'לא נמצאו מועדפים';
 		$scope.noFavoritesMsg = 'ניתן להיסיף למועדפים על ידי ביצוע סוואיפ על הכתבה';

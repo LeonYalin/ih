@@ -201,8 +201,15 @@ servModule.factory('$ihPopupUtil', function($ionicPopup, $ionicModal){
 			}
 		},
 		hideModal: function ($scope) {
+			// if ($scope.modal) {
+			// 	$scope.modal.hide();
+			// }
+			this.removeModal($scope);
+		},
+		removeModal: function ($scope) {
 			if ($scope.modal) {
-				$scope.modal.hide();
+				$scope.modal.remove();
+				delete $scope.modal;
 			}
 		}
 
@@ -435,7 +442,7 @@ servModule.factory('$ihHomepageSrvc', function($ihCONSTS, $ihUtil, $timeout){
 	};
 });
 
-servModule.factory('$ihFavoritesSrvc', function(){
+servModule.factory('$ihFavoritesSrvc', function($ihArticleSrvc){
 	return {
 		/* Get only elements that are in hebrew */
 		removeFromFavorites: function (artCacheObj, favId) {
@@ -454,6 +461,15 @@ servModule.factory('$ihFavoritesSrvc', function(){
 					}
 				}
 			}
+		},
+		setDefaultImageSize: function (favObj) {
+			if (!favObj) return;
+
+			angular.forEach(favObj, function (item) {
+				if (item.images[0]) {
+					item.images[0].path = $ihArticleSrvc.setDefaultImageSize(item.images[0].path);
+				}
+			});
 		}
 	};
 });
@@ -744,7 +760,7 @@ function($ihCONSTS, $ihREST, $ihUtil, $q, $ihRSSSrvc, $ihSearchSrvc, $ihCategori
 				state.current.name === 'app.opinion') {
 				self.showShareOptions($scope);
 			} else {
-				$scope.fullResultText = 'לא ניתן לשתף מתוך העמוד הזה. ניתן לשתף עמוד ראשי ,עמודי כתבות ודעות';
+				$scope.fullResultText = 'לא ניתן לשתף מתוך העמוד הזה. ניתן לשתף מתןך עמוד ראשי ,עמודי כתבות ודעות';
 				self.showFullResult($scope);
 			}
 		},

@@ -230,6 +230,7 @@ body {
 	margin: 0;
 }
 .ihLoadMoreBtnWrapper .icon {
+	display: inline-block !important;
 	font-size: 47px;
 	/*padding: 3px 0px;*/
 }

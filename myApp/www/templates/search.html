@@ -20,11 +20,12 @@
 						<a class="item item-thumbnail-right" bo-href="'#/app/' + res.type + 's/' + res.nid">
 							<img bo-src="res.images[0].path" class="ihArticleImg">
 							<!-- <i class="icon ion-ios7-videocam" ng-show="res.videos && res.videos.items.length > 0"></i> -->
-							<h2 bo-bind="res.content.title"></h2>
-							<p class="ihArticleListItemIntro" bo-bind="res.content.intro"></p>
+							<div class="ihArticleListItemTextWrapper">
+								<h2 class="ihArticleListItemTitle" bo-bind="res.content.title"></h2>
+								<p class="ihArticleListItemIntro" bo-bind="res.content.intro"></p>
+							</div>
 							<p class="ihArticleListItemDate">
 								<span class="ihDoubleSlash ihColorRed" bo-bind="res.author.name"></span>
-								<span bo-bind="res.date.timestamp | date: 'H:mm'"></span><span>&nbsp;</span>
 								<span bo-bind="res.date.formatted"></span>
 							</p>
 						</a>
