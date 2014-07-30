@@ -26,11 +26,6 @@ ctrlModule.controller('AppCtrl', function($scope, $rootScope, $ihUtil, $ihPopupU
 		_showModalWithVibration();
 	};
 
-	// $rootScope.$on('onShareBtnPressed', function (event, args) {
-	// 	_showModalWithVibration(8); //TODO: change to PIE_SLICE index (Share)
-	// });
-
-
 	$rootScope.showModal = function() {
 		$ihPopupUtil.showModal($rootScope);
 	};

@@ -201,8 +201,15 @@ servModule.factory('$ihPopupUtil', function($ionicPopup, $ionicModal){
 			}
 		},
 		hideModal: function ($scope) {
+			// if ($scope.modal) {
+			// 	$scope.modal.hide();
+			// }
+			this.removeModal($scope);
+		},
+		removeModal: function ($scope) {
 			if ($scope.modal) {
-				$scope.modal.hide();
+				$scope.modal.remove();
+				delete $scope.modal;
 			}
 		}
 
