@@ -26,11 +26,6 @@ ctrlModule.controller('AppCtrl', function($scope, $rootScope, $ihUtil, $ihPopupU
 		_showModalWithVibration();
 	};
 
-	// $rootScope.$on('onShareBtnPressed', function (event, args) {
-	// 	_showModalWithVibration(8); //TODO: change to PIE_SLICE index (Share)
-	// });
-
-
 	$rootScope.showModal = function() {
 		$ihPopupUtil.showModal($rootScope);
 	};
@@ -239,6 +234,8 @@ ctrlModule.controller('CategoriesCtrl', function($scope, $state, $q, $ihUtil, $i
 ctrlModule.controller('CategoryCtrl', function($scope, $state, $stateParams, $q, $ihUtil, $ihREST, $ihCategorySrvc, $ihCache) {
 	var catName = $stateParams.categoryName,
 		state = $state;
+	$scope.categoryName = catName;
+	$scope.isNeedToShowMore = false;
 
 	function _init(state) {
 		var deferred = $q.defer();
@@ -246,8 +243,8 @@ ctrlModule.controller('CategoryCtrl', function($scope, $state, $stateParams, $q,
 		$ihUtil.showLoading();
 		$ihREST.loadCategoryData(catName).then(function (data) {
 
-			$scope.categoryName = catName;
 			$scope.category = $ihCategorySrvc.buildCategoryObj(data);
+			if (data.length === 30) { $scope.isNeedToShowMore  = true; }
 
 			deferred.resolve();
 			$ihUtil.hideLoading();
@@ -277,6 +274,8 @@ ctrlModule.controller('ErrorCtrl', function($scope, $ihCache) {
 ctrlModule.controller('SearchCtrl', function($scope, $state, $q, $ihUtil, $ihREST, $ihSearchSrvc, $ihCache) {
 	var state = $state,
 		searchCache = $ihCache.get('searchObj');
+	$scope
+	.isNeedToShowMore = false;
 
 	$scope.search = function ($event, query) {
 		/*We want ho hide the keyboard by when user presses 'go' button, by triggering focus on element other than input */
@@ -299,6 +298,7 @@ ctrlModule.controller('SearchCtrl', function($scope, $state, $q, $ihUtil, $ihRES
 
 			var results = $ihSearchSrvc.buildSearchObj(data.results);
 			$scope.results = results;
+			if (data.results && data.results.length === 30) { $scope.isNeedToShowMore  = true; }
 
 			if (!searchCache) {
 				$ihCache.put('searchObj', {
@@ -335,6 +335,7 @@ ctrlModule.controller('FavoritesCtrl', function($scope, $ihCache, $ihUtil, $ihFa
 	var favoritesCache = $ihUtil.getObjectFromLocalStorage('favoritesObj'),
 		articlesCache = $ihCache.get('articlesObj');
 
+	$ihFavoritesSrvc.setDefaultImageSize(favoritesCache);
 	$ihUtil.delayCacheLoad(function () {
 		$scope.noFavoritesTitle = 'לא נמצאו מועדפים';
 		$scope.noFavoritesMsg = 'ניתן להיסיף למועדפים על ידי ביצוע סוואיפ על הכתבה';
@@ -371,6 +372,7 @@ ctrlModule.controller('FavoritesCtrl', function($scope, $ihCache, $ihUtil, $ihFa
 ctrlModule.controller('RSSCtrl', function($scope, $ihUtil, $ihREST, $q, $state, $ihCache, $ihRSSSrvc) {
 	var state = $state;
 	$scope.isRefreshing = false;
+	$scope.isNeedToShowMore = false;
 
 	function _init(state) {
 		var deferred = $q.defer();
@@ -379,6 +381,7 @@ ctrlModule.controller('RSSCtrl', function($scope, $ihUtil, $ihREST, $q, $state, 
 		$ihREST.loadRSSData().then(function (data) {
 
 			$scope.rss = $ihRSSSrvc.buildRSSObj(data);
+			if (data.length === 30) { $scope.isNeedToShowMore  = true; }
 
 			deferred.resolve();
 			$ihUtil.hideLoading();
@@ -405,6 +408,7 @@ ctrlModule.controller('RSSCtrl', function($scope, $ihUtil, $ihREST, $q, $state, 
 ctrlModule.controller('OpinionsCtrl', function($scope, $state, $q, $ihREST, $ihCache, $ihUtil, $ihOpinionsSrvc) {
 	var state = $state,
 		opinionsCache = $ihCache.get('opinionsObj');
+	$scope.isNeedToShowMore = false;
 
 	function _init(state) {
 		var deferred = $q.defer();
@@ -419,6 +423,7 @@ ctrlModule.controller('OpinionsCtrl', function($scope, $state, $q, $ihREST, $ihC
 			$ihREST.loadOpinionsData().then(function (data) {
 				var opinions = $ihOpinionsSrvc.buildOpinionsObj(data);
 				$scope.opinions = opinions;
+				if (data.length === 30) { $scope.isNeedToShowMore  = true; }
 
 				if (!opinionsCache) {
 					$ihCache.put('opinionsObj', opinions);

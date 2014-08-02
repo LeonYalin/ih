@@ -46,7 +46,7 @@ directModule.directive('ihPie', function ($compile, $timeout, $ihCache, $ihPieSr
 				{ index: $ihPieSrvc.SLICE_INDEXES.opinions, title: 'דעות', icon: 'person-stalker' },
 				{ index: $ihPieSrvc.SLICE_INDEXES.horoscope, title: 'הורוסקופ', icon: 'aperture' },
 				{ index: $ihPieSrvc.SLICE_INDEXES.weather, title: 'מזג האוויר', icon: 'ios7-partlysunny' },
-				{ index: $ihPieSrvc.SLICE_INDEXES.share, title: 'שיטוף', icon: 'android-share' }
+				{ index: $ihPieSrvc.SLICE_INDEXES.share, title: 'שיתוף', icon: 'android-share' }
 			];
 			$scope.shareOptions = [
 				{ index: $ihPieSrvc.SHARE_OPTIONS.facebook, title: 'Facebook', icon: 'ion-social-facebook' },

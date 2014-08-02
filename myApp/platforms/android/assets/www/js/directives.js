@@ -122,7 +122,8 @@ directModule.directive('ihPie', function ($compile, $timeout, $ihCache, $ihPieSr
 			}
 
 			$scope.$on('$destroy', function() {
-				$scope.modal.remove();
+				// $scope.modal.remove();
+				console.log('in modal scope destroy');
 			});
 			$scope.$on('modal.hidden', function() {
 				$scope.sliceAnimState = 'hide';
@@ -130,8 +131,6 @@ directModule.directive('ihPie', function ($compile, $timeout, $ihCache, $ihPieSr
 				$ihPieSrvc.clearResults($scope);
 				$scope.shouldShowPie = false;
 				$scope.$$listeners.$stateChangeStart = [];
-				// $timeout(function() {
-				// }, 300, false);
 			});
 			$scope.$on('modal.removed', function() {
 				console.log('in modal.removed');
@@ -303,6 +302,31 @@ directModule.directive("ihComments",function($ihREST){
 			scope.showComments = function () {
 				scope.isCommentsShown = true;
 			};
+		}
+	};
+});
+
+directModule.directive("ihLoadMore",function($ihLoadMoreSrvc, $ihValuesSrvc){
+	return {
+		restrict: 'E',
+		transclude: true,
+		templateUrl: 'templates/loadmore.html',
+		link: function(scope, element, attrs) {
+			var page = attrs.page,
+				pageid = attrs.pageid,
+				isNeedToLoadMore = true;
+
+			scope.isLoadingInProgress = false;
+			scope.isLoadMoreVisible = true;
+
+			scope.loadMore = function () {
+				$ihLoadMoreSrvc.loadMoreResults(page, scope, pageid);
+			};
+
+			scope.$on('$destroy', function () {
+				$ihValuesSrvc.resetLoadMoreValues();
+			});
+
 		}
 	};
 });

@@ -1,7 +1,7 @@
 // Ionic Starter App
 
 var appModule = angular.module('starter',
-	['ionic', 'starter.controllers', 'starter.services', 'starter.directives', 'starter.filters', 'toaster', 'ngCordova']);
+	['ionic', 'starter.controllers', 'starter.services', 'starter.directives', 'starter.filters', 'toaster', 'ngCordova', 'pasvaz.bindonce']);
 
 appModule.run(function($ionicPlatform) {
 	$ionicPlatform.ready(function() {
@@ -139,6 +139,9 @@ appModule.config(function($stateProvider, $urlRouterProvider, $httpProvider) {
 		});
   // if none of the above states are matched, use this as the fallback
 	$urlRouterProvider.otherwise('/app/articles');
+});
 
+appModule.value('$ihLoadMoreValues', {
+	cursor: 0
 });
 

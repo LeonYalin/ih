@@ -5,7 +5,9 @@ servModule.factory('$ihCONSTS', function(){
 		webDomain: 'http://www.israelhayom.co.il/',
 		apiDomain: 'http://api.app.israelhayom.co.il/',
 		key: '?key=nas987nh34',
-		limit: '&limit=15',
+		defaultCursorOffset: 30,
+		limit: '&limit=',
+		offset: '&offset=',
 		q: '&q=',
 		lang: {
 			en: '&lang=en',
@@ -13,20 +15,26 @@ servModule.factory('$ihCONSTS', function(){
 		},
 		callback: '&callback=JSON_CALLBACK'
 	};
+	url.defaultLimit = '&limit=' + url.defaultCursorOffset;
 	url.homepage = url.apiDomain + 'homepage/android' + url.key + url.callback;
-	url.rss = url.apiDomain + 'content/newsflash' + url.key + url.callback;
+	url.rss = url.apiDomain + 'content/newsflash' + url.key + url.callback+ url.defaultLimit;
+	url.rssSingle = url.apiDomain + 'content/newsflash/';
 	url.article = url.apiDomain + 'content/article/';
 	url.webArticle = url.webDomain + 'article/';
 	url.comments = url.apiDomain + 'comment/';
 	url.categories = url.apiDomain + 'category' + url.key + url.callback;
 	url.category = url.apiDomain + 'category/';
-	url.opinions = url.apiDomain + 'content/opinion' + url.key + url.callback;
+	url.opinions = url.apiDomain + 'content/opinion' + url.key + url.callback + url.defaultLimit;
 	url.opinion = url.apiDomain + 'content/opinion/';
 	url.webOpinion = url.webDomain + 'opinion/';
-	url.search = url.apiDomain + 'search' + url.key + url.callback + url.lang.he + url.q;
+	url.search = url.apiDomain + 'search' + url.key + url.callback + url.lang.he + url.defaultLimit;
 	url.weatherWeekly = url.apiDomain + 'content/weather/week' + url.key + url.callback + url.lang.he;
 	url.weatherDaily = url.apiDomain + 'content/weather/day' + url.key + url.callback + url.lang.he;
 	url.horoscope = url.apiDomain + 'content/horoscope/week' + url.key + url.callback + url.lang.he;
+
+	function _getOffsetString (cursor) {
+		return this.url.offset + (cursor || 0).toString();
+	}
 
 	return {
 		url: url,
@@ -47,6 +55,27 @@ servModule.factory('$ihCONSTS', function(){
 			s_433x295: '433x295',
 			s_490x301: '490x301',
 			s_700x430: '770x319'
+		},
+		getOffsetString: _getOffsetString
+	};
+});
+
+servModule.factory('$ihValuesSrvc', function($ihLoadMoreValues, $ihCONSTS) {
+	return {
+		getLoadMoreCursor: function () {
+			return $ihLoadMoreValues.cursor;
+		},
+		incrementLoadMoreCursor: function () {
+			$ihLoadMoreValues.cursor += $ihCONSTS.url.defaultCursorOffset;
+		},
+		resetLoadMoreCursor: function () {
+			$ihLoadMoreValues.cursor = 0;
+		},
+		incrementLoadMoreValues: function () {
+			this.incrementLoadMoreCursor();
+		},
+		resetLoadMoreValues: function () {
+			this.resetLoadMoreCursor();
 		}
 	};
 });
@@ -156,27 +185,88 @@ servModule.factory('$ihPopupUtil', function($ionicPopup, $ionicModal){
 		},
 		showModal: function ($scope) {
 			if ($scope.modal) {
-				$scope.modal.show();
-			} else {
-				var ihModal = $ionicModal.fromTemplateUrl('templates/pie_drct.html', {
-					scope: $scope,
-					animation: 'no-animation',
-					backdropClickToClose: false,
-					hardwareBackButtonClose: true
-				});
-
-				ihModal.then(function(modal) {
-					$scope.modal = modal;
-					$scope.modal.show();
-				});
+				this.removeModal($scope);
 			}
+			var ihModal = $ionicModal.fromTemplateUrl('templates/pie_drct.html', {
+				scope: $scope,
+				animation: 'no-animation',
+				backdropClickToClose: false,
+				hardwareBackButtonClose: true
+			});
+
+			ihModal.then(function(modal) {
+				$scope.modal = modal;
+				$scope.modal.show();
+			});
 		},
 		hideModal: function ($scope) {
+			// if ($scope.modal) {
+			// 	$scope.modal.hide();
+			// }
+			this.removeModal($scope);
+		},
+		removeModal: function ($scope) {
 			if ($scope.modal) {
-				$scope.modal.hide();
+				$scope.modal.remove();
+				delete $scope.modal;
 			}
 		}
 
+	};
+});
+
+servModule.factory('$ihLoadMoreSrvc',
+	function ($ihREST, $ihRSSSrvc, $ihCategorySrvc, $ihOpinionsSrvc, $ihSearchSrvc, $ihValuesSrvc, $ihCache) {
+	return {
+		loadMoreResults: function (page, scope, pageid) {
+			var results;
+			scope.isLoadingInProgress = true;
+
+			// get cashed search query in case we are in search page
+			if (page === 'search') {
+				pageid = $ihCache.get('searchObj').searchQuery;
+			}
+			$ihValuesSrvc.incrementLoadMoreValues();
+			$ihREST.loadMoreData(page, pageid, $ihValuesSrvc.getLoadMoreCursor()).then(function (data) {
+
+				switch (page) {
+					case 'rss':
+						data = $ihRSSSrvc.buildRSSObj(data);
+						break;
+					case 'category':
+						data = $ihCategorySrvc.buildCategoryObj(data);
+						break;
+					case 'opinions':
+						data = $ihOpinionsSrvc.buildOpinionsObj(data);
+						break;
+					case 'search':
+						data = $ihSearchSrvc.buildSearchObj(data.results);
+						break;
+					default:
+						break;
+				}
+
+				if (page === 'search') { // search has different data structure
+					var resArrName = 'results';
+					results = angular.copy(scope[resArrName]);
+					scope[resArrName] = results.concat(data);
+				} else {
+					results = angular.copy(scope[page]);
+					scope[page] = results.concat(data); // merge results array with new results
+				}
+				scope.isLoadingInProgress = false;
+
+				/* Check if continue to show the button */
+				if (data.length !== 30) {
+					scope.isLoadMoreVisible = false;
+				}
+
+			}, function () {
+				scope.isLoadingInProgress = false;
+				scope.isLoadMoreVisible = false;
+				// TODO: display a load more error message
+			});
+		}
 	};
 });
 
@@ -351,7 +441,7 @@ servModule.factory('$ihHomepageSrvc', function($ihCONSTS, $ihUtil, $timeout){
 	};
 });
 
-servModule.factory('$ihFavoritesSrvc', function(){
+servModule.factory('$ihFavoritesSrvc', function($ihArticleSrvc){
 	return {
 		/* Get only elements that are in hebrew */
 		removeFromFavorites: function (artCacheObj, favId) {
@@ -370,6 +460,15 @@ servModule.factory('$ihFavoritesSrvc', function(){
 					}
 				}
 			}
+		},
+		setDefaultImageSize: function (favObj) {
+			if (!favObj) return;
+
+			angular.forEach(favObj, function (item) {
+				if (item.images[0]) {
+					item.images[0].path = $ihArticleSrvc.setDefaultImageSize(item.images[0].path);
+				}
+			});
 		}
 	};
 });
@@ -660,7 +759,7 @@ function($ihCONSTS, $ihREST, $ihUtil, $q, $ihRSSSrvc, $ihSearchSrvc, $ihCategori
 				state.current.name === 'app.opinion') {
 				self.showShareOptions($scope);
 			} else {
-				$scope.fullResultText = 'לא ניתן לשתף מתוך העמוד הזה. ניתן לשתף עמוד ראשי ,עמודי כתבות ודעות';
+				$scope.fullResultText = 'לא ניתן לשתף מתוך העמוד הזה. ניתן לשתף מתןך עמוד ראשי ,עמודי כתבות ודעות';
 				self.showFullResult($scope);
 			}
 		},
@@ -710,8 +809,8 @@ function($ihCONSTS, $ihREST, $ihUtil, $q, $ihRSSSrvc, $ihSearchSrvc, $ihCategori
 			var self = this;
 
 			var deferred = $q.defer();
-			self.showLoading($scope);
 			self.clearResults($scope);
+			self.showLoading($scope);
 			$ihREST.loadCategoryData(catName).then(function (data) {
 
 			// $scope.categoryName = catName;
@@ -1077,8 +1176,11 @@ servModule.factory('$ihREST', function($http, $q, $ihCONSTS){
 		loadHomepageData: function(){
 			return this.loadData($ihCONSTS.url.homepage);
 		},
-		loadRSSData: function(){
-			return this.loadData($ihCONSTS.url.rss);
+		loadRSSData: function(cursor){
+			return this.loadData($ihCONSTS.url.rss + $ihCONSTS.getOffsetString(cursor));
+		},
+		loadRSSSingleData: function(rssId){
+			return this.loadData($ihCONSTS.url.rssSingle + rssId + $ihCONSTS.url.key + $ihCONSTS.url.callback);
 		},
 		loadArticleData: function (artId) {
 			return this.loadData($ihCONSTS.url.article + artId + $ihCONSTS.url.key + $ihCONSTS.url.callback);
@@ -1089,14 +1191,15 @@ servModule.factory('$ihREST', function($http, $q, $ihCONSTS){
 		loadCategoriesData: function () {
 			return this.loadData($ihCONSTS.url.categories);
 		},
-		loadCategoryData: function (catName) {
-			return this.loadData($ihCONSTS.url.category + catName.toLowerCase() + $ihCONSTS.url.key + $ihCONSTS.url.callback);
+		loadCategoryData: function (catName, cursor) {
+			return this.loadData($ihCONSTS.url.category + catName.toLowerCase() + $ihCONSTS.url.key +
+					$ihCONSTS.url.callback + $ihCONSTS.url.defaultLimit + $ihCONSTS.getOffsetString(cursor));
 		},
-		loadSearchResults: function (query) {
-			return this.loadData($ihCONSTS.url.search + query);
+		loadSearchResults: function (query, cursor) {
+			return this.loadData($ihCONSTS.url.search + $ihCONSTS.getOffsetString(cursor) + $ihCONSTS.url.q + query);
 		},
-		loadOpinionsData: function () {
-			return this.loadData($ihCONSTS.url.opinions);
+		loadOpinionsData: function (cursor) {
+			return this.loadData($ihCONSTS.url.opinions + $ihCONSTS.getOffsetString(cursor) );
 		},
 		loadOpinionData: function (opId) {
 			return this.loadData($ihCONSTS.url.opinion + opId + $ihCONSTS.url.key + $ihCONSTS.url.callback);
@@ -1111,6 +1214,18 @@ servModule.factory('$ihREST', function($http, $q, $ihCONSTS){
 		},
 		loadHoroscopeData: function () {
 			return this.loadData($ihCONSTS.url.horoscope);
+		},
+		loadMoreData: function (page, pageid, cursor) {
+			switch (page) {
+				case 'rss':
+					return this.loadRSSData(cursor);
+				case 'category':
+					return this.loadCategoryData(pageid, cursor);
+				case 'opinions':
+					return this.loadOpinionsData(cursor);
+				case 'search':
+					return this.loadSearchResults(pageid, cursor);
+			}
 		}
 	};
 });
