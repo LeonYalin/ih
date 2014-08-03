@@ -48,7 +48,7 @@
 }
 
 .ihPieSliceSeparator {
-	width: 267px;
+	width: 264px;
 	height: 1px;
 	background-color: #C4C4C4;
 	/*border-top: 1px solid #E2E2E2;*/
@@ -78,7 +78,7 @@
 	height: 100%;
 	/*border: 1px solid #C4C4C4;*/
 	border-radius: 50%;
-	clip: rect(0px, 133px, 133px, 0px);
+	clip: rect(0px, 134px, 133px, 0px);
 	/*-webkit-transform: rotate3d(0, 0, 1, -45deg);*/
 	-webkit-transform: rotate(-45deg);
 }
@@ -113,46 +113,55 @@
 	left: 80px;
 	color: #535353;
 	/*-webkit-transform: rotate3d(0, 0, 1, -22.5deg);*/
-	-webkit-transform: rotate(-22.5deg);
+	/*-webkit-transform: rotate(-22.5deg);*/
 }
 .ihPieSlice .ion-star {
 	font-size: 41px;
 	top: 23px;
-	left: 77px;
+	left: 78px;
+	-webkit-transform: rotate(22.5deg);
 }
 .ihPieSlice .ion-radio-waves {
 	left: 79px;
 	font-size: 43px;
 	top: 23px;
+	-webkit-transform: rotate(-22.5deg);
 }
 .ihPieSlice .ion-ios7-search-strong {
 	font-size: 38px;
-	top: 29px;
-	left: 80px;
+	top: 25px;
+	left: 79px;
+	-webkit-transform: rotate(-67.5deg);
 }
 .ihPieSlice .ion-android-sort {
 	font-size: 28px;
-	top: 31px;
+	top: 32px;
 	left: 84px;
+	-webkit-transform: rotate(-112.5deg);
 }
 .ihPieSlice .ion-person-stalker {
 	font-size: 32px;
-	top: 30px;
+	top: 28px;
 	left: 81px;
+	-webkit-transform: rotate(-157.5deg);
 }
 .ihPieSlice .ion-aperture {
 	font-size: 34px;
-	top: 30px;
-	left: 83px;
+	top: 28px;
+	left: 82px;
+	-webkit-transform: rotate(-202.5deg);
 }
 .ihPieSlice .ion-ios7-partlysunny {
 	font-size: 47px;
-	left: 77px;
+	left: 80px;
+	top: 19px;
+	-webkit-transform: rotate(-247.5deg);
 }
 .ihPieSlice .ion-android-share {
 	font-size: 30px;
-	top: 30px;
+	top: 26px;
 	left: 79px;
+	-webkit-transform: rotate(-292.5deg);
 }
 
 .ihPieSlice-1_8-show {

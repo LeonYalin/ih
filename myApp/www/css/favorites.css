@@ -2,3 +2,7 @@
 .ihFavoritesList .ihArticleListItem a .ihArticleImg {
 	/*top: 0px;*/
 }
+
+.ihFavoritesList .item-options {
+	right: -1px;
+}
