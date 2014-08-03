@@ -2,6 +2,12 @@
 body {
 	direction: rtl;
 }
+::-webkit-scrollbar {
+  
+}
+::-webkit-scrollbar-thumb {
+  
+}
 .item {
 	margin: 0;
 }

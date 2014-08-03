@@ -27,13 +27,18 @@
 	font-size: 18px;
 	line-height: 120px;
 }
-
 .ihFavoritesExistBtn,  .ihFavoritesExistBtn:hover, .ihFavoritesExistBtn:active {
 	background-color: #F8F8F8;
 	color: #444;
 	font-size: 18px;
 	line-height: 120px;
 }
+
+.ihArticlesContent > .scroll {
+	overflow: hidden;
+	height: auto;
+}
+
 .ihArticleListItem {
 	border: none;
 	border-bottom: 1px solid #707070;

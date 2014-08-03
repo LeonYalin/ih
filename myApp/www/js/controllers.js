@@ -13,7 +13,8 @@ ctrlModule.controller('AppCtrl', function($scope, $rootScope, $ihUtil, $ihPopupU
 	$rootScope.onHoldShowModal = function ($event) {
 		var $el = angular.element($event.target);
 
-		if ($el.hasClass('scroll-content') || $el.hasClass('button')) {
+		// if ($el.hasClass('scroll-content') || $el.hasClass('button')) {
+		if ($el.hasClass('button')) {
 			return;
 		} else {
 			_showModalWithVibration();

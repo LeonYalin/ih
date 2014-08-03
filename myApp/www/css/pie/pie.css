@@ -48,7 +48,7 @@
 }
 
 .ihPieSliceSeparator {
-	width: 264px;
+	width: 267px;
 	height: 1px;
 	background-color: #C4C4C4;
 	/*border-top: 1px solid #E2E2E2;*/
@@ -59,7 +59,7 @@
 .ihPieSlice {
 	/*opacity: 1;*/
 	position: absolute;
-	width: 267px;
+	width: 268px;
 	height: 267px;
 	border-radius: 50%;
 	clip: rect(0px, 134px, 134px, 0px);
@@ -78,9 +78,18 @@
 	height: 100%;
 	/*border: 1px solid #C4C4C4;*/
 	border-radius: 50%;
-	clip: rect(0px, 134px, 133px, 0px);
+	clip: rect(0px, 135px, 133px, 0px);
 	/*-webkit-transform: rotate3d(0, 0, 1, -45deg);*/
 	-webkit-transform: rotate(-45deg);
+}
+.ihPieSliceInner-8_8 {
+	clip: rect(0px, 134px, 133px, 0px);
+}
+.ihPieSliceInner-1_8 {
+	width: 267px;
+}
+.ihPieSliceInner-1_8 .ihPieSliceSeparator {
+	width: 264px;
 }
 
 /*.ihPieSlice .ihPieSliceInner{
@@ -118,19 +127,19 @@
 .ihPieSlice .ion-star {
 	font-size: 41px;
 	top: 23px;
-	left: 78px;
+	left: 81px;
 	-webkit-transform: rotate(22.5deg);
 }
 .ihPieSlice .ion-radio-waves {
-	left: 79px;
+	left: 80px;
 	font-size: 43px;
 	top: 23px;
 	-webkit-transform: rotate(-22.5deg);
 }
 .ihPieSlice .ion-ios7-search-strong {
 	font-size: 38px;
-	top: 25px;
-	left: 79px;
+	top: 27px;
+	left: 83px;
 	-webkit-transform: rotate(-67.5deg);
 }
 .ihPieSlice .ion-android-sort {
@@ -141,8 +150,8 @@
 }
 .ihPieSlice .ion-person-stalker {
 	font-size: 32px;
-	top: 28px;
-	left: 81px;
+	top: 29px;
+	left: 82px;
 	-webkit-transform: rotate(-157.5deg);
 }
 .ihPieSlice .ion-aperture {
@@ -153,14 +162,14 @@
 }
 .ihPieSlice .ion-ios7-partlysunny {
 	font-size: 47px;
-	left: 80px;
+	left: 82px;
 	top: 19px;
 	-webkit-transform: rotate(-247.5deg);
 }
 .ihPieSlice .ion-android-share {
 	font-size: 30px;
 	top: 26px;
-	left: 79px;
+	left: 82px;
 	-webkit-transform: rotate(-292.5deg);
 }
 

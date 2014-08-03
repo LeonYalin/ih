@@ -8,8 +8,8 @@
 					 	'ion-looping': isRefreshing === true }"></button>
 	</ion-nav-buttons>
 
-	<ion-content class="has-header" ng-show="articles">
-		<ion-refresher pulling-text="משוך לרענון..." on-refresh="onRefresh()"></ion-refresher>
+	<ion-content class="has-header ihOverflowScrollY ihArticlesContent" overflow-scroll="true" ng-show="articles">
+		<!-- <ion-refresher pulling-text="משוך לרענון..." on-refresh="onRefresh()"></ion-refresher> -->
 
 		<div class="ihRSSContainerWrapper" ng-click="goToRSS()">
 			<ion-item class="item ihRSSContainer">
