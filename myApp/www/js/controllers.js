@@ -53,7 +53,7 @@ ctrlModule.controller('ArticlesCtrl',
 		_init(state);
 	}
 
-	function _init(state, shouldRefreshCache) {
+	function _init(state, shouldRefreshCache, shouldResetRSSAnimation) {
 		var deferred = $q.defer();
 
 		if (articlesCache && !shouldRefreshCache) {
@@ -66,6 +66,7 @@ ctrlModule.controller('ArticlesCtrl',
 				var articles = $ihHomepageSrvc.buildArticlesObj(data);
 
 				$scope.articles = articles;
+				if (shouldResetRSSAnimation) { $ihHomepageSrvc.resetRSSAnimation(); }
 				$ihHomepageSrvc.animateRSS();
 
 				// cash articles object to prevent page reload
@@ -94,7 +95,7 @@ ctrlModule.controller('ArticlesCtrl',
 
 	$scope.onRefresh = function(isBtnPressed) {
 		if (isBtnPressed) { $scope.isRefreshing = true; }
-		_init(state, true).finally(function () {
+		_init(state, true, true).finally(function () {
 			if (isBtnPressed) {
 				$scope.isRefreshing = false;
 			} else {

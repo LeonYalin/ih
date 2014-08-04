@@ -437,6 +437,13 @@ servModule.factory('$ihHomepageSrvc', function($ihCONSTS, $ihUtil, $timeout){
 					WebkitAnimation : animName + ' ' + animDur + 's linear infinite',
 				});
 			}, 1000);
+		},
+		resetRSSAnimation: function () {
+			var $rssContainer = angular.element(document.querySelector('.ihRSSContainer'));
+			$rssContainer.css({
+				visibility: 'hidden',
+				WebkitAnimation: ''
+			});
 		}
 	};
 });
@@ -1086,26 +1093,43 @@ servModule.factory('$ihArticleSrvc', function($ihCONSTS, $ihUtil){
 			});
 
 			var imageRegex = new RegExp(/\<img (.*?)\>/),
+				imageRegexGl = new RegExp(/\<img (.*?)\>/g),
 				srcRegex = new RegExp(/src="(.*?)"/),
 				styleRegex = new RegExp(/style="(.*?)"/),
 				imgClass= 'class="full-image"',
 				path = '';
 
-			// modify source of each image: replace the "src" attr and delete the "style" attr
-			angular.forEach(images, function (item) {
-				path = item.path;
-				rawHtml = rawHtml.replace(imageRegex, function (match, p1, p2, offset, string) {
-					match = match.replace( srcRegex, 'src="' + path + '"');
-					match = match.replace( styleRegex, '');
-					match = match.replace( 'img', 'img ' + imgClass);
+			var srcRelatRegex = new RegExp(/src="\/sites\/default\/files/g),
+				srcAbsolFixed = 'http://www.israelhayom.co.il/sites/default/files/styles/700x430/public',
+				srcAbsolFixedVert = 'http://www.israelhayom.co.il/sites/default/files';
 
-					return match;
+			// Check if image is vertical, and modify its src
+			rawHtml = rawHtml.replace(imageRegexGl, function (match, p1, offset, string) {
+				var imgWidth, imgHeight, isVerticalImg = false;
+				var imgStylesArr = match.match(styleRegex)[1].split(';');
+
+				// get the width and height values
+				angular.forEach(imgStylesArr, function (item) {
+					if (item.indexOf('width') > -1 ) {
+						imgWidth = parseInt(item.match('[0-9]+')[0], 10);
+					}
+					if (item.indexOf('height') > -1 ) {
+						imgHeight = parseInt(item.match('[0-9]+')[0], 10);
+					}
 				});
+
+				if (imgWidth && imgHeight && (imgWidth / imgHeight < 1)) { isVerticalImg = true; }
+				if (isVerticalImg) {
+					match = match.replace(srcRelatRegex, imgClass + ' src="' + srcAbsolFixedVert);
+				} else {
+
+				}
+				match = match.replace( styleRegex, ''); //delete inline styles
+
+				return match;
 			});
 
 			// there are sill images with relative src path. We need to replace the "src" attr with the absolute path
-			var srcRelatRegex = new RegExp(/src="\/sites\/default\/files/g),
-				srcAbsolFixed = 'http://www.israelhayom.co.il/sites/default/files/styles/700x430/public';
 			rawHtml = rawHtml.replace(srcRelatRegex, imgClass + ' src="' + srcAbsolFixed);
 
 			// remove all "target="_blank" occurences
