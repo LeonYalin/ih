@@ -444,6 +444,31 @@ servModule.factory('$ihHomepageSrvc', function($ihCONSTS, $ihUtil, $timeout){
 				visibility: 'hidden',
 				WebkitAnimation: ''
 			});
+		},
+		initPullToRefresh: function (onRefreshCallback) {
+			// setTimeout(function() {
+
+				$('.ptr-wrapper').pullToRefresh({
+					message: {
+						pull: 'משוך לרענון...',
+						release: 'חשרר לרענון...',
+						loading: 'טוען...'
+					},
+					callback: function() {
+						var def = $.Deferred();
+
+						onRefreshCallback().then(function () {
+							def.resolve();
+						});
+
+						return def.promise();
+					}
+				});
+
+			// }, 1000);
+		},
+		clearPullToRefreshEvents: function () {
+			$('.ptr-wrapper').find('.ptr-scrollable').off('touchstart touchmove touchend');
 		}
 	};
 });

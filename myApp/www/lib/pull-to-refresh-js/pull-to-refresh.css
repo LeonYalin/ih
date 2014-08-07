@@ -1,0 +1,98 @@
+.ptr-wrapper {
+	overflow: hidden;
+	height: 100%;
+	position: relative;
+}
+
+.ptr-scrollable {
+/* The 2 lines below enable momentum scrolling on iOS and degrade nicely on other touch devices */
+	overflow-y: scroll; 
+	-webkit-overflow-scrolling: touch;
+	height: 100%;
+	position: relative;
+}
+
+.ptr-scrollable .ptr-wrap {
+	overflow: hidden;
+	min-height: 100%;
+	padding-bottom: 1px;
+	background: #f5f5f5;
+	-webkit-transform: translate3d(0,0,0);
+	   -moz-transform: translate3d(0,0,0);
+			transform: translate3d(0,0,0);
+}
+
+.ptr-pull-to-refresh {
+	text-align: center;
+	line-height: 50px;
+	height: 50px;
+	padding: 10px 0px;
+	width: 100%; 
+	
+	position: absolute; 
+	left: 0; 
+	top: -60px;
+
+	/*font-size: 0.85em;*/
+	
+	-webkit-transform: translate3d(0,0,0);
+	   -moz-transform: translate3d(0,0,0);
+			transform: translate3d(0,0,0);
+}
+
+.ptr-pull-to-refresh >.ptr-message {
+	height: 50px;
+	width: 100%;
+	position: relative;
+}
+
+.ptr-pull-to-refresh >.ptr-message >i.ptr-arrow, 
+.ptr-pull-to-refresh >.ptr-message >i.ptr-spinner {
+	-webkit-background-size: 100% 100%;
+	-moz-background-size: 100% 100%;
+	background-size: 100% 100%;
+	display: inline-block;
+	margin-left: 10px;
+	background-position: center center;
+	
+}
+
+.ptr-pull-to-refresh >.ptr-message >i.ptr-arrow {
+	width: 20px;
+	height: 50px;
+	background-image: url('img/arrow.png');
+	
+	-webkit-transform: rotate(0);
+	   -moz-transform: rotate(0);
+			transform: rotate(0);
+}
+
+.ptr-pull-to-refresh >.ptr-message >i.ptr-spinner { 
+	width: 32px;
+	height: 32px;
+	background-image: url('img/spinner.gif');
+}
+.ptr-pull-to-refresh >.ptr-message >i.icon_spinner { 
+	font-size: 20px;
+	margin-top: 14px;
+	margin-left: 63px;
+}
+.ptr-pull-to-refresh >.ptr-message >i.icon_arrow { 
+	display: inline-block;
+	font-size: 34px;
+	margin-left: 110px;
+}
+
+.ptr-pull-to-refresh >.ptr-message >span.ptr-pull,
+.ptr-pull-to-refresh >.ptr-message >span.ptr-release, 
+.ptr-pull-to-refresh >.ptr-message >span.ptr-loading {
+	text-align: center;
+
+	display: block;
+	height: 50px;
+	width: 100%;
+
+	position: absolute;
+	top: 0;
+	left: 0;
+}

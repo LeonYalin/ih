@@ -47,10 +47,12 @@ ctrlModule.controller('ArticlesCtrl',
 		$ihUtil.delayCacheLoad(function () {
 			$scope.articles = articlesCache;
 			$ihHomepageSrvc.animateRSS();
+			_initPullToRefresh();
 		});
 	}
 	if (splashShown === false) {
 		_init(state);
+		_initPullToRefresh();
 	}
 
 	function _init(state, shouldRefreshCache, shouldResetRSSAnimation) {
@@ -87,10 +89,25 @@ ctrlModule.controller('ArticlesCtrl',
 		return deferred.promise;
 	}
 
+	function _initPullToRefresh() {
+		$ihHomepageSrvc.initPullToRefresh(function () {
+			var deferred = $q.defer();
+
+			$scope.isRefreshing = true;
+			_init(state, true, true).finally(function () {
+				$scope.isRefreshing = false;
+				deferred.resolve();
+			});
+
+			return deferred.promise;
+		});
+	}
+
 	$scope.$on('ihSplashScreenShown', function(event, args) {
 		var newArticlesCache = $ihCache.get('articlesObj');
 		$scope.articles = newArticlesCache;
 		$ihHomepageSrvc.animateRSS();
+		_initPullToRefresh();
 	});
 
 	$scope.onRefresh = function(isBtnPressed) {
@@ -124,6 +141,7 @@ ctrlModule.controller('ArticlesCtrl',
 
 	$scope.$on('$destroy', function() {
 		$ihUtil.setObjectToLocalStorage('favoritesObj', favoritesCache);
+		$ihHomepageSrvc.clearPullToRefreshEvents();
 	});
 
 });
