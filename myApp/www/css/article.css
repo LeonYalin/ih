@@ -44,7 +44,7 @@
 	line-height: 18px;
 }
 .ihArticleCommentsContainer ul > li {
-	border-bottom: 1px solid #707070;
+	border-bottom: 1px solid #DDD;
 }.ihArticleCommentsContainer ul > li:last-child {
 	border-bottom: none;
 }

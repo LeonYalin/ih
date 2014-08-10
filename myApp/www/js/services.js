@@ -446,8 +446,7 @@ servModule.factory('$ihHomepageSrvc', function($ihCONSTS, $ihUtil, $timeout){
 			});
 		},
 		initPullToRefresh: function (onRefreshCallback) {
-			// setTimeout(function() {
-
+			$timeout(function () {
 				$('.ptr-wrapper').pullToRefresh({
 					message: {
 						pull: 'משוך לרענון...',
@@ -465,7 +464,7 @@ servModule.factory('$ihHomepageSrvc', function($ihCONSTS, $ihUtil, $timeout){
 					}
 				});
 
-			// }, 1000);
+			}, 300, true);
 		},
 		clearPullToRefreshEvents: function () {
 			$('.ptr-wrapper').find('.ptr-scrollable').off('touchstart touchmove touchend');

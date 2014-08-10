@@ -93,9 +93,7 @@ ctrlModule.controller('ArticlesCtrl',
 		$ihHomepageSrvc.initPullToRefresh(function () {
 			var deferred = $q.defer();
 
-			$scope.isRefreshing = true;
 			_init(state, true, true).finally(function () {
-				$scope.isRefreshing = false;
 				deferred.resolve();
 			});
 

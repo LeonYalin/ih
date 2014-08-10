@@ -78,8 +78,8 @@
 	float: left;
 	width: 33.3333333333333%;
 	padding: 10px 5px;
-	border-right: 1px solid #A70109;
-	border-bottom: 1px solid #A70109;
+	border-right: 1px solid #DDD;
+	border-bottom: 1px solid #DDD;
 }
 .ihWeeklyWeatherListItemContainer > ul > li:nth-child(3n) {
 	width: 33.3333333333334%;
@@ -119,5 +119,5 @@
 .ihWeatherList .ihListItem.ihWeatherListItem.ihWeeklyWeatherListItemContainer {
 	padding: 0px;
 	border: none;
-	border-bottom: 1px solid #A70109;
+	border-bottom: 1px solid #DDD;
 }
