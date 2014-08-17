@@ -224,7 +224,7 @@ ctrlModule.controller('CategoriesCtrl', function($scope, $state, $q, $ihUtil, $i
 				$ihUtil.showLoading();
 				$ihREST.loadCategoriesData().then(function (data) {
 
-					data = $ihCategoriesSrvc.filterByLangHeb(data);
+					data = $ihCategoriesSrvc.prepareCategoriesObj(data);
 					$scope.categories = angular.copy(data);
 
 					if (!categoriesCache) {

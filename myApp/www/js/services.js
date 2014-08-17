@@ -325,33 +325,41 @@ servModule.factory('$ihHomepageSrvc', function($ihCONSTS, $ihUtil, $timeout){
 		divideIntoCategories: function (arr) {
 			if (!arr) return;
 
-			var categObj = {}, finalArr = [];
+			var categObj = {}, finalArr = [], currItemCategory = '', videoStr = 'video', opinionsStr = 'Opinions';
 
 			/* Retrieve all distinct categories from arr */
 			angular.forEach(arr, function (item) {
 				if (item.categories) {
-					if (item.categories.length === 1) { // one category
-						if (!categObj[item.categories[0]]) { categObj[item.categories[0]] = []; }
-					} else { // two or more categories
-						if (!categObj[item.categories[1]]) { categObj[item.categories[1]] = []; }
+					// check for video category and skip it
+					if (item.categories[0].toLowerCase() === videoStr) {
+						currItemCategory = item.categories[1] || item.categories[0];
+					} else {
+						currItemCategory = item.categories[0];
 					}
+					if (!categObj[currItemCategory]) { categObj[currItemCategory] = []; }
 				}
 			});
 
 			/* Fill categories with articles */
 			angular.forEach(Object.keys(categObj), function (catItem, catIndex) {
 				angular.forEach(arr, function (arrItem, arrIndex) {
-					if (arrItem.categories.length === 1) { // one category
-						if (catItem === arrItem.categories[0]) {
-							categObj[catItem].push(arrItem);
-						}
-					} else { // two or more categories
-						if (catItem === arrItem.categories[1]) {
-							categObj[catItem].push(arrItem);
-						}
+					// check for video category and skip it
+					if (arrItem.categories[0].toLowerCase() === videoStr) {
+						currItemCategory = arrItem.categories[1] || arrItem.categories[0];
+					} else {
+						currItemCategory = arrItem.categories[0];
+					}
+
+					if (catItem === currItemCategory) {
+						categObj[catItem].push(arrItem);
 					}
 				});
 			});
+
+			// If we have an 'Opinions' category, delete it for now
+			if (categObj[opinionsStr]) {
+				delete categObj[opinionsStr];
+			}
 
 			/* Transform categorized object into array + reorder items to match source array */
 			angular.forEach(Object.keys(categObj), function (catName) {
@@ -539,6 +547,20 @@ servModule.factory('$ihCategoriesSrvc', function(){
 			}
 
 			return retObj;
+		},
+		removeUnnecessaryCategories: function (catObj) {
+			if (!catObj) return;
+
+			var catToRemove = ['מבזקים', 'דעות', 'הורוסקופ', '[אחר]'];
+			angular.forEach(catToRemove, function(item) {
+				if (catObj[item]) delete catObj[item];
+			});
+		},
+		prepareCategoriesObj: function (catObj) {
+			catObj = this.filterByLangHeb(catObj);
+			this.removeUnnecessaryCategories(catObj);
+
+			return catObj;
 		}
 	};
 });
@@ -699,7 +721,7 @@ function($ihCONSTS, $ihREST, $ihUtil, $q, $ihRSSSrvc, $ihSearchSrvc, $ihCategori
 			self.showLoading($scope);
 			$ihREST.loadCategoriesData().then(function (data) {
 
-				data = $ihCategoriesSrvc.filterByLangHeb(data);
+				data = $ihCategoriesSrvc.prepareCategoriesObj(data);
 				$scope.categories = angular.copy(data);
 
 				self.hideLoading($scope);
