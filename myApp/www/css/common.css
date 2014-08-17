@@ -141,8 +141,8 @@ body {
 
 /* Red colors */
 .bar.bar-assertive, .item.item-assertive, .badge.badge-assertive {
-	background-color: #A70109;
-	border-color: #9C0008;
+	background-color: #C9000A;
+	border-color: #B90009;
 }
 /* Grey colors */
 .item.item-divider.item-stable {
@@ -154,11 +154,11 @@ body {
 	max-width: none;
 }
 .tabs-assertive > .tabs, .tabs.tabs-assertive {
-	background-color: #A70109;
+	background-color: #C9000A;
 	border-color: #9C0008;
 }
 .item.item-divider {
-	background-color: #A70109;
+	background-color: #C9000A;
 	border-left: none;
 	border-right: none;
 }

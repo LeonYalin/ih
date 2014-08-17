@@ -107,7 +107,7 @@
 }
 
 .ihPieSliceInnerSelected {
-	background-color: #D53F47 !important;
+	background-color: #C9000A !important;
 	/*-webkit-transition: background-color 0.3s linear;*/
 }
 .ihPieSliceInnerSelected .icon {
@@ -120,7 +120,7 @@
 	font-size: 40px;
 	top: 20px;
 	left: 80px;
-	color: #535353;
+	color: #696969;
 	/*-webkit-transform: rotate3d(0, 0, 1, -22.5deg);*/
 	/*-webkit-transform: rotate(-22.5deg);*/
 }
