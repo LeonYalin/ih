@@ -215,10 +215,6 @@ directModule.directive('ihPie', function ($compile, $timeout, $ihCache, $ihPieSr
 						case $ihPieSrvc.SLICE_INDEXES.search:
 							$ihPieSrvc.clearResults($scope);
 							$ihPieSrvc.showSearchInput($scope);
-							// trigger focus on input field
-							$timeout(function () {
-								$('.ihPieSearchInput').focus();
-							}, 300);
 							break;
 						case $ihPieSrvc.SLICE_INDEXES.categories:
 							$ihPieSrvc.clearResults($scope);
